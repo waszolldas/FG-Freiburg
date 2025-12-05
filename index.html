@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Was Zoll das?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        header {
+            background-color: #003399;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 5px solid #FFD700;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .video-section {
+            margin-bottom: 40px;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .video-section h2 {
+            color: #003399;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #003399;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .games-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .game-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .game-card h2 {
+            color: #003399;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #003399;
+        }
+
+        .quiz-question {
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question p {
+            margin-bottom: 10px;
+        }
+
+        .quiz-options button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #003399;
+            background: white;
+            color: #003399;
+            cursor: pointer;
+            font-size: 1em;
+            text-align: left;
+        }
+
+        .quiz-options button:hover {
+            background: #003399;
+            color: white;
+        }
+
+        .quiz-result {
+            margin-top: 10px;
+            padding: 10px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .calculator-input {
+            margin-bottom: 15px;
+        }
+
+        .calculator-input label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .calculator-input select,
+        .calculator-input input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 12px;
+            background: #003399;
+            color: white;
+            border: none;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            background: #002277;
+        }
+
+        .calc-result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        .calc-result h3 {
+            color: #003399;
+            margin-bottom: 10px;
+        }
+
+        .info-section {
+            margin-top: 40px;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .info-section h2 {
+            color: #003399;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #003399;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #003399;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            cursor: pointer;
+            color: #333;
+            font-weight: normal;
+        }
+
+        .tab:hover {
+            background: #e0e0e0;
+        }
+
+        .tab.active {
+            background: #003399;
+            color: white;
+            border-color: #003399;
+        }
+
+        .info-content {
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .info-content h3 {
+            color: #003399;
+            margin-bottom: 10px;
+        }
+
+        .info-content p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .info-item {
+            display: none;
+        }
+
+        .info-item.active {
+            display: block;
+        }
+
+        footer {
+            background: #003399;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .games-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ðŸ›ƒ Was Zoll das?</h1>
+            <p class="subtitle">Alles Wichtige Ã¼ber Zoll und Einfuhrbestimmungen</p>
+        </header>
+
+        <div class="content">
+            <!-- Video Section -->
+            <div class="video-section">
+                <h2>ErklÃ¤rvideo: Wie funktioniert der Zoll?</h2>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Games Section -->
+            <div class="games-section">
+                <!-- Quiz Game -->
+                <div class="game-card">
+                    <h2>Zoll-Quiz</h2>
+                    <div id="quiz"></div>
+                </div>
+
+                <!-- Customs Calculator -->
+                <div class="game-card">
+                    <h2>Zollrechner</h2>
+                    <div class="calculator-input">
+                        <label>Produkt:</label>
+                        <select id="product">
+                            <option value="electronics">Elektronik</option>
+                            <option value="clothing">Kleidung</option>
+                            <option value="books">BÃ¼cher</option>
+                            <option value="toys">Spielzeug</option>
+                            <option value="cosmetics">Kosmetik</option>
+                        </select>
+                    </div>
+                    <div class="calculator-input">
+                        <label>Herkunftsland:</label>
+                        <select id="country">
+                            <option value="usa">USA</option>
+                            <option value="china">China</option>
+                            <option value="uk">GroÃŸbritannien</option>
+                            <option value="switzerland">Schweiz</option>
+                            <option value="japan">Japan</option>
+                        </select>
+                    </div>
+                    <div class="calculator-input">
+                        <label>Warenwert (â‚¬):</label>
+                        <input type="number" id="value" min="0" value="100">
+                    </div>
+                    <div class="calculator-input">
+                        <label>Menge:</label>
+                        <input type="number" id="quantity" min="1" value="1">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateCustoms()">Zoll berechnen</button>
+                    <div id="calcResult" class="calc-result"></div>
+                </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="info-section">
+                <h2>Wissensdatenbank</h2>
+                <input type="text" class="search-bar" id="searchBar" placeholder="Suche nach Themen...">
+                
+                <div class="tabs">
+                    <div class="tab active" data-tab="grundlagen">Grundlagen</div>
+                    <div class="tab" data-tab="zollsaetze">ZollsÃ¤tze</div>
+                    <div class="tab" data-tab="freimengen">Freimengen</div>
+                    <div class="tab" data-tab="verfahren">Verfahren</div>
+                </div>
+
+                <div class="info-content">
+                    <div id="grundlagen" class="info-item active">
+                        <h3>Was ist Zoll?</h3>
+                        <p>Der Zoll ist eine Abgabe, die beim grenzÃ¼berschreitenden Warenverkehr erhoben wird. Er dient verschiedenen Zwecken: dem Schutz der heimischen Wirtschaft, der Einnahmenerzielung fÃ¼r den Staat und der Kontrolle von WarenstrÃ¶men.</p>
+                        <p>In Deutschland ist die Zollverwaltung Teil der Bundesfinanzverwaltung und untersteht dem Bundesministerium der Finanzen. Neben der Erhebung von ZÃ¶llen Ã¼berwacht sie auch die Einhaltung von Verboten und BeschrÃ¤nkungen.</p>
+                    </div>
+
+                    <div id="zollsaetze" class="info-item">
+                        <h3>ZollsÃ¤tze verstehen</h3>
+                        <p>ZollsÃ¤tze variieren je nach Produktkategorie und Herkunftsland. Die EU unterhÃ¤lt Freihandelsabkommen mit vielen LÃ¤ndern, wodurch Waren aus diesen LÃ¤ndern zollfrei oder zu reduzierten SÃ¤tzen eingefÃ¼hrt werden kÃ¶nnen.</p>
+                        <p>Typische ZollsÃ¤tze in der EU liegen zwischen 0% und 17%, wobei Elektronik oft niedrigere SÃ¤tze hat (ca. 0-5%) und Textilien hÃ¶here (ca. 8-12%).</p>
+                    </div>
+
+                    <div id="freimengen" class="info-item">
+                        <h3>Freimengen und Freigrenzen</h3>
+                        <p>Bei der Einreise aus Nicht-EU-LÃ¤ndern gelten Freimengen fÃ¼r persÃ¶nliche Waren. Die Freigrenzen betragen aktuell 430 Euro fÃ¼r Flugreisende und 300 Euro fÃ¼r andere Reisende.</p>
+                        <p>FÃ¼r bestimmte Waren wie Alkohol und Tabak gelten zusÃ¤tzliche MengenbeschrÃ¤nkungen, auch wenn der Wert unter der Freigrenze liegt.</p>
+                    </div>
+
+                    <div id="verfahren" class="info-item">
+                        <h3>Zollverfahren</h3>
+                        <p>Bei der Einfuhr von Waren mÃ¼ssen diese beim Zoll angemeldet werden. Dies kann mÃ¼ndlich (bei Reisenden), schriftlich oder elektronisch erfolgen. FÃ¼r gewerbliche Einfuhren ist in der Regel eine elektronische Zollanmeldung erforderlich.</p>
+                        <p>Nach der Anmeldung prÃ¼ft der Zoll die Ware und berechnet die fÃ¤lligen Abgaben. Diese mÃ¼ssen vor der Freigabe der Ware bezahlt werden.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Was Zoll das? - Informationsportal zum Thema Zoll</p>
+        </footer>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizQuestions = [
+            {
+                question: "Ab welchem Warenwert muss bei der Einreise aus Nicht-EU-LÃ¤ndern Zoll gezahlt werden (Flugreise)?",
+                options: ["150 Euro", "300 Euro", "430 Euro", "600 Euro"],
+                correct: 2
+            },
+            {
+                question: "Was bedeutet die AbkÃ¼rzung EUSt im Zusammenhang mit Zoll?",
+                options: ["EU-Steuer", "Einfuhrumsatzsteuer", "EuropÃ¤ische Umsatzsteuer", "Einheitliche Steuer"],
+                correct: 1
+            },
+            {
+                question: "Welche Institution ist in Deutschland fÃ¼r die Zollerhebung zustÃ¤ndig?",
+                options: ["Finanzamt", "Bundeszollverwaltung", "Bundesbank", "Handelskammer"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function loadQuiz() {
+            const quizDiv = document.getElementById('quiz');
+            const q = quizQuestions[currentQuestion];
+            
+            quizDiv.innerHTML = `
+                <div class="quiz-question">
+                    <p style="font-weight: bold;">Frage ${currentQuestion + 1}/${quizQuestions.length}:</p>
+                    <p>${q.question}</p>
+                    <div class="quiz-options">
+                        ${q.options.map((opt, idx) => 
+                            `<button onclick="checkAnswer(${idx})">${opt}</button>`
+                        ).join('')}
+                    </div>
+                    <div id="quizResult" class="quiz-result"></div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(selected) {
+            const q = quizQuestions[currentQuestion];
+            const resultDiv = document.getElementById('quizResult');
+            
+            if (selected === q.correct) {
+                resultDiv.className = 'quiz-result correct';
+                resultDiv.textContent = 'âœ“ Richtig! Sehr gut!';
+            } else {
+                resultDiv.className = 'quiz-result incorrect';
+                resultDiv.textContent = `âœ— Leider falsch. Die richtige Antwort ist: ${q.options[q.correct]}`;
+            }
+
+            setTimeout(() => {
+                currentQuestion = (currentQuestion + 1) % quizQuestions.length;
+                loadQuiz();
+            }, 2500);
+        }
+
+        // Customs Calculator
+        function calculateCustoms() {
+            const product = document.getElementById('product').value;
+            const country = document.getElementById('country').value;
+            const value = parseFloat(document.getElementById('value').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            const customsRates = {
+                electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 2.5, japan: 0 },
+                clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12 },
+                books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0 },
+                toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7 },
+                cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5 }
+            };
+
+            const totalValue = value * quantity;
+            const customsRate = customsRates[product][country];
+            const customsDuty = totalValue * (customsRate / 100);
+            const vat = (totalValue + customsDuty) * 0.19;
+            const totalCost = totalValue + customsDuty + vat;
+
+            const resultDiv = document.getElementById('calcResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <h3>Berechnungsergebnis:</h3>
+                <p><strong>Warenwert:</strong> ${totalValue.toFixed(2)} â‚¬</p>
+                <p><strong>Zollsatz:</strong> ${customsRate}%</p>
+                <p><strong>ZollgebÃ¼hr:</strong> ${customsDuty.toFixed(2)} â‚¬</p>
+                <p><strong>Einfuhrumsatzsteuer (19%):</strong> ${vat.toFixed(2)} â‚¬</p>
+                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+                <p style="font-size: 1.1em;"><strong>Gesamtkosten:</strong> ${totalCost.toFixed(2)} â‚¬</p>
+            `;
+        }
+
+        // Tab Navigation - Fixed
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Remove active class from all content
+                    const items = document.querySelectorAll('.info-item');
+                    items.forEach(item => item.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    document.getElementById(tabName).classList.add('active');
+                });
+            });
+        });
+
+        // Search Function - Fixed
+        document.getElementById('searchBar').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const items = document.querySelectorAll('.info-item');
+            
+            if (searchTerm === '') {
+                // If search is empty, show only the active tab
+                items.forEach(item => {
+                    if (item.classList.contains('active')) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            } else {
+                // Show all items that match the search
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        item.classList.add('active');
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Initialize
+        loadQuiz();
+    </script>
+</body>
+</html>
