@@ -429,7 +429,7 @@
                 <div class="game-intro" id="gameIntro">
                     <p><strong>Willkommen beim Handelsstrategie-Spiel!</strong></p>
                     <p>Du bist Handelsminister:in eines Landes und musst auf verschiedene internationale Handelssituationen reagieren. Deine Entscheidungen zeigen, welche handelspolitische Strategie du verfolgst.</p>
-                    <button class="calculate-btn" id="startGameBtn">Spiel starten</button>
+                    <button class="calculate-btn" onclick="startStrategyGame()">Spiel starten</button>
                 </div>
 
                 <div class="game-progress" id="gameProgress" style="display: none;"></div>
@@ -441,10 +441,10 @@
                         <p>Das Land Mercania verhängt plötzlich hohe Importzölle auf Stahl aus deinem Land. Deine Stahlindustrie ist stark betroffen – tausende Arbeitsplätze stehen auf dem Spiel.</p>
                         <p><strong>Was tust du?</strong></p>
                     </div>
-                    <button class="choice-btn" data-situation="1" data-choice="A">A) Du erhebst ebenfalls Zölle auf wichtige Waren aus Mercania (Gegenzölle).</button>
-                    <button class="choice-btn" data-situation="1" data-choice="B">B) Du leitest Gespräche über ein bilaterales Handelsabkommen ein.</button>
-                    <button class="choice-btn" data-situation="1" data-choice="C">C) Du subventionierst deine Stahlindustrie, um die höheren Kosten abzufedern.</button>
-                    <button class="choice-btn" data-situation="1" data-choice="D">D) Du reichst eine Beschwerde bei der WTO ein.</button>
+                    <button class="choice-btn" onclick="selectChoice(1, 'A')">A) Du erhebst ebenfalls Zölle auf wichtige Waren aus Mercania (Gegenzölle).</button>
+                    <button class="choice-btn" onclick="selectChoice(1, 'B')">B) Du leitest Gespräche über ein bilaterales Handelsabkommen ein.</button>
+                    <button class="choice-btn" onclick="selectChoice(1, 'C')">C) Du subventionierst deine Stahlindustrie, um die höheren Kosten abzufedern.</button>
+                    <button class="choice-btn" onclick="selectChoice(1, 'D')">D) Du reichst eine Beschwerde bei der WTO ein.</button>
                 </div>
 
                 <!-- Situation 2 -->
@@ -454,10 +454,10 @@
                         <p>Ein anderes Land, Arvania, exportiert große Mengen subventionierter Landwirtschaftsprodukte in dein Land – deine Bauern sind in Gefahr.</p>
                         <p><strong>Wie reagierst du?</strong></p>
                     </div>
-                    <button class="choice-btn" data-situation="2" data-choice="A">A) Du führst Schutzmaßnahmen in Form von Antidumping-Zöllen ein.</button>
-                    <button class="choice-btn" data-situation="2" data-choice="B">B) Du senkst Steuern für deine Landwirtschaft, um die Konkurrenzfähigkeit zu stärken.</button>
-                    <button class="choice-btn" data-situation="2" data-choice="C">C) Du schließt ein Abkommen zur Begrenzung der Exporte mit Arvania.</button>
-                    <button class="choice-btn" data-situation="2" data-choice="D">D) Du lässt den Markt entscheiden – keine Eingriffe.</button>
+                    <button class="choice-btn" onclick="selectChoice(2, 'A')">A) Du führst Schutzmaßnahmen in Form von Antidumping-Zöllen ein.</button>
+                    <button class="choice-btn" onclick="selectChoice(2, 'B')">B) Du senkst Steuern für deine Landwirtschaft, um die Konkurrenzfähigkeit zu stärken.</button>
+                    <button class="choice-btn" onclick="selectChoice(2, 'C')">C) Du schließt ein Abkommen zur Begrenzung der Exporte mit Arvania.</button>
+                    <button class="choice-btn" onclick="selectChoice(2, 'D')">D) Du lässt den Markt entscheiden – keine Eingriffe.</button>
                 </div>
 
                 <!-- Situation 3 -->
@@ -467,10 +467,10 @@
                         <p>Die Halbleiterindustrie deines Landes hängt von einer wichtigen Vorstufe ab, die jetzt von einem Drittland mit Exportkontrollen belegt wurde.</p>
                         <p><strong>Deine Strategie?</strong></p>
                     </div>
-                    <button class="choice-btn" data-situation="3" data-choice="A">A) Aufbau eigener Produktionskapazitäten im Land (Industriepolitik).</button>
-                    <button class="choice-btn" data-situation="3" data-choice="B">B) Suche alternative Partnerländer, auch wenn diese teurer sind.</button>
-                    <button class="choice-btn" data-situation="3" data-choice="C">C) Verhänge Zölle auf Güter des Drittlandes als Druckmittel.</button>
-                    <button class="choice-btn" data-situation="3" data-choice="D">D) Ignoriere es – die Unternehmen sollen selbst Lösungen finden.</button>
+                    <button class="choice-btn" onclick="selectChoice(3, 'A')">A) Aufbau eigener Produktionskapazitäten im Land (Industriepolitik).</button>
+                    <button class="choice-btn" onclick="selectChoice(3, 'B')">B) Suche alternative Partnerländer, auch wenn diese teurer sind.</button>
+                    <button class="choice-btn" onclick="selectChoice(3, 'C')">C) Verhänge Zölle auf Güter des Drittlandes als Druckmittel.</button>
+                    <button class="choice-btn" onclick="selectChoice(3, 'D')">D) Ignoriere es – die Unternehmen sollen selbst Lösungen finden.</button>
                 </div>
 
                 <!-- Situation 4 -->
@@ -480,17 +480,17 @@
                         <p>Mehrere befreundete Staaten fordern dich auf, einen blockierten Hafen in einem Drittland mit Gegenmaßnahmen zu bestrafen. Du hast dort wirtschaftliche Interessen, möchtest aber keine Eskalation.</p>
                         <p><strong>Wie handelst du?</strong></p>
                     </div>
-                    <button class="choice-btn" data-situation="4" data-choice="A">A) Du verhängst selektive Zölle, aber nur auf unkritische Produkte des Drittlandes.</button>
-                    <button class="choice-btn" data-situation="4" data-choice="B">B) Du lehnst die Bitte ab und setzt auf Diplomatie.</button>
-                    <button class="choice-btn" data-situation="4" data-choice="C">C) Du setzt dich der Staatengruppe an und unterstützt harte Maßnahmen.</button>
-                    <button class="choice-btn" data-situation="4" data-choice="D">D) Du schlägst eine gemeinsame WTO-Beschwerde als Kompromiss vor.</button>
+                    <button class="choice-btn" onclick="selectChoice(4, 'A')">A) Du verhängst selektive Zölle, aber nur auf unkritische Produkte des Drittlandes.</button>
+                    <button class="choice-btn" onclick="selectChoice(4, 'B')">B) Du lehnst die Bitte ab und setzt auf Diplomatie.</button>
+                    <button class="choice-btn" onclick="selectChoice(4, 'C')">C) Du setzt dich der Staatengruppe an und unterstützt harte Maßnahmen.</button>
+                    <button class="choice-btn" onclick="selectChoice(4, 'D')">D) Du schlägst eine gemeinsame WTO-Beschwerde als Kompromiss vor.</button>
                 </div>
 
                 <!-- Results Screen -->
                 <div class="results-screen" id="resultsScreen">
                     <h3>📊 Deine Handelsstrategie</h3>
                     <div id="strategyResults"></div>
-                    <button class="restart-btn" id="restartBtn">Neues Spiel starten</button>
+                    <button class="restart-btn" onclick="restartGame()">Neues Spiel starten</button>
                 </div>
             </div>
 
@@ -533,7 +533,7 @@
                         <label>Menge:</label>
                         <input type="number" id="quantity" min="1" value="1">
                     </div>
-                    <button class="calculate-btn" id="calculateBtn">Zoll berechnen</button>
+                    <button class="calculate-btn" onclick="calculateCustoms()">Zoll berechnen</button>
                     <div id="calcResult" class="calc-result"></div>
                 </div>
             </div>
@@ -544,10 +544,10 @@
                 <input type="text" class="search-bar" id="searchBar" placeholder="Suche nach Themen...">
                 
                 <div class="tabs">
-                    <div class="tab active" data-tab="grundlagen">Grundlagen</div>
-                    <div class="tab" data-tab="zollsaetze">Zollsätze</div>
-                    <div class="tab" data-tab="freimengen">Freimengen</div>
-                    <div class="tab" data-tab="verfahren">Verfahren</div>
+                    <div class="tab active" onclick="switchTab('grundlagen')">Grundlagen</div>
+                    <div class="tab" onclick="switchTab('zollsaetze')">Zollsätze</div>
+                    <div class="tab" onclick="switchTab('freimengen')">Freimengen</div>
+                    <div class="tab" onclick="switchTab('verfahren')">Verfahren</div>
                 </div>
 
                 <div class="info-content">
@@ -585,8 +585,8 @@
 
     <script>
         // Strategy Game Logic
-        let currentSituation = 0;
-        let choices = { A: 0, B: 0, C: 0, D: 0 };
+        var currentSituation = 0;
+        var choices = { A: 0, B: 0, C: 0, D: 0 };
 
         function startStrategyGame() {
             document.getElementById('gameIntro').style.display = 'none';
@@ -597,10 +597,10 @@
         }
 
         function showSituation(num) {
-            const situations = document.querySelectorAll('.situation');
-            situations.forEach(function(s) {
-                s.classList.remove('active');
-            });
+            var situations = document.querySelectorAll('.situation');
+            for (var i = 0; i < situations.length; i++) {
+                situations[i].classList.remove('active');
+            }
             document.getElementById('situation' + num).classList.add('active');
             document.getElementById('gameProgress').textContent = 'Situation ' + num + ' von 4';
         }
@@ -608,11 +608,11 @@
         function selectChoice(situation, choice) {
             choices[choice]++;
             
-            const situationDiv = document.getElementById('situation' + situation);
-            const buttons = situationDiv.querySelectorAll('.choice-btn');
-            buttons.forEach(function(btn) {
-                btn.classList.remove('selected');
-            });
+            var situationDiv = document.getElementById('situation' + situation);
+            var buttons = situationDiv.querySelectorAll('.choice-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('selected');
+            }
             event.target.classList.add('selected');
 
             setTimeout(function() {
@@ -626,14 +626,14 @@
         }
 
         function showResults() {
-            const situations = document.querySelectorAll('.situation');
-            situations.forEach(function(s) {
-                s.classList.remove('active');
-            });
+            var situations = document.querySelectorAll('.situation');
+            for (var i = 0; i < situations.length; i++) {
+                situations[i].classList.remove('active');
+            }
             document.getElementById('gameProgress').style.display = 'none';
             
-            let maxChoice = 'A';
-            let maxCount = choices.A;
+            var maxChoice = 'A';
+            var maxCount = choices.A;
             
             if (choices.B > maxCount) {
                 maxChoice = 'B';
@@ -648,7 +648,7 @@
                 maxCount = choices.D;
             }
             
-            const strategies = {
+            var strategies = {
                 A: {
                     name: '„Schutz & Gegenwehr"',
                     description: 'Du setzt auf klassische handelspolitische Abwehrmechanismen:',
@@ -675,14 +675,14 @@
                 }
             };
 
-            const strategy = strategies[maxChoice];
+            var strategy = strategies[maxChoice];
             
-            let pointsHTML = '';
-            strategy.points.forEach(function(p) {
-                pointsHTML += '<p>' + p + '</p>';
-            });
+            var pointsHTML = '';
+            for (var i = 0; i < strategy.points.length; i++) {
+                pointsHTML += '<p>' + strategy.points[i] + '</p>';
+            }
             
-            let resultsHTML = '<div class="strategy-type">' +
+            var resultsHTML = '<div class="strategy-type">' +
                 '<h4>' + strategy.name + '</h4>' +
                 '<p><strong>' + strategy.description + '</strong></p>' +
                 pointsHTML +
@@ -707,27 +707,8 @@
             choices = { A: 0, B: 0, C: 0, D: 0 };
         }
 
-        // Event Listeners for Strategy Game
-        document.addEventListener('DOMContentLoaded', function() {
-            // Start game button
-            document.getElementById('startGameBtn').addEventListener('click', startStrategyGame);
-            
-            // Restart button
-            document.getElementById('restartBtn').addEventListener('click', restartGame);
-            
-            // Choice buttons
-            const choiceBtns = document.querySelectorAll('.choice-btn');
-            choiceBtns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const situation = parseInt(this.getAttribute('data-situation'));
-                    const choice = this.getAttribute('data-choice');
-                    selectChoice(situation, choice);
-                });
-            });
-        });
-
         // Quiz Data
-        const quizQuestions = [
+        var quizQuestions = [
             {
                 question: "Ab welchem Warenwert muss bei der Einreise aus Nicht-EU-Ländern Zoll gezahlt werden (Flugreise)?",
                 options: ["150 Euro", "300 Euro", "430 Euro", "600 Euro"],
@@ -745,16 +726,16 @@
             }
         ];
 
-        let currentQuestion = 0;
+        var currentQuestion = 0;
 
         function loadQuiz() {
-            const quizDiv = document.getElementById('quiz');
-            const q = quizQuestions[currentQuestion];
+            var quizDiv = document.getElementById('quiz');
+            var q = quizQuestions[currentQuestion];
             
-            let optionsHTML = '';
-            q.options.forEach(function(opt, idx) {
-                optionsHTML += '<button onclick="checkAnswer(' + idx + ')">' + opt + '</button>';
-            });
+            var optionsHTML = '';
+            for (var i = 0; i < q.options.length; i++) {
+                optionsHTML += '<button onclick="checkAnswer(' + i + ')">' + q.options[i] + '</button>';
+            }
             
             quizDiv.innerHTML = '<div class="quiz-question">' +
                 '<p style="font-weight: bold;">Frage ' + (currentQuestion + 1) + '/' + quizQuestions.length + ':</p>' +
@@ -765,117 +746,5 @@
         }
 
         function checkAnswer(selected) {
-            const q = quizQuestions[currentQuestion];
-            const resultDiv = document.getElementById('quizResult');
-            
-            if (selected === q.correct) {
-                resultDiv.className = 'quiz-result correct';
-                resultDiv.textContent = '✓ Richtig! Sehr gut!';
-            } else {
-                resultDiv.className = 'quiz-result incorrect';
-                resultDiv.textContent = '✗ Leider falsch. Die richtige Antwort ist: ' + q.options[q.correct];
-            }
-
-            setTimeout(function() {
-                currentQuestion = (currentQuestion + 1) % quizQuestions.length;
-                loadQuiz();
-            }, 2500);
-        }
-
-        // Customs Calculator
-        function calculateCustoms() {
-            const product = document.getElementById('product').value;
-            const country = document.getElementById('country').value;
-            const value = parseFloat(document.getElementById('value').value);
-            const quantity = parseInt(document.getElementById('quantity').value);
-
-            const customsRates = {
-                electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 2.5, japan: 0 },
-                clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12 },
-                books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0 },
-                toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7 },
-                cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5 }
-            };
-
-            const totalValue = value * quantity;
-            const customsRate = customsRates[product][country];
-            const customsDuty = totalValue * (customsRate / 100);
-            const vat = (totalValue + customsDuty) * 0.19;
-            const totalCost = totalValue + customsDuty + vat;
-
-            const resultDiv = document.getElementById('calcResult');
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<h3>Berechnungsergebnis:</h3>' +
-                '<p><strong>Warenwert:</strong> ' + totalValue.toFixed(2) + ' €</p>' +
-                '<p><strong>Zollsatz:</strong> ' + customsRate + '%</p>' +
-                '<p><strong>Zollgebühr:</strong> ' + customsDuty.toFixed(2) + ' €</p>' +
-                '<p><strong>Einfuhrumsatzsteuer (19%):</strong> ' + vat.toFixed(2) + ' €</p>' +
-                '<hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">' +
-                '<p style="font-size: 1.1em;"><strong>Gesamtkosten:</strong> ' + totalCost.toFixed(2) + ' €</p>';
-        }
-
-        // Tab Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Calculate button
-            document.getElementById('calculateBtn').addEventListener('click', calculateCustoms);
-            
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(function(tab) {
-                tab.addEventListener('click', function() {
-                    const tabName = this.getAttribute('data-tab');
-                    
-                    // Remove active class from all tabs
-                    tabs.forEach(function(t) {
-                        t.classList.remove('active');
-                    });
-                    
-                    // Remove active class from all content
-                    const items = document.querySelectorAll('.info-item');
-                    items.forEach(function(item) {
-                        item.classList.remove('active');
-                    });
-                    
-                    // Add active class to clicked tab
-                    this.classList.add('active');
-                    
-                    // Show corresponding content
-                    document.getElementById(tabName).classList.add('active');
-                });
-            });
-        });
-
-        // Search Function
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('searchBar').addEventListener('keyup', function() {
-                const searchTerm = this.value.toLowerCase();
-                const items = document.querySelectorAll('.info-item');
-                
-                if (searchTerm === '') {
-                    // If search is empty, show only the active tab
-                    items.forEach(function(item) {
-                        if (item.classList.contains('active')) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                } else {
-                    // Show all items that match the search
-                    items.forEach(function(item) {
-                        const text = item.textContent.toLowerCase();
-                        if (text.includes(searchTerm)) {
-                            item.style.display = 'block';
-                            item.classList.add('active');
-                        } else {
-                            item.style.display = 'none';
-                            item.classList.remove('active');
-                        }
-                    });
-                }
-            });
-        });
-
-        // Initialize Quiz
-        document.addEventListener('DOMContentLoaded', function() {
-            loadQuiz();
-        });
+            var q = quizQuestions[currentQuestion];
+            var resultDiv = document.getElementById('qu
