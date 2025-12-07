@@ -24,11 +24,11 @@
         }
 
         header {
-            background-color: white;
-            color: #003399;
+            background-color: #003399;
+            color: white;
             padding: 30px 20px;
             text-align: center;
-            border-bottom: none;
+            border-bottom: 5px solid #FFD700;
         }
 
         h1 {
@@ -191,124 +191,6 @@
             margin-bottom: 10px;
         }
 
-        /* Strategy Game Styles */
-        .strategy-game {
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 20px;
-            margin-bottom: 40px;
-        }
-
-        .strategy-game h2 {
-            color: #003399;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #003399;
-        }
-
-        .game-intro {
-            background: #f0f7ff;
-            padding: 15px;
-            border-left: 4px solid #003399;
-            margin-bottom: 20px;
-        }
-
-        .situation {
-            background: #f9f9f9;
-            padding: 20px;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .situation.active {
-            display: block;
-        }
-
-        .situation h3 {
-            color: #003399;
-            margin-bottom: 15px;
-        }
-
-        .situation-text {
-            margin-bottom: 15px;
-            line-height: 1.8;
-        }
-
-        .choice-btn {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 2px solid #003399;
-            background: white;
-            color: #003399;
-            cursor: pointer;
-            font-size: 1em;
-            text-align: left;
-            transition: all 0.3s;
-        }
-
-        .choice-btn:hover {
-            background: #003399;
-            color: white;
-        }
-
-        .choice-btn.selected {
-            background: #003399;
-            color: white;
-        }
-
-        .game-progress {
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: #003399;
-        }
-
-        .results-screen {
-            display: none;
-            background: #f0f7ff;
-            padding: 25px;
-            border: 2px solid #003399;
-        }
-
-        .results-screen.active {
-            display: block;
-        }
-
-        .results-screen h3 {
-            color: #003399;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .strategy-type {
-            background: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #003399;
-        }
-
-        .strategy-type h4 {
-            color: #003399;
-            margin-bottom: 10px;
-        }
-
-        .restart-btn {
-            width: 100%;
-            padding: 15px;
-            background: #003399;
-            color: white;
-            border: none;
-            font-size: 1.1em;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .restart-btn:hover {
-            background: #002277;
-        }
-
         .info-section {
             margin-top: 40px;
             background: #fff;
@@ -412,85 +294,13 @@
         <div class="content">
             <!-- Video Section -->
             <div class="video-section">
-                <h2>Erklärvideo: Wie funktioniert der Zoll?</h2>
+                <h2>Erklärvideo: Wie funktionieren Zölle?</h2>
                 <div class="video-wrapper">
                     <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen>
                     </iframe>
-                </div>
-            </div>
-
-            <!-- Strategy Game Section -->
-            <div class="strategy-game">
-                <h2>🧩 Situationsspiel: Zollpolitik & Handelsstrategie</h2>
-                
-                <div class="game-intro" id="gameIntro">
-                    <p><strong>Willkommen beim Handelsstrategie-Spiel!</strong></p>
-                    <p>Du bist Handelsminister:in eines Landes und musst auf verschiedene internationale Handelssituationen reagieren. Deine Entscheidungen zeigen, welche handelspolitische Strategie du verfolgst.</p>
-                    <button class="calculate-btn" onclick="startStrategyGame()">Spiel starten</button>
-                </div>
-
-                <div class="game-progress" id="gameProgress" style="display: none;"></div>
-
-                <!-- Situation 1 -->
-                <div class="situation" id="situation1">
-                    <h3>Situation 1: Erhöhte Zölle</h3>
-                    <div class="situation-text">
-                        <p>Das Land Mercania verhängt plötzlich hohe Importzölle auf Stahl aus deinem Land. Deine Stahlindustrie ist stark betroffen – tausende Arbeitsplätze stehen auf dem Spiel.</p>
-                        <p><strong>Was tust du?</strong></p>
-                    </div>
-                    <button class="choice-btn" onclick="selectChoice(1, 'A')">A) Du erhebst ebenfalls Zölle auf wichtige Waren aus Mercania (Gegenzölle).</button>
-                    <button class="choice-btn" onclick="selectChoice(1, 'B')">B) Du leitest Gespräche über ein bilaterales Handelsabkommen ein.</button>
-                    <button class="choice-btn" onclick="selectChoice(1, 'C')">C) Du subventionierst deine Stahlindustrie, um die höheren Kosten abzufedern.</button>
-                    <button class="choice-btn" onclick="selectChoice(1, 'D')">D) Du reichst eine Beschwerde bei der WTO ein.</button>
-                </div>
-
-                <!-- Situation 2 -->
-                <div class="situation" id="situation2">
-                    <h3>Situation 2: Überschwemmung des Markts</h3>
-                    <div class="situation-text">
-                        <p>Ein anderes Land, Arvania, exportiert große Mengen subventionierter Landwirtschaftsprodukte in dein Land – deine Bauern sind in Gefahr.</p>
-                        <p><strong>Wie reagierst du?</strong></p>
-                    </div>
-                    <button class="choice-btn" onclick="selectChoice(2, 'A')">A) Du führst Schutzmaßnahmen in Form von Antidumping-Zöllen ein.</button>
-                    <button class="choice-btn" onclick="selectChoice(2, 'B')">B) Du senkst Steuern für deine Landwirtschaft, um die Konkurrenzfähigkeit zu stärken.</button>
-                    <button class="choice-btn" onclick="selectChoice(2, 'C')">C) Du schließt ein Abkommen zur Begrenzung der Exporte mit Arvania.</button>
-                    <button class="choice-btn" onclick="selectChoice(2, 'D')">D) Du lässt den Markt entscheiden – keine Eingriffe.</button>
-                </div>
-
-                <!-- Situation 3 -->
-                <div class="situation" id="situation3">
-                    <h3>Situation 3: Strategisches Gut betroffen</h3>
-                    <div class="situation-text">
-                        <p>Die Halbleiterindustrie deines Landes hängt von einer wichtigen Vorstufe ab, die jetzt von einem Drittland mit Exportkontrollen belegt wurde.</p>
-                        <p><strong>Deine Strategie?</strong></p>
-                    </div>
-                    <button class="choice-btn" onclick="selectChoice(3, 'A')">A) Aufbau eigener Produktionskapazitäten im Land (Industriepolitik).</button>
-                    <button class="choice-btn" onclick="selectChoice(3, 'B')">B) Suche alternative Partnerländer, auch wenn diese teurer sind.</button>
-                    <button class="choice-btn" onclick="selectChoice(3, 'C')">C) Verhänge Zölle auf Güter des Drittlandes als Druckmittel.</button>
-                    <button class="choice-btn" onclick="selectChoice(3, 'D')">D) Ignoriere es – die Unternehmen sollen selbst Lösungen finden.</button>
-                </div>
-
-                <!-- Situation 4 -->
-                <div class="situation" id="situation4">
-                    <h3>Situation 4: Handelskrieg droht</h3>
-                    <div class="situation-text">
-                        <p>Mehrere befreundete Staaten fordern dich auf, einen blockierten Hafen in einem Drittland mit Gegenmaßnahmen zu bestrafen. Du hast dort wirtschaftliche Interessen, möchtest aber keine Eskalation.</p>
-                        <p><strong>Wie handelst du?</strong></p>
-                    </div>
-                    <button class="choice-btn" onclick="selectChoice(4, 'A')">A) Du verhängst selektive Zölle, aber nur auf unkritische Produkte des Drittlandes.</button>
-                    <button class="choice-btn" onclick="selectChoice(4, 'B')">B) Du lehnst die Bitte ab und setzt auf Diplomatie.</button>
-                    <button class="choice-btn" onclick="selectChoice(4, 'C')">C) Du setzt dich der Staatengruppe an und unterstützt harte Maßnahmen.</button>
-                    <button class="choice-btn" onclick="selectChoice(4, 'D')">D) Du schlägst eine gemeinsame WTO-Beschwerde als Kompromiss vor.</button>
-                </div>
-
-                <!-- Results Screen -->
-                <div class="results-screen" id="resultsScreen">
-                    <h3>📊 Deine Handelsstrategie</h3>
-                    <div id="strategyResults"></div>
-                    <button class="restart-btn" onclick="restartGame()">Neues Spiel starten</button>
                 </div>
             </div>
 
@@ -544,17 +354,24 @@
                 <input type="text" class="search-bar" id="searchBar" placeholder="Suche nach Themen...">
                 
                 <div class="tabs">
-                    <div class="tab active" onclick="switchTab('grundlagen')">Grundlagen</div>
-                    <div class="tab" onclick="switchTab('zollsaetze')">Zollsätze</div>
-                    <div class="tab" onclick="switchTab('freimengen')">Freimengen</div>
-                    <div class="tab" onclick="switchTab('verfahren')">Verfahren</div>
+                    <div class="tab active" data-tab="grundlagen">Grundlagen</div>
+                    <div class="tab" data-tab="zollsaetze">Zollsätze</div>
+                    <div class="tab" data-tab="freimengen">Freimengen</div>
+                    <div class="tab" data-tab="verfahren">Verfahren</div>
                 </div>
 
                 <div class="info-content">
                     <div id="grundlagen" class="info-item active">
                         <h3>Was ist Zoll?</h3>
-                        <p>Der Zoll ist eine Abgabe, die beim grenzüberschreitenden Warenverkehr erhoben wird. Er dient verschiedenen Zwecken: dem Schutz der heimischen Wirtschaft, der Einnahmenerzielung für den Staat und der Kontrolle von Warenströmen.</p>
-                        <p>In Deutschland ist die Zollverwaltung Teil der Bundesfinanzverwaltung und untersteht dem Bundesministerium der Finanzen. Neben der Erhebung von Zöllen überwacht sie auch die Einhaltung von Verboten und Beschränkungen.</p>
+                        <p>Unter Zöllen verstehen wir Abgaben, welche beim grenzüberschreitenden Warenverkehr erhoben werden. Sie werden fällig, wenn Waren aus dem Ausland in ein Land eingeführt werden. Der Staat, der die Waren empfängt, verlangt einen bestimmten Betrag – ähnlich einer Steuer – bevor er die Waren für unseren inländischen Markt zulässt.</p>          
+                        <p>Zölle können unterschiedliche Zwecke haben:</p>                        
+                        <p>1. Zölle als Schutz der heimischen Wirtschaft:</p>                        
+                        <p>Durch Zölle werden ausländische Waren teurer. Dadurch werden einheimische Unternehmen vor billiger Importkonkurrenz geschützt und können wirtschaftlich mithalten.</p>                        
+                        <p>2. Zölle als Einnahmequelle für den Staat:</p>                        
+                        <p>Durch Zölle werden die Staatskassen gefüllt und können so zur Finanzierung öffentlicher Aufgabe beitragen. Damit tragen sie zum Allgemeinwohl bei.</p>
+                        <p>3. Zölle als handelspolitisches Instrument:</p>
+                        <p>Zölle können eingesetzt werden, um politischen Druck gegenüber anderen Ländern ausüben zu können oder um Handelsbeziehungen zu beeinflussen. Beispielsweise können Zölle erhöht werden um gegen ein Land vorzugehen, welches unfair handelt.</p>
+                        <p>Zölle beeinflussen nicht nur Preisen und Wettbewerb, sondern auch internationale Beziehungen. Für Verbraucher bedeuten Zölle oftmals, dass importierte Produkte teurer werden. Für Unternehmer können sie Chancen oder Risiken bedeuten – je nachdem, ob sie importieren, exportieren oder im Inland produzieren.</p>        
                     </div>
 
                     <div id="zollsaetze" class="info-item">
@@ -579,136 +396,13 @@
         </div>
 
         <footer>
-            <p>&copy; 2024 Was Zoll das? - Informationsportal zum Thema Zoll</p>
+            <p>&copy; 2025 Was Zoll das? - Informationsportal zum Thema Zoll</p>
         </footer>
     </div>
 
     <script>
-        // Strategy Game Logic
-        var currentSituation = 0;
-        var choices = { A: 0, B: 0, C: 0, D: 0 };
-
-        function startStrategyGame() {
-            document.getElementById('gameIntro').style.display = 'none';
-            document.getElementById('gameProgress').style.display = 'block';
-            currentSituation = 1;
-            choices = { A: 0, B: 0, C: 0, D: 0 };
-            showSituation(1);
-        }
-
-        function showSituation(num) {
-            var situations = document.querySelectorAll('.situation');
-            for (var i = 0; i < situations.length; i++) {
-                situations[i].classList.remove('active');
-            }
-            document.getElementById('situation' + num).classList.add('active');
-            document.getElementById('gameProgress').textContent = 'Situation ' + num + ' von 4';
-        }
-
-        function selectChoice(situation, choice) {
-            choices[choice]++;
-            
-            var situationDiv = document.getElementById('situation' + situation);
-            var buttons = situationDiv.querySelectorAll('.choice-btn');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('selected');
-            }
-            event.target.classList.add('selected');
-
-            setTimeout(function() {
-                if (situation < 4) {
-                    currentSituation++;
-                    showSituation(currentSituation);
-                } else {
-                    showResults();
-                }
-            }, 500);
-        }
-
-        function showResults() {
-            var situations = document.querySelectorAll('.situation');
-            for (var i = 0; i < situations.length; i++) {
-                situations[i].classList.remove('active');
-            }
-            document.getElementById('gameProgress').style.display = 'none';
-            
-            var maxChoice = 'A';
-            var maxCount = choices.A;
-            
-            if (choices.B > maxCount) {
-                maxChoice = 'B';
-                maxCount = choices.B;
-            }
-            if (choices.C > maxCount) {
-                maxChoice = 'C';
-                maxCount = choices.C;
-            }
-            if (choices.D > maxCount) {
-                maxChoice = 'D';
-                maxCount = choices.D;
-            }
-            
-            var strategies = {
-                A: {
-                    name: '„Schutz & Gegenwehr"',
-                    description: 'Du setzt auf klassische handelspolitische Abwehrmechanismen:',
-                    points: ['✔ Gegenzölle', '✔ Antidumpingmaßnahmen', '✔ Strategischer Druck'],
-                    effectiveness: 'Kurzfristig wirksam, aber risikoreich – kann Handelskriege verschärfen.'
-                },
-                B: {
-                    name: '„Kooperation & Ausgleich"',
-                    description: 'Du suchst internationale Lösungen:',
-                    points: ['✔ Verhandlungen', '✔ Diplomatie', '✔ Marktdiversifizierung'],
-                    effectiveness: 'Meist nachhaltig und stabil, aber manchmal zu langsam oder zu weich.'
-                },
-                C: {
-                    name: '„Innenpolitische Stabilisierung"',
-                    description: 'Du reagierst innenpolitisch:',
-                    points: ['✔ Subventionen', '✔ Industrieförderung', '✔ Autonomieaufbau'],
-                    effectiveness: 'Langfristig stark, aber sehr teuer und oft WTO-kritisch.'
-                },
-                D: {
-                    name: '„Rechtsweg & Nichtintervention"',
-                    description: 'Du setzt auf institutionelle und marktorientierte Lösungen:',
-                    points: ['✔ WTO-Beschwerde', '✔ Marktmechanismen', '✔ Multilaterale Verfahren'],
-                    effectiveness: 'Stabil und regelbasiert, aber langwierig und politisch manchmal unpopulär.'
-                }
-            };
-
-            var strategy = strategies[maxChoice];
-            
-            var pointsHTML = '';
-            for (var i = 0; i < strategy.points.length; i++) {
-                pointsHTML += '<p>' + strategy.points[i] + '</p>';
-            }
-            
-            var resultsHTML = '<div class="strategy-type">' +
-                '<h4>' + strategy.name + '</h4>' +
-                '<p><strong>' + strategy.description + '</strong></p>' +
-                pointsHTML +
-                '<p style="margin-top: 15px;"><strong>Effektivität:</strong> ' + strategy.effectiveness + '</p>' +
-                '</div>' +
-                '<div style="background: white; padding: 15px; margin-top: 15px;">' +
-                '<h4 style="color: #003399; margin-bottom: 10px;">Deine Entscheidungen im Detail:</h4>' +
-                '<p>A (Schutz & Gegenwehr): ' + choices.A + 'x</p>' +
-                '<p>B (Kooperation & Ausgleich): ' + choices.B + 'x</p>' +
-                '<p>C (Innenpolitische Stabilisierung): ' + choices.C + 'x</p>' +
-                '<p>D (Rechtsweg & Nichtintervention): ' + choices.D + 'x</p>' +
-                '</div>';
-            
-            document.getElementById('strategyResults').innerHTML = resultsHTML;
-            document.getElementById('resultsScreen').classList.add('active');
-        }
-
-        function restartGame() {
-            document.getElementById('resultsScreen').classList.remove('active');
-            document.getElementById('gameIntro').style.display = 'block';
-            currentSituation = 0;
-            choices = { A: 0, B: 0, C: 0, D: 0 };
-        }
-
         // Quiz Data
-        var quizQuestions = [
+        const quizQuestions = [
             {
                 question: "Ab welchem Warenwert muss bei der Einreise aus Nicht-EU-Ländern Zoll gezahlt werden (Flugreise)?",
                 options: ["150 Euro", "300 Euro", "430 Euro", "600 Euro"],
@@ -726,25 +420,132 @@
             }
         ];
 
-        var currentQuestion = 0;
+        let currentQuestion = 0;
 
         function loadQuiz() {
-            var quizDiv = document.getElementById('quiz');
-            var q = quizQuestions[currentQuestion];
+            const quizDiv = document.getElementById('quiz');
+            const q = quizQuestions[currentQuestion];
             
-            var optionsHTML = '';
-            for (var i = 0; i < q.options.length; i++) {
-                optionsHTML += '<button onclick="checkAnswer(' + i + ')">' + q.options[i] + '</button>';
-            }
-            
-            quizDiv.innerHTML = '<div class="quiz-question">' +
-                '<p style="font-weight: bold;">Frage ' + (currentQuestion + 1) + '/' + quizQuestions.length + ':</p>' +
-                '<p>' + q.question + '</p>' +
-                '<div class="quiz-options">' + optionsHTML + '</div>' +
-                '<div id="quizResult" class="quiz-result"></div>' +
-                '</div>';
+            quizDiv.innerHTML = `
+                <div class="quiz-question">
+                    <p style="font-weight: bold;">Frage ${currentQuestion + 1}/${quizQuestions.length}:</p>
+                    <p>${q.question}</p>
+                    <div class="quiz-options">
+                        ${q.options.map((opt, idx) => 
+                            `<button onclick="checkAnswer(${idx})">${opt}</button>`
+                        ).join('')}
+                    </div>
+                    <div id="quizResult" class="quiz-result"></div>
+                </div>
+            `;
         }
 
         function checkAnswer(selected) {
-            var q = quizQuestions[currentQuestion];
-            var resultDiv = document.getElementById('qu
+            const q = quizQuestions[currentQuestion];
+            const resultDiv = document.getElementById('quizResult');
+            
+            if (selected === q.correct) {
+                resultDiv.className = 'quiz-result correct';
+                resultDiv.textContent = '✓ Richtig! Sehr gut!';
+            } else {
+                resultDiv.className = 'quiz-result incorrect';
+                resultDiv.textContent = `✗ Leider falsch. Die richtige Antwort ist: ${q.options[q.correct]}`;
+            }
+
+            setTimeout(() => {
+                currentQuestion = (currentQuestion + 1) % quizQuestions.length;
+                loadQuiz();
+            }, 2500);
+        }
+
+        // Customs Calculator
+        function calculateCustoms() {
+            const product = document.getElementById('product').value;
+            const country = document.getElementById('country').value;
+            const value = parseFloat(document.getElementById('value').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            const customsRates = {
+                electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 2.5, japan: 0 },
+                clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12 },
+                books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0 },
+                toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7 },
+                cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5 }
+            };
+
+            const totalValue = value * quantity;
+            const customsRate = customsRates[product][country];
+            const customsDuty = totalValue * (customsRate / 100);
+            const vat = (totalValue + customsDuty) * 0.19;
+            const totalCost = totalValue + customsDuty + vat;
+
+            const resultDiv = document.getElementById('calcResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <h3>Berechnungsergebnis:</h3>
+                <p><strong>Warenwert:</strong> ${totalValue.toFixed(2)} €</p>
+                <p><strong>Zollsatz:</strong> ${customsRate}%</p>
+                <p><strong>Zollgebühr:</strong> ${customsDuty.toFixed(2)} €</p>
+                <p><strong>Einfuhrumsatzsteuer (19%):</strong> ${vat.toFixed(2)} €</p>
+                <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+                <p style="font-size: 1.1em;"><strong>Gesamtkosten:</strong> ${totalCost.toFixed(2)} €</p>
+            `;
+        }
+
+        // Tab Navigation - Fixed
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Remove active class from all content
+                    const items = document.querySelectorAll('.info-item');
+                    items.forEach(item => item.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    document.getElementById(tabName).classList.add('active');
+                });
+            });
+        });
+
+        // Search Function - Fixed
+        document.getElementById('searchBar').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const items = document.querySelectorAll('.info-item');
+            
+            if (searchTerm === '') {
+                // If search is empty, show only the active tab
+                items.forEach(item => {
+                    if (item.classList.contains('active')) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            } else {
+                // Show all items that match the search
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        item.classList.add('active');
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Initialize
+        loadQuiz();
+    </script>
+</body>
+</html>
