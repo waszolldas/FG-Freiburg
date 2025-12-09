@@ -278,8 +278,70 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
+<!-- ========================================
+     1. CSS - Füge das ins <style> Tag ein
+     (Nach dem .btn-calculate:hover Block)
+     ======================================== -->
 
-        .calc-result {
+.btn-reset {
+    width: 100%;
+    padding: 15px;
+    background: #fff;
+    color: #667eea;
+    border: 2px solid #667eea;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Inter', sans-serif;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.btn-reset:hover {
+    background: #667eea;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+
+<!-- ========================================
+     2. HTML - Füge das nach dem Berechnen-Button ein
+     (Nach <button class="btn-calculate"...>)
+     ======================================== -->
+
+<button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+
+
+<!-- ========================================
+     3. JAVASCRIPT - Füge das ins <script> Tag ein
+     (Nach der calculateCustoms() Funktion)
+     ======================================== -->
+
+function resetCalculator() {
+    document.getElementById('product').selectedIndex = 0;
+    document.getElementById('country').selectedIndex = 0;
+    document.getElementById('value').value = '100';
+    document.getElementById('quantity').value = '1';
+    document.getElementById('calcResult').style.display = 'none';
+}
+
+
+<!-- ========================================
+     4. BONUS: Entferne die Auto-Lösch-Funktion
+     Suche in calculateCustoms() nach diesem Block
+     und LÖSCHE ihn komplett:
+     ======================================== -->
+
+// Auto-Löschfunktion nach 10 Sekunden
+setTimeout(() => {
+    result.style.display = 'none';
+    document.getElementById('product').selectedIndex = 0;
+    document.getElementById('country').selectedIndex = 0;
+    document.getElementById('value').value = '100';
+    document.getElementById('quantity').value = '1';
+}, 10000);        .calc-result {
             margin-top: 25px;
             padding: 25px;
             background: #f8f9fa;
@@ -590,6 +652,9 @@
                             <input type="number" id="quantity" min="1" value="1">
                         </div>
                         <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+                        <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+                        <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+                        <div id="calcResult" class="calc-result"></div>
                         <div id="calcResult" class="calc-result"></div>
                     </div>
                 </div>
@@ -818,17 +883,15 @@
                 <p><span>EUSt (19%)</span><span>${vat.toFixed(2)} €</span></p>
                 <p><span>Gesamtkosten</span><span>${finalTotal.toFixed(2)} €</span></p>
             `;
-
-            // Auto-Löschfunktion nach 10 Sekunden
-            setTimeout(() => {
-                result.style.display = 'none';
-                document.getElementById('product').selectedIndex = 0;
-                document.getElementById('country').selectedIndex = 0;
-                document.getElementById('value').value = '100';
-                document.getElementById('quantity').value = '1';
-            }, 10000);
+         }
+          function resetCalculator() {
+          document.getElementById('product').selectedIndex = 0;
+          document.getElementById('country').selectedIndex = 0;
+          document.getElementById('value').value = '100';
+          document.getElementById('quantity').value = '1';
+          document.getElementById('calcResult').style.display = 'none';
         }
-
+        
         // Info Tabs
         document.addEventListener('DOMContentLoaded', function() {
             const tabs = document.querySelectorAll('.tab');
