@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impressum - Was Zoll das?</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,176 +14,300 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
             line-height: 1.6;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            min-height: 100vh;
+            padding: 0 40px;
         }
 
-        header {
-            background-color: white;
-            color: #003399;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 2px solid #003399;
+        /* Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .nav-left {
+            display: flex;
+            gap: 40px;
+            align-items: center;
         }
 
-        .back-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: #003399;
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #666;
             text-decoration: none;
-            font-size: 0.9em;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
         }
 
-        .back-link:hover {
-            text-decoration: underline;
+        .nav-link:hover,
+        .nav-link.active {
+            color: #1a1a1a;
         }
 
-        .content {
-            padding: 40px 20px;
-            max-width: 800px;
-            margin: 0 auto;
+        /* Hero */
+        .impressum-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 140px 0 60px;
+            text-align: center;
+            margin-top: 72px;
         }
 
-        .content h2 {
-            color: #003399;
-            margin-top: 30px;
+        .impressum-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
             margin-bottom: 15px;
-            font-size: 1.5em;
         }
 
-        .content h3 {
-            color: #003399;
-            margin-top: 20px;
+        .impressum-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Content */
+        .impressum-content {
+            padding: 60px 0;
+        }
+
+        .impressum-section {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e5e5e5;
+        }
+
+        .impressum-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #1a1a1a;
+            font-weight: 700;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .impressum-section h2::before {
+            content: '📋';
+            font-size: 2rem;
+        }
+
+        .impressum-section h3 {
+            font-size: 1.3rem;
+            margin: 30px 0 15px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .impressum-section p {
+            margin-bottom: 15px;
+            color: #444;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .impressum-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .impressum-box p {
             margin-bottom: 10px;
-            font-size: 1.2em;
         }
 
-        .content p {
-            margin-bottom: 15px;
-            color: #333;
+        .impressum-box strong {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.05rem;
         }
 
-        .info-box {
-            background: #f9f9f9;
-            padding: 20px;
-            border-left: 4px solid #003399;
-            margin: 20px 0;
+        .warning-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-left: 4px solid #ffa726;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
         }
 
-        .info-box strong {
-            color: #003399;
+        .warning-box strong {
+            color: #f57c00;
+            font-size: 1.1rem;
         }
 
+        /* Footer */
         footer {
-            background: #003399;
-            color: white;
+            background: #fff;
+            padding: 40px 0;
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            border-top: 1px solid #e5e5e5;
         }
 
-        .back-button {
-            display: inline-block;
-            padding: 12px 25px;
-            background: #003399;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 30px;
-            transition: all 0.3s;
+        footer p {
+            color: #666;
         }
 
-        .back-button:hover {
-            background: #002277;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
+            .top-nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
             }
 
-            .content {
-                padding: 30px 15px;
+            .nav-left {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .impressum-section {
+                padding: 25px 20px;
+            }
+
+            .impressum-hero {
+                padding: 100px 0 60px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Impressum</h1>
-            <a href="index.html" class="back-link">← Zurück zur Hauptseite</a>
-        </header>
-
-        <div class="content">
-            <h2>Angaben gemäß § 5 TMG</h2>
-            
-            <div class="info-box">
-                <p><strong>Betreiber:</strong><br>
-                [Dein Name / Firmenname]</p>
-                
-                <p><strong>Anschrift:</strong><br>
-                [Straße und Hausnummer]<br>
-                [PLZ und Ort]<br>
-                [Land]</p>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">WAS ZOLL DAS?</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="impressum.html" class="nav-link active">Impressum</a>
             </div>
-
-            <h2>Kontakt</h2>
-            
-            <div class="info-box">
-                <p><strong>E-Mail:</strong> [deine-email@beispiel.de]<br>
-                <strong>Telefon:</strong> [+49 123 456789]</p>
-            </div>
-
-            <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
-            
-            <div class="info-box">
-                <p>[Dein Name]<br>
-                [Straße und Hausnummer]<br>
-                [PLZ und Ort]</p>
-            </div>
-
-            <h2>Haftungsausschluss</h2>
-
-            <h3>Haftung für Inhalte</h3>
-            <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
-
-            <h3>Haftung für Links</h3>
-            <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.</p>
-
-            <h3>Urheberrecht</h3>
-            <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p>
-
-            <h2>Datenschutz</h2>
-            <p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.</p>
-            
-            <p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
-
-            <h2>Hinweis zu Zollinformationen</h2>
-            <div class="info-box">
-                <p><strong>Wichtig:</strong> Die auf dieser Website bereitgestellten Informationen zum Thema Zoll dienen ausschließlich zu Informationszwecken und stellen keine Rechts- oder Steuerberatung dar. Für verbindliche Auskünfte wenden Sie sich bitte an die zuständigen Behörden oder einen Fachberater.</p>
-            </div>
-
-            <a href="index.html" class="back-button">← Zurück zur Hauptseite</a>
         </div>
+    </nav>
 
-        <footer>
-            <p>&copy; 2025 Was Zoll das? - Informationsportal zum Thema Zoll</p>
-        </footer>
+    <!-- Hero -->
+    <div class="impressum-hero">
+        <div class="container">
+            <h1>Impressum</h1>
+            <p>Rechtliche Informationen & Transparenz</p>
+        </div>
     </div>
+
+    <!-- Content -->
+    <div class="impressum-content">
+        <div class="container">
+            
+            <div class="impressum-section">
+                <h2>Angaben gemäß § 5 TMG</h2>
+                <div class="impressum-box">
+                    <p><strong>Betreiber:</strong><br>
+                    [Dein Name / Firmenname]</p>
+                    <p><strong>Anschrift:</strong><br>
+                    [Straße und Hausnummer]<br>
+                    [PLZ und Ort]<br>
+                    [Land]</p>
+                </div>
+            </div>
+
+            <div class="impressum-section">
+                <h2>Kontakt</h2>
+                <div class="impressum-box">
+                    <p><strong>📧 E-Mail:</strong> [deine-email@beispiel.de]</p>
+                    <p><strong>📞 Telefon:</strong> [+49 123 456789]</p>
+                </div>
+            </div>
+
+            <div class="impressum-section">
+                <h2>Verantwortlich für den Inhalt</h2>
+                <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px;">nach § 55 Abs. 2 RStV</p>
+                <div class="impressum-box">
+                    <p>[Dein Name]<br>
+                    [Straße und Hausnummer]<br>
+                    [PLZ und Ort]</p>
+                </div>
+            </div>
+
+            <div class="impressum-section">
+                <h2>Haftungsausschluss</h2>
+                
+                <h3>💼 Haftung für Inhalte</h3>
+                <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+                
+                <h3>🔗 Haftung für Links</h3>
+                <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+                
+                <h3>©️ Urheberrecht</h3>
+                <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+            </div>
+
+            <div class="impressum-section">
+                <h2>Datenschutz</h2>
+                <p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis.</p>
+                <p>Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+            </div>
+
+            <div class="impressum-section">
+                <h2>Hinweis zu Zollinformationen</h2>
+                <div class="warning-box">
+                    <p><strong>⚠️ Wichtiger Hinweis:</strong></p>
+                    <p style="margin: 15px 0 0 0; color: #555;">Die auf dieser Website bereitgestellten Informationen zum Thema Zoll dienen ausschließlich zu allgemeinen Informationszwecken und stellen keine Rechts- oder Steuerberatung dar. Für verbindliche Auskünfte wenden Sie sich bitte an die zuständigen Zollbehörden oder einen Fachberater.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="border-top: 3px solid #667eea; padding-top: 30px; margin-bottom: 20px;"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 5px;">WAS ZOLL DAS?</p>
+                    <p style="color: #666; margin: 0;">Dein Informationsportal zum Thema Zoll</p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="color: #666; margin: 0;">© 2025 Alle Rechte vorbehalten</p>
+                    <p style="color: #999; font-size: 0.9rem; margin: 5px 0 0 0;">Informationen ohne Gewähr</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
