@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Was Zoll das? - Zoll & Einfuhr einfach erklärt</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
         * {
             margin: 0;
@@ -15,9 +15,23 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #fafafa;
+            background: #ffffff;
             color: #1a1a1a;
             line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
         }
 
         /* Top Navigation */
@@ -66,20 +80,151 @@
             color: #1a1a1a;
         }
 
-        /* Color Picker */
-        .top-nav {
-            position: fixed;
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 140px 0 80px;
+            text-align: center;
+            margin-top: 72px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+        }
+
+        /* Video Section */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 20px 40px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e5e5e5;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e5e5e5;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #1a1a1a;
+        }
+
+        /* Quiz Styles */
+        .quiz-question {
+            margin-top: 10px;
+        }
+
+        .quiz-question p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .quiz-options {
             display: flex;
-            justify-content: flex-start;
-            align-items: center;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-btn {
+            padding: 14px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e5e5e5;
+            color: #333;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        .quiz-btn:hover {
+            background: #667eea;
+            color: #fff;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .quiz-result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         /* Form */
@@ -105,37 +250,42 @@
             font-size: 0.95rem;
             font-family: 'Inter', sans-serif;
             transition: border-color 0.2s;
+            border-radius: 8px;
         }
 
         .form-group select:focus,
         .form-group input:focus {
             outline: none;
-            border-color: #2c3e50;
+            border-color: #667eea;
         }
 
         .btn-calculate {
             width: 100%;
             padding: 15px;
-            background: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             border: none;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             font-family: 'Inter', sans-serif;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .btn-calculate:hover {
-            background: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         .calc-result {
             margin-top: 25px;
             padding: 25px;
             background: #f8f9fa;
-            border-left: 4px solid #2c3e50;
+            border-left: 4px solid #667eea;
             display: none;
+            border-radius: 8px;
         }
 
         .calc-result h3 {
@@ -158,8 +308,8 @@
             font-size: 1.1rem;
             padding-top: 15px;
             margin-top: 10px;
-            border-top: 2px solid #2c3e50;
-            color: #2c3e50;
+            border-top: 2px solid #667eea;
+            color: #667eea;
         }
 
         /* Info Section */
@@ -172,11 +322,12 @@
             margin-bottom: 30px;
             font-family: 'Inter', sans-serif;
             transition: border-color 0.2s;
+            border-radius: 8px;
         }
 
         .search-bar:focus {
             outline: none;
-            border-color: #2c3e50;
+            border-color: #667eea;
         }
 
         .tabs {
@@ -199,21 +350,26 @@
             transition: all 0.2s;
             border-bottom: 2px solid transparent;
             margin-bottom: -2px;
+            border-radius: 8px 8px 0 0;
         }
 
         .tab:hover {
             color: #1a1a1a;
+            background: #f8f9fa;
         }
 
         .tab.active {
-            color: #2c3e50;
-            border-bottom-color: #2c3e50;
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: #f8f9fa;
         }
 
         .info-content {
             background: #fff;
             padding: 40px;
             border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
         }
 
         .info-item {
@@ -244,11 +400,11 @@
 
         /* Impressum */
         .impressum-hero {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
-            padding: 120px 0 60px;
+            padding: 140px 0 60px;
             text-align: center;
-            transition: background 0.3s;
+            margin-top: 72px;
         }
 
         .impressum-hero h1 {
@@ -277,7 +433,7 @@
             color: #1a1a1a;
             font-weight: 700;
             padding-bottom: 10px;
-            border-bottom: 2px solid #2c3e50;
+            border-bottom: 2px solid #667eea;
         }
 
         .impressum-section h3 {
@@ -297,7 +453,8 @@
             background: #f8f9fa;
             padding: 25px;
             margin: 20px 0;
-            border-left: 4px solid #2c3e50;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
         }
 
         .impressum-box strong {
@@ -345,7 +502,15 @@
             .info-content {
                 padding: 30px 20px;
             }
-        }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+        }          
     </style>
 </head>
 <body>
