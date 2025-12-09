@@ -5,19 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Was Zoll das? - Zoll & Einfuhr einfach erklärt</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
-
-        :root {
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --dark: #1a1a2e;
-            --darker: #0f0f1e;
-            --light: #ffffff;
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
         * {
             margin: 0;
@@ -26,446 +14,210 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--darker);
-            color: var(--light);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
 
-        /* Animated Background */
-        .bg-animation {
+        /* Top Navigation */
+        .top-nav {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: var(--darker);
-        }
-
-        .bg-animation::before,
-        .bg-animation::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .bg-animation::before {
-            background: var(--gradient-1);
-            top: -100px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-
-        .bg-animation::after {
-            background: var(--gradient-2);
-            bottom: -100px;
-            right: -100px;
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -100px) scale(1.1); }
-            66% { transform: translate(-100px, 100px) scale(0.9); }
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header with Glassmorphism */
-        header {
-            padding: 80px 20px;
-            text-align: center;
-            position: relative;
-            margin-bottom: 60px;
-        }
-
-        .header-glass {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 60px 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        header h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 800;
-            background: var(--gradient-3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(79, 172, 254, 0.5)); }
-            50% { filter: drop-shadow(0 0 40px rgba(79, 172, 254, 0.8)); }
-        }
-
-        header .subtitle {
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        /* Video Section */
-        .video-section {
-            margin: 60px auto;
-            position: relative;
-        }
-
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 30px;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
         }
 
-        .icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 15px;
+        .nav-left {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: var(--gradient-3);
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 20px;
-        }
-
-        /* Grid Layout */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
             gap: 40px;
-            margin: 60px auto;
+            align-items: center;
         }
 
-        /* Quiz Styles */
-        .quiz-question {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .quiz-question p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .quiz-options {
-            display: grid;
-            gap: 15px;
-        }
-
-        .quiz-btn {
-            padding: 18px 24px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quiz-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-3);
-            transition: left 0.3s;
-            z-index: -1;
-        }
-
-        .quiz-btn:hover {
-            border-color: rgba(79, 172, 254, 0.8);
-            transform: translateX(10px);
-        }
-
-        .quiz-btn:hover::before {
-            left: 0;
-        }
-
-        .quiz-result {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 15px;
-            font-weight: 600;
-            display: none;
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .quiz-result.correct {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            box-shadow: 0 5px 20px rgba(67, 233, 123, 0.4);
-        }
-
-        .quiz-result.incorrect {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
-        }
-
-        /* Calculator Styles */
-        .calc-input {
-            margin-bottom: 25px;
-        }
-
-        .calc-input label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .calc-input select,
-        .calc-input input {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
-        }
-
-        .calc-input select:focus,
-        .calc-input input:focus {
-            outline: none;
-            border-color: rgba(79, 172, 254, 0.8);
-            box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.2);
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .btn-gradient {
-            width: 100%;
-            padding: 18px;
-            background: var(--gradient-3);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
+        .logo {
+            font-size: 1.3rem;
             font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #1a1a1a;
+        }
+
+        /* Color Picker */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 0.9rem;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e5e5;
+            background: #fff;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #2c3e50;
+        }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 15px;
+            background: #2c3e50;
+            color: #fff;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
 
-        .btn-gradient:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.6);
-        }
-
-        .btn-gradient:active {
-            transform: translateY(-1px);
+        .btn-calculate:hover {
+            background: #1a252f;
         }
 
         .calc-result {
-            margin-top: 30px;
-            padding: 30px;
-            background: rgba(79, 172, 254, 0.15);
-            border-radius: 20px;
+            margin-top: 25px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-left: 4px solid #2c3e50;
             display: none;
-            border: 2px solid rgba(79, 172, 254, 0.3);
-            animation: slideUp 0.4s ease;
         }
 
         .calc-result h3 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin-bottom: 20px;
-            background: var(--gradient-3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #1a1a1a;
         }
 
         .calc-result p {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 1rem;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e5e5;
+            color: #333;
         }
 
         .calc-result p:last-child {
             border-bottom: none;
-            font-size: 1.4rem;
             font-weight: 700;
-            padding-top: 20px;
+            font-size: 1.1rem;
+            padding-top: 15px;
             margin-top: 10px;
-            border-top: 2px solid rgba(79, 172, 254, 0.5);
-            background: var(--gradient-3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            border-top: 2px solid #2c3e50;
+            color: #2c3e50;
         }
 
         /* Info Section */
-        .info-section {
-            margin: 60px auto;
-        }
-
         .search-bar {
             width: 100%;
-            padding: 18px 24px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 20px;
-            font-size: 1.1rem;
-            font-family: 'Poppins', sans-serif;
+            padding: 15px 20px;
+            border: 2px solid #e5e5e5;
+            background: #fff;
+            font-size: 1rem;
             margin-bottom: 30px;
-            transition: all 0.3s;
-        }
-
-        .search-bar::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
         }
 
         .search-bar:focus {
             outline: none;
-            border-color: rgba(79, 172, 254, 0.8);
-            box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.2);
-            background: rgba(255, 255, 255, 0.12);
+            border-color: #2c3e50;
         }
 
         .tabs {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 30px;
+            border-bottom: 2px solid #e5e5e5;
             flex-wrap: wrap;
         }
 
         .tab {
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 50px;
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: #666;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
-            font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
         }
 
         .tab:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
+            color: #1a1a1a;
         }
 
         .tab.active {
-            background: var(--gradient-3);
-            border-color: transparent;
-            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+            color: #2c3e50;
+            border-bottom-color: #2c3e50;
         }
 
         .info-content {
-            background: rgba(255, 255, 255, 0.05);
+            background: #fff;
             padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #e5e5e5;
         }
 
         .info-item {
             display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .info-item.active {
@@ -473,113 +225,154 @@
         }
 
         .info-item h3 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 20px;
-            background: var(--gradient-4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #1a1a1a;
+            font-weight: 700;
         }
 
         .info-item p {
             margin-bottom: 20px;
-            line-height: 1.9;
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 1.05rem;
+            color: #333;
+            line-height: 1.8;
         }
 
         .info-item p strong {
-            color: white;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* Impressum */
+        .impressum-hero {
+            background: #2c3e50;
+            color: #fff;
+            padding: 120px 0 60px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .impressum-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .impressum-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .impressum-content {
+            padding: 60px 0;
+        }
+
+        .impressum-section {
+            max-width: 900px;
+            margin: 0 auto 50px;
+        }
+
+        .impressum-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-weight: 700;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2c3e50;
+        }
+
+        .impressum-section h3 {
+            font-size: 1.3rem;
+            margin: 25px 0 15px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .impressum-section p {
+            margin-bottom: 15px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .impressum-box {
+            background: #f8f9fa;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #2c3e50;
+        }
+
+        .impressum-box strong {
+            color: #1a1a1a;
             font-weight: 600;
         }
 
         /* Footer */
         footer {
-            margin-top: 100px;
-            padding: 50px 20px;
+            background: #fff;
+            padding: 40px 0;
             text-align: center;
-            position: relative;
+            border-top: 1px solid #e5e5e5;
         }
 
-        .footer-glass {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        footer hr {
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 25px auto;
-            max-width: 200px;
-        }
-
-        .footer-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: var(--gradient-2);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .footer-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.6);
+        footer p {
+            color: #666;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .grid-2 {
+            .top-nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-left {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .cards-grid {
                 grid-template-columns: 1fr;
             }
 
-            header {
-                padding: 40px 20px;
+            .container {
+                padding: 0 20px;
             }
 
-            .header-glass {
-                padding: 40px 20px;
+            .card {
+                padding: 30px 20px;
             }
 
-            .glass-card {
-                padding: 25px;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
+            .info-content {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-
-    <div class="container">
-        <header>
-            <div class="header-glass">
-                <h1>Was Zoll das?</h1>
-                <p class="subtitle">Alles Wichtige über Zoll und Einfuhrbestimmungen </p>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo">WAS ZOLL DAS?</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link" onclick="showPage('impressum')">Impressum</a>
             </div>
-        </header>
+        </div>
+    </nav>
 
-        <!-- Video Section -->
-        <section class="video-section">
-            <div class="glass-card">
-                <h2 class="section-title">
-                    <span class="icon">▶</span>
-                    Wie funktionieren Zölle?
-                </h2>
+    <!-- HOME -->
+    <div class="page active" id="home">
+        <section class="hero" id="hero">
+            <div class="container">
+                <h1>WAS ZOLL DAS?</h1>
+                <p>Alles Wichtige über Zoll und Einfuhrbestimmungen – Modern erklärt</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Wie funktionieren Zölle?</h2>
+                <p class="section-subtitle">Verstehe die Grundlagen in nur wenigen Minuten</p>
                 <div class="video-wrapper">
                     <iframe 
                         src="https://www.youtube.com/embed/kJQP7kiw5Fk" 
@@ -590,64 +383,60 @@
             </div>
         </section>
 
-        <!-- Games Grid -->
-        <div class="grid-2">
-            <!-- Quiz -->
-            <div class="glass-card">
-                <h2 class="section-title">
-                    <span class="icon">🎯</span>
-                    Zoll-Quiz
-                </h2>
-                <div id="quiz"></div>
-            </div>
+        <section class="section" style="background: #fff;">
+            <div class="container">
+                <h2 class="section-title">Interaktive Tools</h2>
+                <p class="section-subtitle">Teste dein Wissen und berechne deine Zollkosten</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3 class="card-title">Zoll-Quiz</h3>
+                        <div id="quiz"></div>
+                    </div>
 
-            <!-- Calculator -->
-            <div class="glass-card">
-                <h2 class="section-title">
-                    <span class="icon">💰</span>
-                    Zollrechner
-                </h2>
-                <div class="calc-input">
-                    <label>Produkt</label>
-                    <select id="product">
-                        <option value="electronics">📱 Elektronik</option>
-                        <option value="clothing">👕 Kleidung</option>
-                        <option value="books">📚 Bücher</option>
-                        <option value="toys">🎮 Spielzeug</option>
-                        <option value="cosmetics">💄 Kosmetik</option>
-                    </select>
+                    <div class="card">
+                        <h3 class="card-title">Zollrechner</h3>
+                        <div class="form-group">
+                            <label>Produkt</label>
+                            <select id="product">
+                                <option value="electronics">Elektronik</option>
+                                <option value="clothing">Kleidung</option>
+                                <option value="books">Bücher</option>
+                                <option value="toys">Spielzeug</option>
+                                <option value="cosmetics">Kosmetik</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Herkunftsland</label>
+                            <select id="country">
+                                <option value="usa">USA</option>
+                                <option value="china">China</option>
+                                <option value="uk">Großbritannien</option>
+                                <option value="switzerland">Schweiz</option>
+                                <option value="japan">Japan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Warenwert (€)</label>
+                            <input type="number" id="value" min="0" value="100" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Menge</label>
+                            <input type="number" id="quantity" min="1" value="1">
+                        </div>
+                        <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+                        <div id="calcResult" class="calc-result"></div>
+                    </div>
                 </div>
-                <div class="calc-input">
-                    <label>Herkunftsland</label>
-                    <select id="country">
-                        <option value="usa">🇺🇸 USA</option>
-                        <option value="china">🇨🇳 China</option>
-                        <option value="uk">🇬🇧 Großbritannien</option>
-                        <option value="switzerland">🇨🇭 Schweiz</option>
-                        <option value="japan">🇯🇵 Japan</option>
-                    </select>
-                </div>
-                <div class="calc-input">
-                    <label>Warenwert (€)</label>
-                    <input type="number" id="value" min="0" value="100" step="0.01">
-                </div>
-                <div class="calc-input">
-                    <label>Menge</label>
-                    <input type="number" id="quantity" min="1" value="1">
-                </div>
-                <button class="btn-gradient" onclick="calculateCustoms()">Berechnen</button>
-                <div id="calcResult" class="calc-result"></div>
             </div>
-        </div>
+        </section>
 
-        <!-- Info Section -->
-        <section class="info-section">
-            <div class="glass-card">
-                <h2 class="section-title">
-                    <span class="icon">📖</span>
-                    Wissensdatenbank
-                </h2>
-                <input type="text" class="search-bar" id="searchBar" placeholder="🔍 Suche nach Themen...">
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Wissensdatenbank</h2>
+                <p class="section-subtitle">Alle wichtigen Informationen an einem Ort</p>
+                
+                <input type="text" class="search-bar" id="searchBar" placeholder="Suche nach Themen...">
                 
                 <div class="tabs">
                     <button class="tab active" data-tab="grundlagen">Grundlagen</button>
@@ -685,51 +474,128 @@
                 </div>
             </div>
         </section>
+
+        <footer>
+            <div class="container">
+                <p>© 2025 Was Zoll das? - Informationsportal zum Thema Zoll</p>
+            </div>
+        </footer>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-glass">
-                <p>© 2025 Was Zoll das? - Informationsportal zum Thema Zoll</p>
-                <hr>
-                <a href="impressum.html" class="footer-btn">Impressum</a>
+    <!-- IMPRESSUM -->
+    <div class="page" id="impressum">
+        <div class="impressum-hero" id="impressumHero">
+            <div class="container">
+                <h1>Impressum</h1>
+                <p>Rechtliche Informationen</p>
             </div>
         </div>
-    </footer>
+
+        <div class="impressum-content">
+            <div class="container">
+                <div class="impressum-section">
+                    <h2>Angaben gemäß § 5 TMG</h2>
+                    <div class="impressum-box">
+                        <p><strong>Betreiber:</strong><br>
+                        [Dein Name / Firmenname]</p>
+                        <p><strong>Anschrift:</strong><br>
+                        [Straße und Hausnummer]<br>
+                        [PLZ und Ort]<br>
+                        [Land]</p>
+                    </div>
+                </div>
+
+                <div class="impressum-section">
+                    <h2>Kontakt</h2>
+                    <div class="impressum-box">
+                        <p><strong>E-Mail:</strong> [deine-email@beispiel.de]</p>
+                        <p><strong>Telefon:</strong> [+49 123 456789]</p>
+                    </div>
+                </div>
+
+                <div class="impressum-section">
+                    <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+                    <div class="impressum-box">
+                        <p>[Dein Name]<br>
+                        [Straße und Hausnummer]<br>
+                        [PLZ und Ort]</p>
+                    </div>
+                </div>
+
+                <div class="impressum-section">
+                    <h2>Haftungsausschluss</h2>
+                    <h3>Haftung für Inhalte</h3>
+                    <p>Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
+                    
+                    <h3>Haftung für Links</h3>
+                    <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen.</p>
+                    
+                    <h3>Urheberrecht</h3>
+                    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht.</p>
+                </div>
+
+                <div class="impressum-section">
+                    <h2>Datenschutz</h2>
+                    <p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten erhoben werden, erfolgt dies stets auf freiwilliger Basis.</p>
+                </div>
+
+                <div class="impressum-section">
+                    <h2>Hinweis zu Zollinformationen</h2>
+                    <div class="impressum-box">
+                        <p><strong>Wichtig:</strong> Die auf dieser Website bereitgestellten Informationen zum Thema Zoll dienen ausschließlich zu Informationszwecken und stellen keine Rechts- oder Steuerberatung dar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p>© 2025 Was Zoll das? - Informationsportal zum Thema Zoll</p>
+            </div>
+        </footer>
+    </div>
 
     <script>
-        const quizQuestions = [
+        // Navigation
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            window.scrollTo(0, 0);
+        }
+
+        // Quiz
+        const questions = [
             {
-                question: "Ab welchem Warenwert muss bei der Einreise aus Nicht-EU-Ländern Zoll gezahlt werden (Flugreise)?",
+                q: "Ab welchem Warenwert muss bei der Einreise aus Nicht-EU-Ländern Zoll gezahlt werden (Flugreise)?",
                 options: ["150 Euro", "300 Euro", "430 Euro", "600 Euro"],
                 correct: 2
             },
             {
-                question: "Was bedeutet die Abkürzung EUSt im Zusammenhang mit Zoll?",
+                q: "Was bedeutet die Abkürzung EUSt im Zusammenhang mit Zoll?",
                 options: ["EU-Steuer", "Einfuhrumsatzsteuer", "Europäische Umsatzsteuer", "Einheitliche Steuer"],
                 correct: 1
             },
             {
-                question: "Welche Institution ist in Deutschland für die Zollerhebung zuständig?",
+                q: "Welche Institution ist in Deutschland für die Zollerhebung zuständig?",
                 options: ["Finanzamt", "Bundeszollverwaltung", "Bundesbank", "Handelskammer"],
                 correct: 1
             }
         ];
 
-        let currentQuestion = 0;
+        let currentQ = 0;
 
         function loadQuiz() {
             const quiz = document.getElementById('quiz');
-            const q = quizQuestions[currentQuestion];
-            
+            const q = questions[currentQ];
             quiz.innerHTML = `
                 <div class="quiz-question">
-                    <p><strong>Frage ${currentQuestion + 1}/${quizQuestions.length}:</strong></p>
-                    <p>${q.question}</p>
+                    <p><strong>Frage ${currentQ + 1}/${questions.length}:</strong> ${q.q}</p>
                     <div class="quiz-options">
-                        ${q.options.map((opt, i) => 
-                            `<button class="quiz-btn" onclick="checkAnswer(${i})">${opt}</button>`
-                        ).join('')}
+                        ${q.options.map((o, i) => `<button class="quiz-btn" onclick="checkAnswer(${i})">${o}</button>`).join('')}
                     </div>
                     <div id="quizResult" class="quiz-result"></div>
                 </div>
@@ -737,23 +603,26 @@
         }
 
         function checkAnswer(selected) {
-            const q = quizQuestions[currentQuestion];
+            const q = questions[currentQ];
             const result = document.getElementById('quizResult');
             
             if (selected === q.correct) {
                 result.className = 'quiz-result correct';
-                result.textContent = '🎉 Perfekt! Du hast es drauf!';
+                result.style.display = 'block';
+                result.textContent = '✓ Richtig! Sehr gut!';
             } else {
                 result.className = 'quiz-result incorrect';
-                result.textContent = `❌ Nicht ganz! Richtig wäre: ${q.options[q.correct]}`;
+                result.style.display = 'block';
+                result.textContent = `✗ Leider falsch. Richtig wäre: ${q.options[q.correct]}`;
             }
 
             setTimeout(() => {
-                currentQuestion = (currentQuestion + 1) % quizQuestions.length;
+                currentQ = (currentQ + 1) % questions.length;
                 loadQuiz();
             }, 2500);
         }
 
+        // Calculator
         function calculateCustoms() {
             const product = document.getElementById('product').value;
             const country = document.getElementById('country').value;
@@ -768,54 +637,68 @@
                 cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5 }
             };
 
-            const totalValue = value * quantity;
+            const total = value * quantity;
             const rate = rates[product][country];
-            const duty = totalValue * (rate / 100);
-            const vat = (totalValue + duty) * 0.19;
-            const total = totalValue + duty + vat;
+            const duty = total * (rate / 100);
+            const vat = (total + duty) * 0.19;
+            const finalTotal = total + duty + vat;
 
             const result = document.getElementById('calcResult');
             result.style.display = 'block';
             result.innerHTML = `
-                <h3>💎 Dein Ergebnis</h3>
-                <p><span>Warenwert</span><span>${totalValue.toFixed(2)} €</span></p>
+                <h3>Berechnungsergebnis</h3>
+                <p><span>Warenwert</span><span>${total.toFixed(2)} €</span></p>
                 <p><span>Zollsatz</span><span>${rate}%</span></p>
                 <p><span>Zollgebühr</span><span>${duty.toFixed(2)} €</span></p>
                 <p><span>EUSt (19%)</span><span>${vat.toFixed(2)} €</span></p>
-                <p><span>Gesamtkosten</span><span>${total.toFixed(2)} €</span></p>
+                <p><span>Gesamtkosten</span><span>${finalTotal.toFixed(2)} €</span></p>
             `;
+
+            // Auto-Löschfunktion nach 10 Sekunden
+            setTimeout(() => {
+                result.style.display = 'none';
+                document.getElementById('product').selectedIndex = 0;
+                document.getElementById('country').selectedIndex = 0;
+                document.getElementById('value').value = '100';
+                document.getElementById('quantity').value = '1';
+            }, 10000);
         }
 
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabName = tab.dataset.tab;
-                
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.info-item').forEach(i => i.classList.remove('active'));
-                
-                tab.classList.add('active');
-                document.getElementById(tabName).classList.add('active');
+        // Info Tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const target = this.dataset.tab;
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    document.querySelectorAll('.info-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    document.getElementById(target).classList.add('active');
+                });
             });
-        });
 
-        document.getElementById('searchBar').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const items = document.querySelectorAll('.info-item');
-            
-            if (!term) {
-                items.forEach(item => {
-                    item.style.display = item.classList.contains('active') ? 'block' : 'none';
-                });
-            } else {
-                items.forEach(item => {
-                    const match = item.textContent.toLowerCase().includes(term);
-                    item.style.display = match ? 'block' : 'none';
-                    if (match) item.classList.add('active');
-                });
-            }
-        });
+            // Search
+            document.getElementById('searchBar').addEventListener('input', function(e) {
+                const term = e.target.value.toLowerCase();
+                const items = document.querySelectorAll('.info-item');
+                
+                if (!term) {
+                    items.forEach(item => {
+                        item.style.display = item.classList.contains('active') ? 'block' : 'none';
+                    });
+                } else {
+                    items.forEach(item => {
+                        const match = item.textContent.toLowerCase().includes(term);
+                        item.style.display = match ? 'block' : 'none';
+                        if (match) item.classList.add('active');
+                    });
+                }
+            });
 
-        loadQuiz();
+            loadQuiz();
+        });
     </script>
-</body>
-</html>
