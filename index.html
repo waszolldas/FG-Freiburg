@@ -845,38 +845,56 @@ setTimeout(() => {
             }, 2500);
         }
 
-        // Calculator
-        function calculateCustoms() {
-            const product = document.getElementById('product').value;
-            const country = document.getElementById('country').value;
-            const value = parseFloat(document.getElementById('value').value);
-            const quantity = parseInt(document.getElementById('quantity').value);
+        
 
-            const rates = {
-                electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 2.5, japan: 0 },
-                clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12 },
-                books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0 },
-                toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7 },
-                cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5 }
-            };
+       function calculateCustoms() {
+         const product = document.getElementById('product').value;
+         const country = document.getElementById('country').value;
+         const value = parseFloat(document.getElementById('value').value);
+         const quantity = parseInt(document.getElementById('quantity').value);
 
-            const total = value * quantity;
-            const rate = rates[product][country];
-            const duty = total * (rate / 100);
-            const vat = (total + duty) * 0.19;
-            const finalTotal = total + duty + vat;
+          const rates = {
+          electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 2.5, japan: 0 },
+          clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12 },
+          books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0 },
+          toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7 },
+          cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5 }
+        };
 
-            const result = document.getElementById('calcResult');
+          const total = value * quantity;
+          const rate = rates[product][country];
+          const duty = total * (rate / 100);
+          const vat = (total + duty) * 0.19;
+          const finalTotal = total + duty + vat;
+   
+          const result = document.getElementById('calcResult');
             result.style.display = 'block';
             result.innerHTML = `
-                <h3>Berechnungsergebnis</h3>
-                <p><span>Warenwert</span><span>${total.toFixed(2)} €</span></p>
-                <p><span>Zollsatz</span><span>${rate}%</span></p>
-                <p><span>Zollgebühr</span><span>${duty.toFixed(2)} €</span></p>
-                <p><span>EUSt (19%)</span><span>${vat.toFixed(2)} €</span></p>
-                <p><span>Gesamtkosten</span><span>${finalTotal.toFixed(2)} €</span></p>
-            `;
-         }
+            <h3>💰 Berechnungsergebnis</h3>
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Warenwert</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${total.toFixed(2)} €</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Zollsatz</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${rate}%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Zollgebühr</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${duty.toFixed(2)} €</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 2px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Einfuhrumsatzsteuer (19%)</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${vat.toFixed(2)} €</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 15px 0 5px 0; margin-top: 10px;">
+                <span style="color: #667eea; font-weight: 700; font-size: 1.1rem;">Gesamtkosten</span>
+                <span style="color: #667eea; font-weight: 700; font-size: 1.2rem;">${finalTotal.toFixed(2)} €</span>
+            </div>
+        </div>
+    `;
+}        
           function resetCalculator() {
           document.getElementById('product').selectedIndex = 0;
           document.getElementById('country').selectedIndex = 0;
