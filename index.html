@@ -329,21 +329,12 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
-
-
-<!-- ========================================
-     2. HTML - Füge das nach dem Berechnen-Button ein
-     (Nach <button class="btn-calculate"...>)
-     ======================================== -->
-
-<button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
-
-
-<!-- ========================================
-     3. JAVASCRIPT - Füge das ins <script> Tag ein
-     (Nach der calculateCustoms() Funktion)
-     ======================================== -->
-
+        
+<div class="button-group">
+    <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+    <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+</div>
+        
 function resetCalculator() {
     document.getElementById('product').selectedIndex = 0;
     document.getElementById('country').selectedIndex = 0;
