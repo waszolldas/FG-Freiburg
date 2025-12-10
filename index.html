@@ -822,62 +822,124 @@ setTimeout(() => {
             window.scrollTo(0, 0);
         }
 
-        // Quiz
-        const questions = [
-            {
-                q: "Ab welchem Warenwert muss bei der Einreise aus Nicht-EU-Ländern Zoll gezahlt werden (Flugreise)?",
-                options: ["150 Euro", "300 Euro", "430 Euro", "600 Euro"],
-                correct: 2
-            },
-            {
-                q: "Was bedeutet die Abkürzung EUSt im Zusammenhang mit Zoll?",
-                options: ["EU-Steuer", "Einfuhrumsatzsteuer", "Europäische Umsatzsteuer", "Einheitliche Steuer"],
-                correct: 1
-            },
-            {
-                q: "Welche Institution ist in Deutschland für die Zollerhebung zuständig?",
-                options: ["Finanzamt", "Bundeszollverwaltung", "Bundesbank", "Handelskammer"],
-                correct: 1
-            }
-        ];
+// Quiz
+const questions = [
+    {
+        q: "Ab welchem Warenwert muss bei der Einreise aus Nicht-EU-Ländern Zoll gezahlt werden (Flugreise)?",
+        options: ["150 Euro", "300 Euro", "430 Euro", "600 Euro"],
+        correct: 2
+    },
+    {
+        q: "Was bedeutet die Abkürzung EUSt im Zusammenhang mit Zoll?",
+        options: ["EU-Steuer", "Einfuhrumsatzsteuer", "Europäische Umsatzsteuer", "Einheitliche Steuer"],
+        correct: 1
+    },
+    {
+        q: "Welche Institution ist in Deutschland für die Zollerhebung zuständig?",
+        options: ["Finanzamt", "Bundeszollverwaltung", "Bundesbank", "Handelskammer"],
+        correct: 1
+    }
+];
 
-        let currentQ = 0;
+let currentQ = 0;
+let correctAnswers = 0;
+let answered = false;
 
-        function loadQuiz() {
-            const quiz = document.getElementById('quiz');
-            const q = questions[currentQ];
-            quiz.innerHTML = `
-                <div class="quiz-question">
-                    <p><strong>Frage ${currentQ + 1}/${questions.length}:</strong> ${q.q}</p>
-                    <div class="quiz-options">
-                        ${q.options.map((o, i) => `<button class="quiz-btn" onclick="checkAnswer(${i})">${o}</button>`).join('')}
-                    </div>
-                    <div id="quizResult" class="quiz-result"></div>
+function loadQuiz() {
+    const quiz = document.getElementById('quiz');
+    const q = questions[currentQ];
+    
+    if (currentQ >= questions.length) {
+        // Quiz beendet - Zeige Ergebnis
+        quiz.innerHTML = `
+            <div style="text-align: center; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🎉</div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 700;">Quiz beendet!</h3>
+                <div style="font-size: 2.5rem; font-weight: 800; margin: 20px 0;">${correctAnswers} / ${questions.length}</div>
+                <p style="font-size: 1.1rem; opacity: 0.95; margin-bottom: 25px;">
+                    ${correctAnswers === questions.length ? 'Perfekt! Du bist ein Zoll-Experte! 🏆' : 
+                      correctAnswers >= questions.length / 2 ? 'Gut gemacht! 👍' : 
+                      'Nicht schlecht, aber da geht noch mehr! 💪'}
+                </p>
+                <button onclick="restartQuiz()" style="background: white; color: #667eea; border: none; padding: 12px 30px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s;">
+                    Quiz neu starten
+                </button>
+            </div>
+        `;
+        return;
+    }
+    
+    answered = false;
+    quiz.innerHTML = `
+        <div class="quiz-question">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <p style="margin: 0;"><strong>Frage ${currentQ + 1}/${questions.length}:</strong></p>
+                <div style="background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">
+                    ${correctAnswers} richtig
                 </div>
-            `;
+            </div>
+            <p style="font-size: 1.05rem; margin-bottom: 20px; color: #333; line-height: 1.6;">${q.q}</p>
+            <div class="quiz-options">
+                ${q.options.map((o, i) => `<button class="quiz-btn" onclick="checkAnswer(${i})" data-index="${i}">${o}</button>`).join('')}
+            </div>
+            <div id="quizResult" class="quiz-result"></div>
+        </div>
+    `;
+}
+
+function checkAnswer(selected) {
+    if (answered) return; // Verhindere mehrfaches Antworten
+    answered = true;
+    
+    const q = questions[currentQ];
+    const result = document.getElementById('quizResult');
+    const buttons = document.querySelectorAll('.quiz-btn');
+    
+    // Deaktiviere alle Buttons
+    buttons.forEach(btn => {
+        btn.style.cursor = 'not-allowed';
+        btn.style.opacity = '0.6';
+    });
+    
+    // Markiere richtige und falsche Antworten
+    buttons.forEach((btn, index) => {
+        if (index === q.correct) {
+            btn.style.background = '#d4edda';
+            btn.style.borderColor = '#c3e6cb';
+            btn.style.color = '#155724';
+            btn.style.fontWeight = '600';
         }
-
-        function checkAnswer(selected) {
-            const q = questions[currentQ];
-            const result = document.getElementById('quizResult');
-            
-            if (selected === q.correct) {
-                result.className = 'quiz-result correct';
-                result.style.display = 'block';
-                result.textContent = '✓ Richtig! Sehr gut!';
-            } else {
-                result.className = 'quiz-result incorrect';
-                result.style.display = 'block';
-                result.textContent = `✗ Leider falsch. Richtig wäre: ${q.options[q.correct]}`;
-            }
-
-            setTimeout(() => {
-                currentQ = (currentQ + 1) % questions.length;
-                loadQuiz();
-            }, 2500);
+        if (index === selected && selected !== q.correct) {
+            btn.style.background = '#f8d7da';
+            btn.style.borderColor = '#f5c6cb';
+            btn.style.color = '#721c24';
+            btn.style.fontWeight = '600';
         }
+    });
+    
+    if (selected === q.correct) {
+        correctAnswers++;
+        result.className = 'quiz-result correct';
+        result.style.display = 'block';
+        result.innerHTML = '<strong>✓ Richtig!</strong> Sehr gut gemacht!';
+    } else {
+        result.className = 'quiz-result incorrect';
+        result.style.display = 'block';
+        result.innerHTML = `<strong>✗ Leider falsch.</strong> Die richtige Antwort ist: ${q.options[q.correct]}`;
+    }
 
-        
+    setTimeout(() => {
+        currentQ++;
+        loadQuiz();
+    }, 3000);
+}
+
+function restartQuiz() {
+    currentQ = 0;
+    correctAnswers = 0;
+    answered = false;
+    loadQuiz();
+}        
 
        function calculateCustoms() {
          const product = document.getElementById('product').value;
