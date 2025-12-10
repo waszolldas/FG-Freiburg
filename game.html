@@ -3,395 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grenzkontrolle: Der Heimweg</title>
+    <title>Zoll-Simulator 2.0: Die Rückreise</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --danger: #e74c3c;
-            --success: #2ecc71;
-            --warning: #f1c40f;
-            --text: #ecf0f1;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --dark-overlay: rgba(0, 0, 0, 0.7);
+            --primary: #1e3a8a; /* Dunkelblau für Zoll */
+            --accent: #f59e0b;  /* Gold/Gelb für Akzente */
+            --danger: #ef4444;
+            --success: #10b981;
+            --neutral: #64748b;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* Deutsche Flagge Farben abstrahiert */
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
-            color: #333;
+            background-color: var(--bg-color);
+            color: #1e293b;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .game-container {
+        .game-layout {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 300px 1fr;
             gap: 20px;
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            min-height: 600px;
+            height: 85vh;
         }
 
-        /* Main Story Area */
-        .story-panel {
+        /* Sidebar Stats */
+        .sidebar {
             background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header-bar {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-title {
-            font-size: 1.5rem;
-            color: var(--primary);
-            font-weight: 800;
-        }
-
-        .story-text {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            flex-grow: 1;
-        }
-
-        .choices-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .choice-btn {
-            background: white;
-            border: 2px solid #e2e8f0;
-            padding: 15px 20px;
-            border-radius: 10px;
-            text-align: left;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            color: #4a5568;
-            font-weight: 600;
-        }
-
-        .choice-btn:hover {
-            border-color: var(--accent);
-            background: #ebf8ff;
-            color: var(--accent);
-            transform: translateX(5px);
-        }
-
-        .choice-btn::before {
-            content: '➤';
-            margin-right: 10px;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .choice-btn:hover::before {
-            opacity: 1;
-        }
-
-        /* Sidebar / Status Area */
-        .status-panel {
+            border-radius: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-        }
-
-        .status-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
         }
 
-        .status-header {
-            font-size: 0.9rem;
+        .stat-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #718096;
-            margin-bottom: 15px;
-            font-weight: bold;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
+            color: #64748b;
         }
 
-        /* Inventory List */
         .inventory-list {
             list-style: none;
+            margin-top: 10px;
         }
 
         .inv-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 8px 0;
-            border-bottom: 1px dashed #eee;
+            border-bottom: 1px dashed #cbd5e1;
             font-size: 0.9rem;
         }
 
-        .inv-item:last-child {
-            border-bottom: none;
+        .inv-item .status-icon {
+            margin-left: 5px;
+            cursor: help;
         }
 
-        .inv-price {
-            font-weight: bold;
-            color: var(--primary);
+        /* Main Game Area */
+        .main-stage {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
         }
 
-        /* Suspicion Meter */
-        .suspicion-container {
-            margin-top: 10px;
-        }
-
-        .suspicion-label {
+        .stage-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+        }
+
+        .location-badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
             font-size: 0.9rem;
             font-weight: bold;
         }
 
-        .meter-bg {
-            background: #e2e8f0;
-            height: 15px;
-            border-radius: 10px;
+        .story-content {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+
+        .choices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .choice-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            position: relative;
             overflow: hidden;
         }
 
-        .meter-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--warning), var(--danger));
-            width: 0%;
-            transition: width 0.5s ease;
+        .choice-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        /* Ending Modal / Info Panel */
-        .info-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 100;
-            padding: 30px;
-            overflow-y: auto;
-            display: none;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .info-title {
+        .choice-card h4 {
             color: var(--primary);
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 8px;
         }
 
-        .fact-box {
-            background: #f8fafc;
-            border-left: 5px solid var(--accent);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
+        .choice-card p {
+            font-size: 0.9rem;
+            color: #64748b;
         }
 
-        .fact-title {
+        /* Ending Screen */
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.98);
+            z-index: 50;
+            padding: 40px;
+            display: none;
+            animation: fadeIn 0.5s;
+            overflow-y: auto;
+        }
+
+        .result-score {
+            font-size: 3rem;
             font-weight: bold;
             color: var(--primary);
-            margin-bottom: 5px;
-            display: block;
+            text-align: center;
+            margin: 20px 0;
         }
 
-        .restart-btn {
+        .score-breakdown {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .btn-restart {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
             border-radius: 8px;
-            font-size: 1.1rem;
+            margin: 30px auto;
+            display: block;
             cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-            transition: background 0.3s;
         }
 
-        .restart-btn:hover {
-            background: #34495e;
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Responsive */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .game-container {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-            .story-panel {
-                min-height: 400px;
-            }
+            .game-layout { grid-template-columns: 1fr; height: auto; }
+            .sidebar { order: 2; }
+            .main-stage { order: 1; min-height: 500px; }
         }
-
-        .tag {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.7em;
-            margin-left: 5px;
-        }
-        .tag-danger { background: #fee2e2; color: #991b1b; }
-        .tag-warn { background: #fef3c7; color: #92400e; }
-
-        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="game-container">
-    <!-- Left Side: Story -->
-    <div class="story-panel" id="storyPanel">
-        <div>
-            <div class="header-bar">
-                <div class="header-title"><i class="fas fa-passport"></i> Zollkontrolle</div>
-                <div id="sceneIndicator">Szenario: Start</div>
-            </div>
-            <div class="story-text" id="storyText">
-                Lade Spiel...
-            </div>
+<div class="game-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="stat-box">
+            <div class="stat-value" id="displayScore">0</div>
+            <div class="stat-label">Zoll-Punkte</div>
         </div>
-        <div class="choices-container" id="choices">
-            <!-- Buttons go here -->
+        
+        <div class="stat-box">
+            <div class="stat-value" id="displayCash" style="color: var(--success)">2000€</div>
+            <div class="stat-label">Budget</div>
         </div>
 
-        <!-- Educational Overlay (Hidden by default) -->
-        <div class="info-overlay" id="infoOverlay">
-            <h2 class="info-title" id="endTitle">Spiel Ende</h2>
-            <p id="endSummary" style="margin-bottom: 20px; text-align: center; font-size: 1.1em;"></p>
-            
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-            
-            <h3 style="margin-bottom: 15px; color: #2d3748;">Zoll-Faktencheck: Was gilt wirklich?</h3>
-            <div id="educationalFacts"></div>
-            
-            <div class="fact-box" style="border-left-color: #48bb78; background: #f0fff4;">
-                <span class="fact-title">💡 Tipp für die nächste Reise</span>
-                Reisefreimengen gelten nur, wenn man die Waren persönlich mitführt. Bei Überschreitung wird oft eine pauschalierte Abgabe (17,5%) berechnet, wenn der Wert unter 700€ liegt. Darüber hinaus gilt der individuelle Zolltarif + 19% Einfuhrumsatzsteuer.
-            </div>
-
-            <button class="restart-btn" onclick="game.start()">Neue Reise starten</button>
-        </div>
-    </div>
-
-    <!-- Right Side: Status -->
-    <div class="status-panel">
-        <div class="status-card">
-            <div class="status-header"><i class="fas fa-suitcase"></i> Dein Koffer (Schweiz &rarr; DE)</div>
+        <div class="stat-box">
+            <div class="stat-label" style="text-align: left; margin-bottom: 10px;">Inventar</div>
             <ul class="inventory-list" id="inventoryList">
                 <!-- Items injected via JS -->
             </ul>
         </div>
 
-        <div class="status-card">
-            <div class="status-header"><i class="fas fa-eye"></i> Verdacht des Beamten</div>
-            <div class="suspicion-container">
-                <div class="suspicion-label">
-                    <span>Entspannt</span>
-                    <span id="suspicionText">0%</span>
-                </div>
-                <div class="meter-bg">
-                    <div class="meter-fill" id="suspicionMeter"></div>
-                </div>
-            </div>
-            <p style="font-size: 0.8rem; color: #718096; margin-top: 10px;">
-                Je höher der Verdacht, desto wahrscheinlicher eine Vollkontrolle.
-            </p>
+        <div class="stat-box" style="background: #fffbeb; border-color: #fcd34d;">
+            <div class="stat-label" style="color: #b45309;">Dokumente</div>
+            <div id="docStatus" style="font-weight: bold; margin-top: 5px;">Keine</div>
         </div>
-    </div>
+    </aside>
+
+    <!-- Main Game Area -->
+    <main class="main-stage">
+        <div class="stage-header">
+            <div class="location-badge" id="locationBadge">Ort: Zürich</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">Schritt <span id="stepCount">1</span>/10</div>
+        </div>
+
+        <div id="gameContent">
+            <h2 id="storyTitle" style="margin-bottom: 15px; color: var(--primary);">Einkaufsbummel</h2>
+            <div class="story-content" id="storyText">
+                Lade Spiel...
+            </div>
+            <div class="choices-grid" id="choicesContainer">
+                <!-- Buttons injected here -->
+            </div>
+        </div>
+
+        <!-- Result Overlay -->
+        <div class="overlay" id="resultOverlay">
+            <h1 style="text-align: center; margin-bottom: 10px;">Auswertung</h1>
+            <p style="text-align: center; color: #64748b;" id="resultTitle">Dein Ergebnis</p>
+            
+            <div class="result-score" id="finalScoreDisplay">0 Pkt</div>
+            
+            <div class="score-breakdown" id="scoreBreakdown">
+                <!-- Rows injected here -->
+            </div>
+
+            <div style="margin-top: 30px; line-height: 1.6; font-size: 0.95rem; color: #334155;" id="educationalText">
+            </div>
+
+            <button class="btn-restart" onclick="game.start()">Neue Reise</button>
+        </div>
+    </main>
 </div>
 
 <script>
-    /* * GAME ENGINE & DATA
-     * Rules based on entry from Non-EU (Switzerland) to EU (Germany)
+    /**
+     * GAME ENGINE
+     * * Mechanics:
+     * - Score: Measures how well you played the game (strategy + legality).
+     * - Cash: You start with budget. Fines reduce this. Saving money on tax increases score, but risking fines decreases it massively.
+     * - Hidden Flags: Tracks if you have receipts, where items are hidden, etc.
      */
-
-    const INVENTORY_ITEMS = {
-        laptop: { name: "Neuer Laptop", price: 800, type: "electronics", icon: "💻", restricted: false },
-        whisky: { name: "Whisky (2 Flaschen, 1.4L)", price: 60, type: "alcohol", icon: "🥃", restricted: true, limit: 1 }, // Limit is 1 Liter > 22%
-        cheese: { name: "Schweizer Käse (2kg)", price: 40, type: "food", icon: "🧀", restricted: false }, // Cheese is allowed
-        meat: { name: "Trockenfleisch (3kg)", price: 90, type: "food", icon: "🥩", restricted: true }, // Meat requires vet check usually, simplified here
-        watch: { name: "Luxusuhr (im Koffer)", price: 450, type: "luxury", icon: "⌚", restricted: false }, // Over 300/430 limit
-        receipts: { name: "Alle Quittungen", price: 0, type: "docs", icon: "📄", restricted: false }
-    };
-
-    const FACTS = {
-        alcohol: {
-            title: "Alkohol-Freimengen",
-            text: "Aus einem Nicht-EU-Land (wie der Schweiz) darfst du nur 1 Liter Spirituosen (über 22% Vol.) ODER 2 Liter alkoholische Getränke (unter 22% Vol.) abgabenfrei einführen. Alles darüber muss verzollt werden (ca. 6,80€ pro Liter Alkohol + Steuer)."
-        },
-        valueLimit: {
-            title: "Die 300-Euro-Grenze",
-            text: "Bei der Einreise über Land (Auto/Bahn) liegt die Reisefreimenge für Waren bei 300 Euro pro Person (bei Flugreisen 430 Euro). Da dein Laptop 800 Euro gekostet hat, ist er NICHT teilbar. Du musst den GESAMTEN Wert versteuern, nicht nur den Betrag über 300 Euro!"
-        },
-        declaration: {
-            title: "Roter vs. Grüner Ausgang",
-            text: "Der grüne Ausgang ist eine rechtlich bindende Willenserklärung: 'Ich habe nichts zu verzollen'. Wer hier mit zu viel Ware erwischt wird, begeht Steuerhinterziehung. Der rote Ausgang bedeutet: 'Ich habe etwas anzumelden'."
-        },
-        meat: {
-            title: "Tierische Produkte",
-            text: "Die Einfuhr von Fleisch und Milchprodukten aus Nicht-EU-Ländern ist wegen Seuchengefahr oft streng reglementiert oder verboten, auch für den privaten Verbrauch. Ausnahmen gibt es für die Schweiz (tierseuchenrechtlich gleichgestellt), aber die Wertgrenze (300€) gilt trotzdem für den Gesamtwarenkorb."
-        }
-    };
 
     const game = {
         state: {
-            suspicion: 0,
-            location: 'start',
+            score: 0,
+            cash: 2000,
+            step: 1,
             inventory: [],
-            flags: {} // For story decisions
+            flags: {}, // e.g., 'has_receipts', 'watch_worn', 'meat_hidden'
+            history: [] // To track decisions for the end screen
         },
 
         init() {
@@ -399,284 +305,389 @@
         },
 
         start() {
-            // Reset State
-            this.state.suspicion = 10;
-            this.state.flags = {};
-            this.state.inventory = [
-                INVENTORY_ITEMS.laptop,
-                INVENTORY_ITEMS.whisky,
-                INVENTORY_ITEMS.watch,
-                INVENTORY_ITEMS.cheese
-            ]; // Total Value: 800+60+450+40 = 1350 EUR. Way over 300 limit.
+            this.state = {
+                score: 500, // Start points
+                cash: 1500, // Remaining budget after shopping
+                step: 1,
+                inventory: [
+                    { name: "Laptop", val: 900, type: "tech" },
+                    { name: "Goldkette", val: 550, type: "jewelry" },
+                    { name: "Käse & Fleisch", val: 60, type: "food" }
+                ],
+                flags: {
+                    has_receipts: false,
+                    knows_limit: false
+                },
+                history: []
+            };
             
-            // Hide Overlay
-            document.getElementById('infoOverlay').style.display = 'none';
-            
-            // Render Initial UI
+            document.getElementById('resultOverlay').style.display = 'none';
             this.updateUI();
-            this.renderScene('intro');
+            this.loadScene('scene_shop_checkout');
         },
 
         updateUI() {
-            // Inventory
-            const list = document.getElementById('inventoryList');
-            list.innerHTML = '';
-            let totalValue = 0;
+            document.getElementById('displayScore').innerText = this.state.score;
+            document.getElementById('displayCash').innerText = this.state.cash + '€';
+            document.getElementById('stepCount').innerText = this.state.step;
+            
+            const invList = document.getElementById('inventoryList');
+            invList.innerHTML = '';
+            
+            // Generate Inventory List
             this.state.inventory.forEach(item => {
+                let statusIcon = '';
+                if (this.state.flags['hide_' + item.type]) statusIcon = '🕵️ (Versteckt)';
+                else if (this.state.flags['wear_' + item.type]) statusIcon = '👕 (Getragen)';
+                
                 const li = document.createElement('li');
                 li.className = 'inv-item';
                 li.innerHTML = `
-                    <span>${item.icon} ${item.name}</span>
-                    <span class="inv-price">${item.price}€</span>
+                    <span>${item.name}</span>
+                    <span style="font-size:0.8em; color:#64748b;">${item.val}€ ${statusIcon}</span>
                 `;
-                list.appendChild(li);
-                totalValue += item.price;
+                invList.appendChild(li);
             });
-            
-            // Add total
-            const totalLi = document.createElement('li');
-            totalLi.className = 'inv-item';
-            totalLi.style.borderTop = "2px solid #ddd";
-            totalLi.style.marginTop = "10px";
-            totalLi.innerHTML = `<span><strong>Gesamtwert:</strong></span><span><strong>${totalValue}€</strong></span>`;
-            list.appendChild(totalLi);
 
-            // Suspicion
-            const meter = document.getElementById('suspicionMeter');
-            const text = document.getElementById('suspicionText');
-            meter.style.width = `${this.state.suspicion}%`;
-            text.innerText = `${this.state.suspicion}%`;
-            
-            if(this.state.suspicion > 75) {
-                meter.style.background = 'var(--danger)';
-            } else if (this.state.suspicion > 40) {
-                meter.style.background = 'var(--warning)';
+            // Doc Status
+            const docStatus = document.getElementById('docStatus');
+            if (this.state.flags.has_receipts) {
+                docStatus.innerHTML = '<span style="color:green"><i class="fas fa-check"></i> Vorhanden</span>';
+            } else if (this.state.flags.receipts_thrown) {
+                docStatus.innerHTML = '<span style="color:red"><i class="fas fa-trash"></i> Weggeworfen</span>';
             } else {
-                meter.style.background = 'linear-gradient(90deg, var(--success), var(--warning))';
+                docStatus.innerHTML = '<span style="color:orange">Nicht gefragt</span>';
             }
         },
 
-        renderScene(sceneId) {
-            const scene = scenes[sceneId];
-            if (!scene) {
-                console.error("Scene not found:", sceneId);
-                return;
-            }
+        loadScene(sceneId) {
+            const scene = scenarios[sceneId];
+            if (!scene) return console.error("Scene missing:", sceneId);
 
+            document.getElementById('storyTitle').innerText = scene.title;
+            document.getElementById('locationBadge').innerText = "Ort: " + scene.location;
             document.getElementById('storyText').innerHTML = scene.text;
-            document.getElementById('sceneIndicator').innerText = `Szenario: ${scene.title || 'Unterwegs'}`;
-            
-            const choicesDiv = document.getElementById('choices');
-            choicesDiv.innerHTML = '';
+
+            const grid = document.getElementById('choicesContainer');
+            grid.innerHTML = '';
 
             scene.choices.forEach(choice => {
-                // Check conditions if any
+                // Condition check
                 if (choice.condition && !choice.condition(this.state)) return;
 
-                const btn = document.createElement('button');
-                btn.className = 'choice-btn';
-                btn.innerHTML = choice.text;
-                btn.onclick = () => {
-                    this.handleChoice(choice);
-                };
-                choicesDiv.appendChild(btn);
+                const card = document.createElement('div');
+                card.className = 'choice-card';
+                card.innerHTML = `<h4>${choice.label}</h4><p>${choice.desc || ''}</p>`;
+                card.onclick = () => this.makeChoice(choice);
+                grid.appendChild(card);
             });
         },
 
-        handleChoice(choice) {
-            // Modify Suspicion
-            if (choice.suspicionMod) {
-                this.state.suspicion += choice.suspicionMod;
-                if (this.state.suspicion < 0) this.state.suspicion = 0;
-                if (this.state.suspicion > 100) this.state.suspicion = 100;
-            }
-
-            // Set Flags
+        makeChoice(choice) {
+            // Apply effects
+            if (choice.points) this.state.score += choice.points;
+            if (choice.cash) this.state.cash += choice.cash;
+            
+            // Set flags
             if (choice.setFlag) {
-                this.state.flags[choice.setFlag] = true;
+                Object.keys(choice.setFlag).forEach(key => {
+                    this.state.flags[key] = choice.setFlag[key];
+                });
             }
 
-            // Special Actions
-            if (choice.action) {
-                choice.action(this.state);
-            }
+            // Record history
+            this.state.history.push(choice.log || choice.label);
+            this.state.step++;
 
             this.updateUI();
 
-            // Check for forced events (Suspicion too high)
-            if (this.state.suspicion >= 90 && !['caught', 'end_fail_lie', 'end_pay'].includes(choice.next)) {
-                 this.renderScene('forced_search');
-                 return;
-            }
-
-            // Navigate
-            if (choice.next) {
-                if (scenes[choice.next].isEnding) {
-                    this.showEnding(choice.next);
-                } else {
-                    this.renderScene(choice.next);
-                }
+            if (choice.next === 'ENDING') {
+                this.endGame(choice.endType);
+            } else {
+                this.loadScene(choice.next);
             }
         },
 
-        showEnding(sceneId) {
-            const scene = scenes[sceneId];
-            document.getElementById('endTitle').innerText = scene.title;
-            document.getElementById('endSummary').innerHTML = scene.text;
+        endGame(type) {
+            const overlay = document.getElementById('resultOverlay');
+            const breakdown = document.getElementById('scoreBreakdown');
+            const edu = document.getElementById('educationalText');
             
-            const factsDiv = document.getElementById('educationalFacts');
-            factsDiv.innerHTML = '';
+            overlay.style.display = 'block';
+            breakdown.innerHTML = '';
 
-            scene.facts.forEach(factKey => {
-                const fact = FACTS[factKey];
-                const div = document.createElement('div');
-                div.className = 'fact-box';
-                div.innerHTML = `<span class="fact-title">${fact.title}</span>${fact.text}`;
-                factsDiv.appendChild(div);
-            });
+            // Calculate Final Taxes & Fines Logic
+            let finalMsg = "";
+            let finalDeduction = 0;
 
-            document.getElementById('infoOverlay').style.display = 'block';
+            if (type === 'green_caught') {
+                finalMsg = "Du wurdest im Grünen Kanal erwischt! Das ist Steuerhinterziehung.";
+                finalDeduction = -1000; // Heavy penalty
+                // Add taxes + fine (double taxes)
+                const taxes = 300; // Simplified
+                this.state.cash -= (taxes * 2); 
+            } else if (type === 'red_success') {
+                finalMsg = "Du hast den Roten Kanal gewählt.";
+                // Calc Taxes
+                let taxBase = 0;
+                // Laptop (900) is indivisible -> full tax
+                // Gold (550) is indivisible -> full tax
+                // Only if you have receipts. If not, Zoll estimates higher.
+                
+                let markup = this.state.flags.has_receipts ? 1.0 : 1.3; // 30% markup if no receipt
+                
+                taxBase = (900 + 550) * markup; 
+                const taxBill = Math.round(taxBase * 0.19); // Simplified 19% EUst
+                
+                this.state.cash -= taxBill;
+                
+                this.addLog("Einfuhrabgaben bezahlt", `-${taxBill}€`);
+                
+                if (!this.state.flags.has_receipts) {
+                    this.addLog("Strafe: Fehlende Belege", "-100 Pkt");
+                    this.state.score -= 100;
+                    finalMsg += " Weil du keine Belege hattest, wurde der Wert geschätzt (teurer!).";
+                } else {
+                    this.addLog("Vorbildlich: Belege vorhanden", "+200 Pkt");
+                    this.state.score += 200;
+                    finalMsg += " Mit den Belegen ging die Abfertigung schnell.";
+                }
+            } else if (type === 'cash_caught') {
+                finalMsg = "Du hast bei der Barmittel-Frage gelogen oder wurdest mit zu viel Bargeld erwischt.";
+                this.state.score -= 500;
+                this.state.cash -= 500; // Fine
+            }
+
+            // Build Score breakdown visual
+            this.addLog("Basis Punkte", "500");
+            this.addLog("Restliches Budget", `+${Math.floor(this.state.cash / 10)} Pkt`); // Convert cash to points
+            this.state.score += Math.floor(this.state.cash / 10);
+
+            document.getElementById('finalScoreDisplay').innerText = this.state.score + " Pkt";
+            document.getElementById('resultTitle').innerText = finalMsg;
+
+            // Educational Context based on Flags
+            let eduHtml = "<strong>Zoll-Wissen:</strong><br><ul>";
+            if (this.state.flags.receipts_thrown) eduHtml += "<li><span style='color:red'>Fehler:</span> Wer Belege wegwirft, erschwert die Verzollung. Der Zoll darf den Wert schätzen (oft höher als der Kaufpreis).</li>";
+            else eduHtml += "<li><span style='color:green'>Tipp:</span> Kaufbelege immer aufbewahren! Sie sind der Beweis für den Warenwert.</li>";
+            
+            if (type.includes('red')) eduHtml += "<li><span style='color:green'>Richtig:</span> Bei Waren über 300€ (Landweg) immer den Roten Kanal nutzen.</li>";
+            else eduHtml += "<li><span style='color:red'>Gefahr:</span> Der Grüne Kanal ist eine rechtsverbindliche Erklärung 'Nichts zu verzollen'.</li>";
+            
+            if (this.state.inventory.find(i => i.name === "Goldkette").val > 430) eduHtml += "<li><span style='color:orange'>Info:</span> Die Goldkette war nicht teilbar. Der gesamte Wert muss versteuert werden, nicht nur der Betrag über 300€.</li>";
+
+            eduHtml += "</ul>";
+            edu.innerHTML = eduHtml;
+        },
+
+        addLog(label, val) {
+            const div = document.createElement('div');
+            div.className = 'score-row';
+            div.innerHTML = `<span>${label}</span><strong>${val}</strong>`;
+            document.getElementById('scoreBreakdown').appendChild(div);
         }
     };
 
-    /* * SCENES DATABASE 
+    /**
+     * SCENARIOS
      */
-    const scenes = {
-        intro: {
-            title: "Die Rückreise",
-            text: "Du kommst gerade von einem Shopping-Trip aus Zürich zurück. Dein Koffer ist voll, dein Geldbeutel leer, aber du bist glücklich. Du näherst dich der Grenze Konstanz/Kreuzlingen im Auto.<br><br>Du hast Waren im Wert von 1.350€ dabei (siehe Inventar rechts). Die Freigrenze liegt bei 300€.<br><br>Vor dir siehst du die Schilder: <strong>Grüner Kanal</strong> (Anmeldefreie Waren) und <strong>Roter Kanal</strong> (Anmeldepflichtige Waren).",
+    const scenarios = {
+        // SCENE 1: SHOPPING
+        scene_shop_checkout: {
+            title: "An der Kasse in Zürich",
+            location: "Elektronik-Markt",
+            text: "Du hast gerade einen brandneuen Laptop (900€) und eine Goldkette (550€) gekauft. Der Verkäufer fragt: 'Brauchen Sie den Kassenbon oder kann der weg?'",
             choices: [
-                { text: "Ich fahre mutig durch den <strong style='color:green'>Grünen Kanal</strong>. Wird schon schiefgehen.", next: "green_lane", suspicionMod: 10, setFlag: "risky" },
-                { text: "Ich nehme den <strong style='color:red'>Roten Kanal</strong>. Sicher ist sicher.", next: "red_lane", suspicionMod: -10, setFlag: "honest" },
-                { text: "Ich ziehe die neue Luxusuhr schnell an das Handgelenk und werfe die Verpackung weg, dann Grün.", next: "green_lane_trick", suspicionMod: 20, setFlag: "wear_watch" }
-            ]
-        },
-        green_lane: {
-            title: "Grüner Kanal",
-            text: "Du fährst langsam in den grünen Bereich. Ein Zollbeamter mit strengem Blick steht an der Seite. Er mustert dein Auto. Dein Herz klopft ein wenig.",
-            choices: [
-                { text: "Blickkontakt halten und freundlich nicken.", next: "interaction_start", suspicionMod: -5 },
-                { text: "Starr geradeaus schauen und Musik leiser machen.", next: "interaction_start", suspicionMod: 5 },
-                { text: "Auf dem Handy tippen, um beschäftigt zu wirken.", next: "interaction_start", suspicionMod: 20 }
-            ]
-        },
-        green_lane_trick: {
-            title: "Der Trickversuch",
-            text: "Du hast die Uhr am Handgelenk. Sie glänzt verdächtig neu. Die leere Schachtel liegt unter dem Beifahrersitz. Du fährst in den grünen Kanal.",
-            choices: [
-                { text: "Arm lässig aus dem Fenster hängen.", next: "interaction_start", suspicionMod: 15 },
-                { text: "Beide Hände fest ans Lenkrad.", next: "interaction_start", suspicionMod: 0 }
-            ]
-        },
-        red_lane: {
-            title: "Roter Kanal",
-            text: "Du fährst in den roten Bereich und hältst an. Der Beamte kommt langsam auf dich zu. 'Guten Tag. Sie möchten etwas anmelden?'",
-            choices: [
-                { text: "Ja, ich habe einiges eingekauft.", next: "red_declaration", suspicionMod: 0 },
-                { text: "Ich bin mir nicht sicher, ob ich über der Grenze bin.", next: "red_unsure", suspicionMod: 0 }
-            ]
-        },
-        interaction_start: {
-            title: "Die Befragung",
-            text: "Der Beamte winkt dich heraus. 'Guten Tag, Zollkontrolle. Woher kommen Sie und haben Sie Waren anzumelden? Fleisch, Alkohol, Tabak oder Waren über 300 Euro?'",
-            choices: [
-                { text: "Nein, nichts Besonderes. Nur Kleinkram.", next: "lie_basic", suspicionMod: 10 },
-                { text: "Nur ein bisschen Schokolade und Käse.", next: "lie_partial", suspicionMod: 5 },
-                { text: "Ehrlich gesagt... ich habe einen neuen Laptop gekauft.", next: "confess_late", suspicionMod: 0 }
-            ]
-        },
-        lie_basic: {
-            title: "Die Lüge",
-            text: "'Nichts? Gar nichts?' Der Beamte zieht eine Augenbraue hoch. Er schaut auf deinen Rücksitz, wo eine Tüte mit einem Elektronik-Markt-Logo hervorlugt.",
-            choices: [
-                { text: "Oh, das... das ist alt. Habe ich schon lange.", next: "search_start", suspicionMod: 30 },
-                { text: "Ups, die habe ich vergessen. Da sind nur Kabel drin.", next: "search_start", suspicionMod: 20 }
-            ]
-        },
-        lie_partial: {
-            title: "Die halbe Wahrheit",
-            text: "'Käse ist in Ordnung. Aber sind Sie sicher, dass das alles ist? Wir kontrollieren stichprobenartig.' Er tritt näher ans Auto.",
-            choices: [
-                { text: "Kofferraum freiwillig öffnen.", next: "search_start", suspicionMod: -10 },
-                { text: "Nervös werden: 'Muss das sein? Ich habe es eilig.'", next: "forced_search", suspicionMod: 50 }
-            ]
-        },
-        search_start: {
-            title: "Die Kontrolle",
-            text: "Der Beamte bittet dich, den Kofferraum zu öffnen. Er sieht den Laptop-Karton und die Whisky-Flaschen.",
-            choices: [
-                { text: "Schweigen.", next: "counting_goods", suspicionMod: 0 },
-                { text: "Versuchen zu erklären: 'Der Laptop war ein Geschenk!'", next: "counting_goods", suspicionMod: 10 }
-            ]
-        },
-        forced_search: {
-            title: "Vollkontrolle",
-            text: "Dein Verhalten war zu verdächtig. 'Bitte Motor ausstellen und aussteigen.' Zwei weitere Beamte kommen hinzu. Sie durchsuchen das Auto gründlich. Sie finden ALLES. Auch die versteckte Uhr (falls vorhanden) oder die Quittungen.",
-            choices: [
-                { text: "Weiter...", next: "end_caught_bad" }
-            ]
-        },
-        counting_goods: {
-            title: "Bestandsaufnahme",
-            text: "Der Beamte rechnet zusammen: <br>1. Laptop (800€)<br>2. Whisky (1.4L)<br>3. Uhr (450€)<br><br>'Sie wissen, dass die Freigrenze bei 300 Euro liegt? Und beim Alkohol sind nur 1 Liter frei.'",
-            choices: [
-                { text: "Ich dachte, die Grenze ist höher!", next: "end_caught_mild" },
-                { text: "Es tut mir leid.", next: "end_caught_mild" }
-            ]
-        },
-        confess_late: {
-            title: "Späte Einsicht",
-            text: "Der Beamte nickt. 'Gut, dass Sie es sagen, bevor ich kontrolliere. Da Sie aber im grünen Kanal stehen, haben Sie eigentlich schon eine Steuerhinterziehung begangen. Weil Sie kooperieren, drücken wir vielleicht ein Auge zu und lassen es bei einer Nachverzollung ohne Strafverfahren.'",
-            choices: [
-                { text: "Puh, Danke.", next: "end_lucky_pay" }
-            ]
-        },
-        red_declaration: {
-            title: "Anmeldung",
-            text: "Du zeigst alle Quittungen vor. Der Beamte rechnet: 'Warenwert 1350 Euro. Das liegt deutlich über der Freimenge von 300 Euro. Da der Wert unter 700 Euro Freimenge liegt, können wir pauschalieren... Moment, nein, der Gesamtwert ist zu hoch. Wir müssen regulär verzollen.'",
-            choices: [
-                { text: "Was kostet mich das?", next: "end_honest_pay" }
-            ]
-        },
-        red_unsure: {
-            title: "Unsicherheit",
-            text: "'Besser fragen als schmuggeln', sagt der Beamte freundlich. Er schaut sich deine Sachen an. 'Der Laptop ist nicht teilbar. Sie müssen die vollen 19% Einfuhrumsatzsteuer darauf zahlen. Für den Whisky zahlen Sie 6,80€ Branntweinsteuer für den Überschuss.'",
-            choices: [
-                { text: "Bezahlen.", next: "end_honest_pay" }
+                { 
+                    label: "Beleg mitnehmen", 
+                    desc: "Wichtig für die Garantie... und den Zoll?", 
+                    points: 50, 
+                    setFlag: { has_receipts: true }, 
+                    next: "scene_packing" 
+                },
+                { 
+                    label: "Wegwerfen", 
+                    desc: "Ich will keine Beweise in der Tasche.", 
+                    points: -50, 
+                    setFlag: { has_receipts: false, receipts_thrown: true }, 
+                    next: "scene_packing" 
+                }
             ]
         },
 
-        /* ENDINGS */
-        end_caught_bad: {
-            isEnding: true,
-            title: "Erwischt & Teuer",
-            text: "Das war ein teurer Ausflug. Du wurdest im Grünen Kanal erwischt und hast versucht, Dinge zu verheimlichen.<br><br><strong>Die Rechnung:</strong><br>- Einfuhrabgaben: ca. 300€<br>- Bußgeld (Doppelter Abgabenbetrag wegen Vorsatz): 600€<br>- Strafanzeige wegen Steuerhinterziehung<br><br>Dein Laptop und die Uhr sind beschlagnahmt, bis die Strafe gezahlt ist.",
-            facts: ["valueLimit", "declaration", "alcohol"]
+        // SCENE 2: PACKING STRATEGY
+        scene_packing: {
+            title: "Am Auto: Packen",
+            location: "Parkhaus Zürich",
+            text: "Wie verstaust du deine Einkäufe? Die Goldkette (550€) glänzt sehr auffällig. Die Freigrenze liegt bei 300€ pro Person.",
+            choices: [
+                { 
+                    label: "Ehrlich einpacken", 
+                    desc: "Alles in die Tüten, ab in den Kofferraum.", 
+                    points: 50, 
+                    setFlag: { wear_jewelry: false }, 
+                    next: "scene_drive_talk" 
+                },
+                { 
+                    label: "Kette tragen", 
+                    desc: "Ich tue so, als wäre es meine alte Kette.", 
+                    points: -100, // Risk penalty logic applied later
+                    setFlag: { wear_jewelry: true }, 
+                    next: "scene_drive_talk" 
+                },
+                { 
+                    label: "Alles verstecken", 
+                    desc: "Unter dem Reserverad und in der Schmutzwäsche.", 
+                    points: -200, 
+                    setFlag: { hide_tech: true, hide_jewelry: true }, 
+                    next: "scene_drive_talk" 
+                }
+            ]
         },
-        end_caught_mild: {
-            isEnding: true,
-            title: "Nachverzollung + Zuschlag",
-            text: "Du wurdest im Grünen Kanal kontrolliert. Da du nicht aktiv Dinge versteckt hast, kommst du mit einem blauen Auge davon.<br><br><strong>Die Rechnung:</strong><br>- 19% Umsatzsteuer auf alles: ca. 256€<br>- Zollgebühren: ca. 20€<br>- Zollzuschlag (Strafe): 256€<br><br>Gesamtkosten: über 500€ zusätzlich. Das nächste Mal lieber den roten Kanal nehmen!",
-            facts: ["valueLimit", "declaration"]
+
+        // SCENE 3: THE DRIVE
+        scene_drive_talk: {
+            title: "Auf der Autobahn",
+            location: "A1 Richtung Konstanz",
+            text: "Dein Beifahrer liest im Internet: 'Hey, Fleisch und Käse darf man doch gar nicht einführen, oder? Und wie viel Bargeld hast du eigentlich dabei?' Du hast noch das Restgeld vom Casino (9.000€) und dein eigenes Geld (1.500€) in der Tasche. Zusammen über 10.000€.",
+            choices: [
+                { 
+                    label: "Geld aufteilen", 
+                    desc: "Gib dem Beifahrer die Hälfte, damit jeder unter 10k bleibt.", 
+                    points: 100, 
+                    setFlag: { cash_split: true }, 
+                    next: "scene_border_approach" 
+                },
+                { 
+                    label: "Egal, passt schon", 
+                    desc: "Wer kontrolliert schon Bargeld?", 
+                    points: -50, 
+                    setFlag: { cash_split: false }, 
+                    next: "scene_border_approach" 
+                }
+            ]
         },
-        end_lucky_pay: {
-            isEnding: true,
-            title: "Glück im Unglück",
-            text: "Weil du dich noch im letzten Moment gemeldet hast, verzichtet der Beamte auf das Strafverfahren. Du musst 'nur' die regulären Steuern nachzahlen.<br><br>Du zahlst ca. 280€ an Steuern nach und darfst weiterfahren. Teuer, aber keine Vorstrafe!",
-            facts: ["declaration", "valueLimit"]
+
+        // SCENE 4: THE BORDER
+        scene_border_approach: {
+            title: "Die Entscheidung",
+            location: "Grenzübergang",
+            text: "Du erreichst die Grenze. <br>Links: <strong>Grüner Kanal</strong> (Anmeldefreie Waren). <br>Rechts: <strong>Roter Kanal</strong> (Anmeldepflichtige Waren).<br>Der Rote Kanal sieht leer aus, beim Grünen steht ein Beamter, der genau schaut.",
+            choices: [
+                { 
+                    label: "Roter Kanal (Anmelden)", 
+                    desc: "Der sichere Weg, aber es kostet Geld.", 
+                    points: 200, 
+                    next: "scene_red_inspection" 
+                },
+                { 
+                    label: "Grüner Kanal (Risiko)", 
+                    desc: "Hoffentlich winken sie mich durch.", 
+                    points: -100, // Negative for intent to smuggle items > 300
+                    next: "scene_green_inspection" 
+                }
+            ]
         },
-        end_honest_pay: {
-            isEnding: true,
-            title: "Der korrekte Weg",
-            text: "Du hast alles richtig gemacht. Du hast den roten Kanal gewählt.<br><br><strong>Kosten:</strong><br>- 19% Einfuhrumsatzsteuer auf Waren > 300€<br>- Kleine Zollgebühr für den Whisky<br><br>Gesamt ca. 280€. Das tut weh, aber du fährst mit reinem Gewissen und ohne Angst nach Hause. Der Beamte wünscht dir einen schönen Abend.",
-            facts: ["valueLimit", "alcohol"]
+
+        // SCENE 5: RED LANE LOGIC
+        scene_red_inspection: {
+            title: "Roter Kanal: Das Büro",
+            location: "Zollamt",
+            text: "Du gehst zum Schalter. Der Beamte fragt: 'Was haben wir denn hier?' Du legst Laptop und Kette auf den Tisch. 'Haben Sie die Kaufbelege?'",
+            choices: [
+                { 
+                    label: "Hier sind die Belege", 
+                    condition: (s) => s.flags.has_receipts,
+                    desc: "Alles korrekt dokumentiert.", 
+                    points: 100, 
+                    next: "scene_red_payment" 
+                },
+                { 
+                    label: "Äh, nein... weggeworfen", 
+                    condition: (s) => !s.flags.has_receipts,
+                    desc: "Der Beamte seufzt und holt eine Liste raus.", 
+                    points: -100, 
+                    next: "scene_red_estimation" 
+                }
+            ]
+        },
+
+        scene_red_payment: {
+            title: "Die Abrechnung",
+            location: "Zollamt",
+            text: "Der Beamte tippt in den Rechner. 'Alles klar. Sie zahlen die Einfuhrumsatzsteuer. Da Sie ehrlich waren, ist das alles schnell erledigt.'",
+            choices: [{ label: "Bezahlen und weiter", next: "ENDING", endType: "red_success" }]
+        },
+
+        scene_red_estimation: {
+            title: "Die Schätzung",
+            location: "Zollamt",
+            text: "Ohne Beleg sucht der Beamte die Preise im Internet. Er findet den Laptop nur in einer teureren Version (1100€) und nimmt diesen als Basis. 'Das wird teurer als nötig', murmelt er.",
+            choices: [{ label: "Zähneknirschend akzeptieren", points: -50, next: "ENDING", endType: "red_success" }]
+        },
+
+        // SCENE 6: GREEN LANE LOGIC
+        scene_green_inspection: {
+            title: "Grüner Kanal",
+            location: "Fahrbahn",
+            text: "Du fährst langsam. Der Beamte schaut dir tief in die Augen. Er hebt die Kelle. 'Guten Tag, Zollkontrolle. Woher kommen Sie? Haben Sie Waren anzumelden?'",
+            choices: [
+                { 
+                    label: "Nichts anzumelden", 
+                    desc: "Die klassische Lüge.", 
+                    points: -200, 
+                    next: "scene_green_search" 
+                },
+                { 
+                    label: "Okay, ich habe doch was...", 
+                    desc: "Späte Reue (Nachmeldung).", 
+                    points: 50, 
+                    next: "scene_late_confession" 
+                }
+            ]
+        },
+
+        scene_green_search: {
+            title: "Die Kontrolle",
+            location: "Kontrollgarage",
+            text: "'Bitte Kofferraum auf.' Der Beamte sieht die Tüten. Falls du Dinge versteckt hast, holt er jetzt den Schraubenzieher oder den Drogenspürhund (für Bargeld).",
+            choices: [
+                { 
+                    label: "Abwarten...", 
+                    desc: "Hoffentlich finden sie die Kette nicht.", 
+                    next: "scene_green_result" 
+                }
+            ]
+        },
+
+        scene_green_result: {
+            title: "Der Fund",
+            location: "Kontrollgarage",
+            text: "Natürlich finden sie alles. 'Sie sind durch Grün gefahren. Das ist ein Steuervergehen.' Zudem finden sie das Bargeld (>10.000€ ungeteilt?).",
+            choices: [
+                { 
+                    label: "Verdammt.", 
+                    next: "ENDING", 
+                    endType: "green_caught" 
+                }
+            ]
+        },
+        
+        scene_late_confession: {
+            title: "Gerade noch so",
+            location: "Grüner Kanal",
+            text: "Der Beamte schaut streng. 'Eigentlich zu spät, da Sie schon im Kanal sind. Aber ich drücke ein Auge zu und berechne nur den doppelten Satz ohne Strafanzeige.'",
+            choices: [
+                { label: "Glück gehabt", points: -100, cash: -100, next: "ENDING", endType: "red_success" } // Acts like red but more expensive
+            ]
         }
     };
 
-    // Initialize Game
+    // Start
     game.init();
 
 </script>
 </body>
 </html>
+
 
