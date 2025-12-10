@@ -1095,24 +1095,50 @@ function restartQuiz() {
                 });
             });
 
-            // Search
-            document.getElementById('searchBar').addEventListener('input', function(e) {
-                const term = e.target.value.toLowerCase();
-                const items = document.querySelectorAll('.info-item');
-                
-                if (!term) {
-                    items.forEach(item => {
-                        item.style.display = item.classList.contains('active') ? 'block' : 'none';
-                    });
-                } else {
-                    items.forEach(item => {
-                        const match = item.textContent.toLowerCase().includes(term);
-                        item.style.display = match ? 'block' : 'none';
-                        if (match) item.classList.add('active');
-                    });
-                }
-            });
-
+// Search
+document.getElementById('searchBar').addEventListener('input', function(e) {
+    const term = e.target.value.toLowerCase().trim();
+    const items = document.querySelectorAll('.info-item');
+    const tabs = document.querySelectorAll('.tab');
+    
+    if (!term) {
+        // Wenn Suchfeld leer: Zeige nur den aktiven Tab
+        items.forEach(item => {
+            if (item.classList.contains('active')) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    } else {
+        // Bei Suche: Zeige alle passenden, verstecke nicht-passende
+        let foundAny = false;
+        
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            const matches = text.includes(term);
+            
+            if (matches) {
+                item.style.display = 'block';
+                item.classList.add('active');
+                foundAny = true;
+            } else {
+                item.style.display = 'none';
+                item.classList.remove('active');
+            }
+        });
+        
+        // Wenn nichts gefunden, zeige Meldung
+        if (!foundAny) {
+            items[0].style.display = 'block';
+            items[0].classList.add('active');
+            items[0].innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">Keine Ergebnisse für "' + term + '" gefunden.</p>';
+        }
+        
+        // Deaktiviere alle Tabs während der Suche
+        tabs.forEach(tab => tab.classList.remove('active'));
+    }
+});
             loadQuiz();
         });
     </script>
