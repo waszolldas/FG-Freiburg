@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Was zoll das? - Ein Entscheidungsspiel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #718096;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .story-text {
+            color: #2d3748;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .choice-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .choice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .choice-btn:active {
+            transform: translateY(0);
+        }
+
+        .ending {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .ending h2 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .restart-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e0;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #667eea;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Was zoll das?</h1>
+        <div class="subtitle">Ein interaktives Entscheidungsspiel</div>
+        
+        <div class="progress" id="progress"></div>
+        
+        <div class="story-text" id="storyText"></div>
+        <div class="choices" id="choices"></div>
+    </div>
+
+    <script>
+        const story = {
+            start: {
+                text: "Du stehst an der deutsch-schweizerischen Grenze mit einem verdächtig großen Koffer. Der Zollbeamte mustert dich skeptisch. 'Was zoll das?' fragt er streng und deutet auf deinen Koffer. Was antwortest du?",
+                choices: [
+                    { text: "Die Wahrheit sagen: 'Nur Souvenirs und persönliche Sachen'", next: "truth" },
+                    { text: "Nervös werden und stottern", next: "nervous" },
+                    { text: "Selbstbewusst lächeln: 'Nichts Besonderes, nur mein Hab und Gut'", next: "confident" }
+                ]
+            },
+            truth: {
+                text: "Der Beamte nickt anerkennend. 'Gut, dass Sie ehrlich sind. Aber ich muss trotzdem einen Blick reinwerfen.' Er öffnet deinen Koffer und findet... 47 Tafeln Schweizer Schokolade! 'Das überschreitet die Freigrenze deutlich. Was zoll das kosten?'",
+                choices: [
+                    { text: "Den Zoll bezahlen und weitermachen", next: "payDuty" },
+                    { text: "Versuchen zu verhandeln", next: "negotiate" },
+                    { text: "Einige Tafeln verschenken, um unter die Grenze zu kommen", next: "giveAway" }
+                ]
+            },
+            nervous: {
+                text: "Deine Nervosität macht den Beamten noch misstrauischer. 'Kommen Sie bitte mit zur genaueren Kontrolle.' Im Kontrollraum wird dein Koffer durchleuchtet. Die Röntgenaufnahme zeigt eine merkwürdige Form. Was ist wirklich in deinem Koffer?",
+                choices: [
+                    { text: "Eine übergroße Kuckucksuhr als Geschenk", next: "cuckoo" },
+                    { text: "Ein selbstgebautes Schweizer Alphorn", next: "alphorn" }
+                ]
+            },
+            confident: {
+                text: "Der Beamte ist beeindruckt von deiner Gelassenheit. 'Na gut, aber einen kurzen Blick muss ich trotzdem werfen.' Er öffnet den Koffer und findet neben normalen Sachen auch einen Ordner mit der Aufschrift 'Geschäftsunterlagen'. 'Sind Sie geschäftlich unterwegs?'",
+                choices: [
+                    { text: "Ja, ich war auf einer Konferenz", next: "business" },
+                    { text: "Nein, das ist nur privat", next: "private" }
+                ]
+            },
+            payDuty: {
+                text: "Du zahlst brav den Zoll von 85 Euro. Der Beamte lächelt zum ersten Mal. 'Danke für Ihre Kooperation. Hier, nehmen Sie eine Tafel Schokolade zurück - Sie waren so ehrlich.' Du bekommst deine Lieblingssorte zurück.",
+                ending: true,
+                endingType: "Der ehrliche Weg",
+                endingText: "Manchmal zahlt sich Ehrlichkeit aus! Du hast zwar Geld bezahlt, aber dein Gewissen ist rein und du hast sogar eine Tafel zurückbekommen."
+            },
+            negotiate: {
+                text: "Du versuchst zu verhandeln: 'Die Schokolade war ein Geschenk für die ganze Familie...' Der Beamte seufzt. 'Das sagen alle. Aber wissen Sie was? Es ist Freitagnachmittag und ich habe gute Laune. Lassen Sie 10 Tafeln hier für das Büro und wir vergessen die Sache.'",
+                choices: [
+                    { text: "Das Angebot annehmen", next: "dealAccepted" },
+                    { text: "Ablehnen und regulär zahlen", next: "declineDeal" }
+                ]
+            },
+            giveAway: {
+                text: "Clever! Du bietest an, genug Schokolade zu verschenken, um unter die Freigrenze zu kommen. Der Beamte und seine Kollegen freuen sich sehr. 'Sie sind willkommen, jederzeit wiederzukommen!' ruft einer hinterher.",
+                ending: true,
+                endingType: "Der kreative Ausweg",
+                endingText: "Mit Großzügigkeit und schnellem Denken hast du die Situation gemeistert. Du hast neue Freunde beim Zoll gemacht!"
+            },
+            cuckoo: {
+                text: "Die Kuckucksuhr ist tatsächlich riesig - 1,5 Meter hoch! Der Beamte lacht. 'Das ist die größte Kuckucksuhr, die ich je gesehen habe! Ist die selbstgebaut?' Du nickst stolz. Er winkt dich durch. 'Kunsthandwerk ist zollfrei. Viel Erfolg beim Transport!'",
+                ending: true,
+                endingType: "Die künstlerische Überraschung",
+                endingText: "Deine Leidenschaft für traditionelles Handwerk hat dich gerettet. Die Kuckucksuhr wird ein Familienschatz!"
+            },
+            alphorn: {
+                text: "Ein selbstgebautes Alphorn! Der Beamte ist fasziniert. 'Können Sie darauf spielen?' Du nickst und spielst spontan eine kurze Melodie. Die ganze Grenzstation kommt zusammen und applaudiert. Du darfst ohne weitere Kontrolle passieren.",
+                ending: true,
+                endingType: "Der musikalische Triumph",
+                endingText: "Musik verbindet! Deine spontane Vorstellung hat alle Herzen gewonnen. Das Alphorn wird dich immer an diesen besonderen Moment erinnern."
+            },
+            business: {
+                text: "Der Beamte wird plötzlich sehr förmlich. 'Bei Geschäftsreisen gelten andere Regelungen. Haben Sie Belege für alle Ausgaben?' Du kramst in deinen Unterlagen...",
+                choices: [
+                    { text: "Ja, alles ordentlich dokumentiert", next: "documented" },
+                    { text: "Ehm... nicht alles...", next: "notDocumented" }
+                ]
+            },
+            private: {
+                text: "Der Beamte schaut skeptisch. 'Geschäftsunterlagen für eine Privatreise? Das ist ungewöhnlich.' Er blättert durch den Ordner und findet... dein geheimes Rezeptbuch für Schweizer Fondue! 'Ah, ein Gourmet!' Er lacht herzlich.",
+                ending: true,
+                endingType: "Die kulinarische Entdeckung",
+                endingText: "Deine Liebe zum guten Essen hat die Situation gerettet. Der Beamte gibt dir sogar noch Geheimtipps für Käsesorten!"
+            },
+            dealAccepted: {
+                text: "Du übergibst 10 Tafeln Schokolade. Das ganze Büro freut sich. Eine Beamtin sagt: 'Danke! Wir haben gleich Kaffeepause.' Du darfst mit den restlichen 37 Tafeln weiterfahren - immer noch ein guter Vorrat!",
+                ending: true,
+                endingType: "Der diplomatische Kompromiss",
+                endingText: "Verhandlungsgeschick zahlt sich aus! Du hast eine faire Lösung gefunden und alle sind zufrieden."
+            },
+            declineDeal: {
+                text: "Du lehnst höflich ab: 'Ich möchte lieber alles korrekt machen.' Der Beamte nickt respektvoll. 'Sehr vorbildlich.' Du zahlst den regulären Zoll und bekommst eine offizielle Quittung. 'Sie sind ein Vorbild an Integrität!'",
+                ending: true,
+                endingType: "Die unbestechliche Ehre",
+                endingText: "Deine Prinzipientreue ist bewundernswert. Du verlässt die Grenze mit dem guten Gefühl, alles richtig gemacht zu haben."
+            },
+            documented: {
+                text: "Beeindruckt durchblättert der Beamte deine perfekt organisierten Unterlagen. 'So etwas sehe ich selten! Sie sind sehr gewissenhaft.' Er stempelt alles ab und wünscht dir noch einen guten Tag. 'Deutschland braucht mehr Menschen wie Sie!'",
+                ending: true,
+                endingType: "Die bürokratische Perfektion",
+                endingText: "Deine Organisation und Sorgfalt haben sich ausgezahlt. Du bist der Traum eines jeden Beamten!"
+            },
+            notDocumented: {
+                text: "Der Beamte seufzt. 'Das wird kompliziert...' Aber dann entdeckt er, dass deine 'Geschäftsreise' eigentlich ein Schweizer Schachturnier war. 'Schach ist meine Leidenschaft!' ruft er. Ihr verbringt die nächste Stunde mit Schachgesprächen. Er lässt alle formalen Probleme unter den Tisch fallen.",
+                ending: true,
+                endingType: "Die schachliche Verbindung",
+                endingText: "Gemeinsame Interessen öffnen Türen! Deine Schachleidenschaft hat eine unerwartete Freundschaft geschaffen."
+            }
+        };
+
+        let currentScene = 'start';
+        let sceneCount = 0;
+
+        function updateProgress() {
+            const progressDiv = document.getElementById('progress');
+            progressDiv.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                if (i < sceneCount) dot.classList.add('active');
+                progressDiv.appendChild(dot);
+            }
+        }
+
+        function renderScene(sceneKey) {
+            const scene = story[sceneKey];
+            const storyDiv = document.getElementById('storyText');
+            const choicesDiv = document.getElementById('choices');
+            
+            storyDiv.textContent = scene.text;
+            choicesDiv.innerHTML = '';
+            sceneCount++;
+            updateProgress();
+
+            if (scene.ending) {
+                const endingDiv = document.createElement('div');
+                endingDiv.className = 'ending';
+                endingDiv.innerHTML = `
+                    <h2>🎭 Ende: ${scene.endingType}</h2>
+                    <p>${scene.endingText}</p>
+                    <button class="restart-btn" onclick="restartGame()">Nochmal spielen</button>
+                `;
+                choicesDiv.appendChild(endingDiv);
+            } else {
+                scene.choices.forEach(choice => {
+                    const btn = document.createElement('button');
+                    btn.className = 'choice-btn';
+                    btn.textContent = choice.text;
+                    btn.onclick = () => {
+                        currentScene = choice.next;
+                        renderScene(currentScene);
+                    };
+                    choicesDiv.appendChild(btn);
+                });
+            }
+        }
+
+        function restartGame() {
+            currentScene = 'start';
+            sceneCount = 0;
+            renderScene(currentScene);
+        }
+
+        // Start the game
+        renderScene(currentScene);
+    </script>
+</body>
+</html>
