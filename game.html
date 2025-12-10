@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Was zoll das? - Ein Entscheidungsspiel</title>
+    <title>Grenzkontrolle: Der Heimweg</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --text: #ecf0f1;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --dark-overlay: rgba(0, 0, 0, 0.7);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,298 +25,658 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* Deutsche Flagge Farben abstrahiert */
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             min-height: 100vh;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 700px;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            max-width: 1000px;
             width: 100%;
-            padding: 40px;
-            animation: fadeIn 0.5s ease-in;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            min-height: 600px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Main Story Area */
+        .story-panel {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        h1 {
-            color: #2d3748;
-            margin-bottom: 10px;
-            font-size: 2em;
-            text-align: center;
+        .header-bar {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .subtitle {
-            color: #718096;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 0.9em;
+        .header-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 800;
         }
 
         .story-text {
-            color: #2d3748;
-            line-height: 1.8;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #2c3e50;
             margin-bottom: 30px;
-            font-size: 1.1em;
+            flex-grow: 1;
         }
 
-        .choices {
+        .choices-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .choice-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 18px 25px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 10px;
             text-align: left;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            color: #4a5568;
+            font-weight: 600;
         }
 
         .choice-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            border-color: var(--accent);
+            background: #ebf8ff;
+            color: var(--accent);
+            transform: translateX(5px);
         }
 
-        .choice-btn:active {
-            transform: translateY(0);
+        .choice-btn::before {
+            content: '➤';
+            margin-right: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
-        .ending {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .choice-btn:hover::before {
+            opacity: 1;
+        }
+
+        /* Sidebar / Status Area */
+        .status-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .status-card {
+            background: var(--card-bg);
+            border-radius: 15px;
             padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .ending h2 {
+        .status-header {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #718096;
             margin-bottom: 15px;
-            font-size: 1.5em;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        /* Inventory List */
+        .inventory-list {
+            list-style: none;
+        }
+
+        .inv-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 0.9rem;
+        }
+
+        .inv-item:last-child {
+            border-bottom: none;
+        }
+
+        .inv-price {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Suspicion Meter */
+        .suspicion-container {
+            margin-top: 10px;
+        }
+
+        .suspicion-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .meter-bg {
+            background: #e2e8f0;
+            height: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--warning), var(--danger));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Ending Modal / Info Panel */
+        .info-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 100;
+            padding: 30px;
+            overflow-y: auto;
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .info-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .fact-box {
+            background: #f8fafc;
+            border-left: 5px solid var(--accent);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .fact-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: block;
         }
 
         .restart-btn {
-            background: white;
-            color: #667eea;
+            background: var(--primary);
+            color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 15px 30px;
             border-radius: 8px;
+            font-size: 1.1rem;
             cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
+            width: 100%;
             margin-top: 20px;
-            transition: all 0.3s ease;
+            transition: background 0.3s;
         }
 
         .restart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: #34495e;
         }
 
-        .progress {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 25px;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .game-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .story-panel {
+                min-height: 400px;
+            }
         }
 
-        .progress-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #cbd5e0;
-            transition: all 0.3s ease;
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            margin-left: 5px;
         }
+        .tag-danger { background: #fee2e2; color: #991b1b; }
+        .tag-warn { background: #fef3c7; color: #92400e; }
 
-        .progress-dot.active {
-            background: #667eea;
-            transform: scale(1.3);
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Was zoll das?</h1>
-        <div class="subtitle">Ein interaktives Entscheidungsspiel</div>
-        
-        <div class="progress" id="progress"></div>
-        
-        <div class="story-text" id="storyText"></div>
-        <div class="choices" id="choices"></div>
+
+<div class="game-container">
+    <!-- Left Side: Story -->
+    <div class="story-panel" id="storyPanel">
+        <div>
+            <div class="header-bar">
+                <div class="header-title"><i class="fas fa-passport"></i> Zollkontrolle</div>
+                <div id="sceneIndicator">Szenario: Start</div>
+            </div>
+            <div class="story-text" id="storyText">
+                Lade Spiel...
+            </div>
+        </div>
+        <div class="choices-container" id="choices">
+            <!-- Buttons go here -->
+        </div>
+
+        <!-- Educational Overlay (Hidden by default) -->
+        <div class="info-overlay" id="infoOverlay">
+            <h2 class="info-title" id="endTitle">Spiel Ende</h2>
+            <p id="endSummary" style="margin-bottom: 20px; text-align: center; font-size: 1.1em;"></p>
+            
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+            
+            <h3 style="margin-bottom: 15px; color: #2d3748;">Zoll-Faktencheck: Was gilt wirklich?</h3>
+            <div id="educationalFacts"></div>
+            
+            <div class="fact-box" style="border-left-color: #48bb78; background: #f0fff4;">
+                <span class="fact-title">💡 Tipp für die nächste Reise</span>
+                Reisefreimengen gelten nur, wenn man die Waren persönlich mitführt. Bei Überschreitung wird oft eine pauschalierte Abgabe (17,5%) berechnet, wenn der Wert unter 700€ liegt. Darüber hinaus gilt der individuelle Zolltarif + 19% Einfuhrumsatzsteuer.
+            </div>
+
+            <button class="restart-btn" onclick="game.start()">Neue Reise starten</button>
+        </div>
     </div>
 
-    <script>
-        const story = {
-            start: {
-                text: "Du stehst an der deutsch-schweizerischen Grenze mit einem verdächtig großen Koffer. Der Zollbeamte mustert dich skeptisch. 'Was zoll das?' fragt er streng und deutet auf deinen Koffer. Was antwortest du?",
-                choices: [
-                    { text: "Die Wahrheit sagen: 'Nur Souvenirs und persönliche Sachen'", next: "truth" },
-                    { text: "Nervös werden und stottern", next: "nervous" },
-                    { text: "Selbstbewusst lächeln: 'Nichts Besonderes, nur mein Hab und Gut'", next: "confident" }
-                ]
-            },
-            truth: {
-                text: "Der Beamte nickt anerkennend. 'Gut, dass Sie ehrlich sind. Aber ich muss trotzdem einen Blick reinwerfen.' Er öffnet deinen Koffer und findet... 47 Tafeln Schweizer Schokolade! 'Das überschreitet die Freigrenze deutlich. Was zoll das kosten?'",
-                choices: [
-                    { text: "Den Zoll bezahlen und weitermachen", next: "payDuty" },
-                    { text: "Versuchen zu verhandeln", next: "negotiate" },
-                    { text: "Einige Tafeln verschenken, um unter die Grenze zu kommen", next: "giveAway" }
-                ]
-            },
-            nervous: {
-                text: "Deine Nervosität macht den Beamten noch misstrauischer. 'Kommen Sie bitte mit zur genaueren Kontrolle.' Im Kontrollraum wird dein Koffer durchleuchtet. Die Röntgenaufnahme zeigt eine merkwürdige Form. Was ist wirklich in deinem Koffer?",
-                choices: [
-                    { text: "Eine übergroße Kuckucksuhr als Geschenk", next: "cuckoo" },
-                    { text: "Ein selbstgebautes Schweizer Alphorn", next: "alphorn" }
-                ]
-            },
-            confident: {
-                text: "Der Beamte ist beeindruckt von deiner Gelassenheit. 'Na gut, aber einen kurzen Blick muss ich trotzdem werfen.' Er öffnet den Koffer und findet neben normalen Sachen auch einen Ordner mit der Aufschrift 'Geschäftsunterlagen'. 'Sind Sie geschäftlich unterwegs?'",
-                choices: [
-                    { text: "Ja, ich war auf einer Konferenz", next: "business" },
-                    { text: "Nein, das ist nur privat", next: "private" }
-                ]
-            },
-            payDuty: {
-                text: "Du zahlst brav den Zoll von 85 Euro. Der Beamte lächelt zum ersten Mal. 'Danke für Ihre Kooperation. Hier, nehmen Sie eine Tafel Schokolade zurück - Sie waren so ehrlich.' Du bekommst deine Lieblingssorte zurück.",
-                ending: true,
-                endingType: "Der ehrliche Weg",
-                endingText: "Manchmal zahlt sich Ehrlichkeit aus! Du hast zwar Geld bezahlt, aber dein Gewissen ist rein und du hast sogar eine Tafel zurückbekommen."
-            },
-            negotiate: {
-                text: "Du versuchst zu verhandeln: 'Die Schokolade war ein Geschenk für die ganze Familie...' Der Beamte seufzt. 'Das sagen alle. Aber wissen Sie was? Es ist Freitagnachmittag und ich habe gute Laune. Lassen Sie 10 Tafeln hier für das Büro und wir vergessen die Sache.'",
-                choices: [
-                    { text: "Das Angebot annehmen", next: "dealAccepted" },
-                    { text: "Ablehnen und regulär zahlen", next: "declineDeal" }
-                ]
-            },
-            giveAway: {
-                text: "Clever! Du bietest an, genug Schokolade zu verschenken, um unter die Freigrenze zu kommen. Der Beamte und seine Kollegen freuen sich sehr. 'Sie sind willkommen, jederzeit wiederzukommen!' ruft einer hinterher.",
-                ending: true,
-                endingType: "Der kreative Ausweg",
-                endingText: "Mit Großzügigkeit und schnellem Denken hast du die Situation gemeistert. Du hast neue Freunde beim Zoll gemacht!"
-            },
-            cuckoo: {
-                text: "Die Kuckucksuhr ist tatsächlich riesig - 1,5 Meter hoch! Der Beamte lacht. 'Das ist die größte Kuckucksuhr, die ich je gesehen habe! Ist die selbstgebaut?' Du nickst stolz. Er winkt dich durch. 'Kunsthandwerk ist zollfrei. Viel Erfolg beim Transport!'",
-                ending: true,
-                endingType: "Die künstlerische Überraschung",
-                endingText: "Deine Leidenschaft für traditionelles Handwerk hat dich gerettet. Die Kuckucksuhr wird ein Familienschatz!"
-            },
-            alphorn: {
-                text: "Ein selbstgebautes Alphorn! Der Beamte ist fasziniert. 'Können Sie darauf spielen?' Du nickst und spielst spontan eine kurze Melodie. Die ganze Grenzstation kommt zusammen und applaudiert. Du darfst ohne weitere Kontrolle passieren.",
-                ending: true,
-                endingType: "Der musikalische Triumph",
-                endingText: "Musik verbindet! Deine spontane Vorstellung hat alle Herzen gewonnen. Das Alphorn wird dich immer an diesen besonderen Moment erinnern."
-            },
-            business: {
-                text: "Der Beamte wird plötzlich sehr förmlich. 'Bei Geschäftsreisen gelten andere Regelungen. Haben Sie Belege für alle Ausgaben?' Du kramst in deinen Unterlagen...",
-                choices: [
-                    { text: "Ja, alles ordentlich dokumentiert", next: "documented" },
-                    { text: "Ehm... nicht alles...", next: "notDocumented" }
-                ]
-            },
-            private: {
-                text: "Der Beamte schaut skeptisch. 'Geschäftsunterlagen für eine Privatreise? Das ist ungewöhnlich.' Er blättert durch den Ordner und findet... dein geheimes Rezeptbuch für Schweizer Fondue! 'Ah, ein Gourmet!' Er lacht herzlich.",
-                ending: true,
-                endingType: "Die kulinarische Entdeckung",
-                endingText: "Deine Liebe zum guten Essen hat die Situation gerettet. Der Beamte gibt dir sogar noch Geheimtipps für Käsesorten!"
-            },
-            dealAccepted: {
-                text: "Du übergibst 10 Tafeln Schokolade. Das ganze Büro freut sich. Eine Beamtin sagt: 'Danke! Wir haben gleich Kaffeepause.' Du darfst mit den restlichen 37 Tafeln weiterfahren - immer noch ein guter Vorrat!",
-                ending: true,
-                endingType: "Der diplomatische Kompromiss",
-                endingText: "Verhandlungsgeschick zahlt sich aus! Du hast eine faire Lösung gefunden und alle sind zufrieden."
-            },
-            declineDeal: {
-                text: "Du lehnst höflich ab: 'Ich möchte lieber alles korrekt machen.' Der Beamte nickt respektvoll. 'Sehr vorbildlich.' Du zahlst den regulären Zoll und bekommst eine offizielle Quittung. 'Sie sind ein Vorbild an Integrität!'",
-                ending: true,
-                endingType: "Die unbestechliche Ehre",
-                endingText: "Deine Prinzipientreue ist bewundernswert. Du verlässt die Grenze mit dem guten Gefühl, alles richtig gemacht zu haben."
-            },
-            documented: {
-                text: "Beeindruckt durchblättert der Beamte deine perfekt organisierten Unterlagen. 'So etwas sehe ich selten! Sie sind sehr gewissenhaft.' Er stempelt alles ab und wünscht dir noch einen guten Tag. 'Deutschland braucht mehr Menschen wie Sie!'",
-                ending: true,
-                endingType: "Die bürokratische Perfektion",
-                endingText: "Deine Organisation und Sorgfalt haben sich ausgezahlt. Du bist der Traum eines jeden Beamten!"
-            },
-            notDocumented: {
-                text: "Der Beamte seufzt. 'Das wird kompliziert...' Aber dann entdeckt er, dass deine 'Geschäftsreise' eigentlich ein Schweizer Schachturnier war. 'Schach ist meine Leidenschaft!' ruft er. Ihr verbringt die nächste Stunde mit Schachgesprächen. Er lässt alle formalen Probleme unter den Tisch fallen.",
-                ending: true,
-                endingType: "Die schachliche Verbindung",
-                endingText: "Gemeinsame Interessen öffnen Türen! Deine Schachleidenschaft hat eine unerwartete Freundschaft geschaffen."
-            }
-        };
+    <!-- Right Side: Status -->
+    <div class="status-panel">
+        <div class="status-card">
+            <div class="status-header"><i class="fas fa-suitcase"></i> Dein Koffer (Schweiz &rarr; DE)</div>
+            <ul class="inventory-list" id="inventoryList">
+                <!-- Items injected via JS -->
+            </ul>
+        </div>
 
-        let currentScene = 'start';
-        let sceneCount = 0;
+        <div class="status-card">
+            <div class="status-header"><i class="fas fa-eye"></i> Verdacht des Beamten</div>
+            <div class="suspicion-container">
+                <div class="suspicion-label">
+                    <span>Entspannt</span>
+                    <span id="suspicionText">0%</span>
+                </div>
+                <div class="meter-bg">
+                    <div class="meter-fill" id="suspicionMeter"></div>
+                </div>
+            </div>
+            <p style="font-size: 0.8rem; color: #718096; margin-top: 10px;">
+                Je höher der Verdacht, desto wahrscheinlicher eine Vollkontrolle.
+            </p>
+        </div>
+    </div>
+</div>
 
-        function updateProgress() {
-            const progressDiv = document.getElementById('progress');
-            progressDiv.innerHTML = '';
-            for (let i = 0; i < 5; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'progress-dot';
-                if (i < sceneCount) dot.classList.add('active');
-                progressDiv.appendChild(dot);
-            }
+<script>
+    /* * GAME ENGINE & DATA
+     * Rules based on entry from Non-EU (Switzerland) to EU (Germany)
+     */
+
+    const INVENTORY_ITEMS = {
+        laptop: { name: "Neuer Laptop", price: 800, type: "electronics", icon: "💻", restricted: false },
+        whisky: { name: "Whisky (2 Flaschen, 1.4L)", price: 60, type: "alcohol", icon: "🥃", restricted: true, limit: 1 }, // Limit is 1 Liter > 22%
+        cheese: { name: "Schweizer Käse (2kg)", price: 40, type: "food", icon: "🧀", restricted: false }, // Cheese is allowed
+        meat: { name: "Trockenfleisch (3kg)", price: 90, type: "food", icon: "🥩", restricted: true }, // Meat requires vet check usually, simplified here
+        watch: { name: "Luxusuhr (im Koffer)", price: 450, type: "luxury", icon: "⌚", restricted: false }, // Over 300/430 limit
+        receipts: { name: "Alle Quittungen", price: 0, type: "docs", icon: "📄", restricted: false }
+    };
+
+    const FACTS = {
+        alcohol: {
+            title: "Alkohol-Freimengen",
+            text: "Aus einem Nicht-EU-Land (wie der Schweiz) darfst du nur 1 Liter Spirituosen (über 22% Vol.) ODER 2 Liter alkoholische Getränke (unter 22% Vol.) abgabenfrei einführen. Alles darüber muss verzollt werden (ca. 6,80€ pro Liter Alkohol + Steuer)."
+        },
+        valueLimit: {
+            title: "Die 300-Euro-Grenze",
+            text: "Bei der Einreise über Land (Auto/Bahn) liegt die Reisefreimenge für Waren bei 300 Euro pro Person (bei Flugreisen 430 Euro). Da dein Laptop 800 Euro gekostet hat, ist er NICHT teilbar. Du musst den GESAMTEN Wert versteuern, nicht nur den Betrag über 300 Euro!"
+        },
+        declaration: {
+            title: "Roter vs. Grüner Ausgang",
+            text: "Der grüne Ausgang ist eine rechtlich bindende Willenserklärung: 'Ich habe nichts zu verzollen'. Wer hier mit zu viel Ware erwischt wird, begeht Steuerhinterziehung. Der rote Ausgang bedeutet: 'Ich habe etwas anzumelden'."
+        },
+        meat: {
+            title: "Tierische Produkte",
+            text: "Die Einfuhr von Fleisch und Milchprodukten aus Nicht-EU-Ländern ist wegen Seuchengefahr oft streng reglementiert oder verboten, auch für den privaten Verbrauch. Ausnahmen gibt es für die Schweiz (tierseuchenrechtlich gleichgestellt), aber die Wertgrenze (300€) gilt trotzdem für den Gesamtwarenkorb."
         }
+    };
 
-        function renderScene(sceneKey) {
-            const scene = story[sceneKey];
-            const storyDiv = document.getElementById('storyText');
-            const choicesDiv = document.getElementById('choices');
+    const game = {
+        state: {
+            suspicion: 0,
+            location: 'start',
+            inventory: [],
+            flags: {} // For story decisions
+        },
+
+        init() {
+            this.start();
+        },
+
+        start() {
+            // Reset State
+            this.state.suspicion = 10;
+            this.state.flags = {};
+            this.state.inventory = [
+                INVENTORY_ITEMS.laptop,
+                INVENTORY_ITEMS.whisky,
+                INVENTORY_ITEMS.watch,
+                INVENTORY_ITEMS.cheese
+            ]; // Total Value: 800+60+450+40 = 1350 EUR. Way over 300 limit.
             
-            storyDiv.textContent = scene.text;
-            choicesDiv.innerHTML = '';
-            sceneCount++;
-            updateProgress();
+            // Hide Overlay
+            document.getElementById('infoOverlay').style.display = 'none';
+            
+            // Render Initial UI
+            this.updateUI();
+            this.renderScene('intro');
+        },
 
-            if (scene.ending) {
-                const endingDiv = document.createElement('div');
-                endingDiv.className = 'ending';
-                endingDiv.innerHTML = `
-                    <h2>🎭 Ende: ${scene.endingType}</h2>
-                    <p>${scene.endingText}</p>
-                    <button class="restart-btn" onclick="restartGame()">Nochmal spielen</button>
+        updateUI() {
+            // Inventory
+            const list = document.getElementById('inventoryList');
+            list.innerHTML = '';
+            let totalValue = 0;
+            this.state.inventory.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'inv-item';
+                li.innerHTML = `
+                    <span>${item.icon} ${item.name}</span>
+                    <span class="inv-price">${item.price}€</span>
                 `;
-                choicesDiv.appendChild(endingDiv);
+                list.appendChild(li);
+                totalValue += item.price;
+            });
+            
+            // Add total
+            const totalLi = document.createElement('li');
+            totalLi.className = 'inv-item';
+            totalLi.style.borderTop = "2px solid #ddd";
+            totalLi.style.marginTop = "10px";
+            totalLi.innerHTML = `<span><strong>Gesamtwert:</strong></span><span><strong>${totalValue}€</strong></span>`;
+            list.appendChild(totalLi);
+
+            // Suspicion
+            const meter = document.getElementById('suspicionMeter');
+            const text = document.getElementById('suspicionText');
+            meter.style.width = `${this.state.suspicion}%`;
+            text.innerText = `${this.state.suspicion}%`;
+            
+            if(this.state.suspicion > 75) {
+                meter.style.background = 'var(--danger)';
+            } else if (this.state.suspicion > 40) {
+                meter.style.background = 'var(--warning)';
             } else {
-                scene.choices.forEach(choice => {
-                    const btn = document.createElement('button');
-                    btn.className = 'choice-btn';
-                    btn.textContent = choice.text;
-                    btn.onclick = () => {
-                        currentScene = choice.next;
-                        renderScene(currentScene);
-                    };
-                    choicesDiv.appendChild(btn);
-                });
+                meter.style.background = 'linear-gradient(90deg, var(--success), var(--warning))';
             }
-        }
+        },
 
-        function restartGame() {
-            currentScene = 'start';
-            sceneCount = 0;
-            renderScene(currentScene);
-        }
+        renderScene(sceneId) {
+            const scene = scenes[sceneId];
+            if (!scene) {
+                console.error("Scene not found:", sceneId);
+                return;
+            }
 
-        // Start the game
-        renderScene(currentScene);
-    </script>
+            document.getElementById('storyText').innerHTML = scene.text;
+            document.getElementById('sceneIndicator').innerText = `Szenario: ${scene.title || 'Unterwegs'}`;
+            
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+
+            scene.choices.forEach(choice => {
+                // Check conditions if any
+                if (choice.condition && !choice.condition(this.state)) return;
+
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.innerHTML = choice.text;
+                btn.onclick = () => {
+                    this.handleChoice(choice);
+                };
+                choicesDiv.appendChild(btn);
+            });
+        },
+
+        handleChoice(choice) {
+            // Modify Suspicion
+            if (choice.suspicionMod) {
+                this.state.suspicion += choice.suspicionMod;
+                if (this.state.suspicion < 0) this.state.suspicion = 0;
+                if (this.state.suspicion > 100) this.state.suspicion = 100;
+            }
+
+            // Set Flags
+            if (choice.setFlag) {
+                this.state.flags[choice.setFlag] = true;
+            }
+
+            // Special Actions
+            if (choice.action) {
+                choice.action(this.state);
+            }
+
+            this.updateUI();
+
+            // Check for forced events (Suspicion too high)
+            if (this.state.suspicion >= 90 && !['caught', 'end_fail_lie', 'end_pay'].includes(choice.next)) {
+                 this.renderScene('forced_search');
+                 return;
+            }
+
+            // Navigate
+            if (choice.next) {
+                if (scenes[choice.next].isEnding) {
+                    this.showEnding(choice.next);
+                } else {
+                    this.renderScene(choice.next);
+                }
+            }
+        },
+
+        showEnding(sceneId) {
+            const scene = scenes[sceneId];
+            document.getElementById('endTitle').innerText = scene.title;
+            document.getElementById('endSummary').innerHTML = scene.text;
+            
+            const factsDiv = document.getElementById('educationalFacts');
+            factsDiv.innerHTML = '';
+
+            scene.facts.forEach(factKey => {
+                const fact = FACTS[factKey];
+                const div = document.createElement('div');
+                div.className = 'fact-box';
+                div.innerHTML = `<span class="fact-title">${fact.title}</span>${fact.text}`;
+                factsDiv.appendChild(div);
+            });
+
+            document.getElementById('infoOverlay').style.display = 'block';
+        }
+    };
+
+    /* * SCENES DATABASE 
+     */
+    const scenes = {
+        intro: {
+            title: "Die Rückreise",
+            text: "Du kommst gerade von einem Shopping-Trip aus Zürich zurück. Dein Koffer ist voll, dein Geldbeutel leer, aber du bist glücklich. Du näherst dich der Grenze Konstanz/Kreuzlingen im Auto.<br><br>Du hast Waren im Wert von 1.350€ dabei (siehe Inventar rechts). Die Freigrenze liegt bei 300€.<br><br>Vor dir siehst du die Schilder: <strong>Grüner Kanal</strong> (Anmeldefreie Waren) und <strong>Roter Kanal</strong> (Anmeldepflichtige Waren).",
+            choices: [
+                { text: "Ich fahre mutig durch den <strong style='color:green'>Grünen Kanal</strong>. Wird schon schiefgehen.", next: "green_lane", suspicionMod: 10, setFlag: "risky" },
+                { text: "Ich nehme den <strong style='color:red'>Roten Kanal</strong>. Sicher ist sicher.", next: "red_lane", suspicionMod: -10, setFlag: "honest" },
+                { text: "Ich ziehe die neue Luxusuhr schnell an das Handgelenk und werfe die Verpackung weg, dann Grün.", next: "green_lane_trick", suspicionMod: 20, setFlag: "wear_watch" }
+            ]
+        },
+        green_lane: {
+            title: "Grüner Kanal",
+            text: "Du fährst langsam in den grünen Bereich. Ein Zollbeamter mit strengem Blick steht an der Seite. Er mustert dein Auto. Dein Herz klopft ein wenig.",
+            choices: [
+                { text: "Blickkontakt halten und freundlich nicken.", next: "interaction_start", suspicionMod: -5 },
+                { text: "Starr geradeaus schauen und Musik leiser machen.", next: "interaction_start", suspicionMod: 5 },
+                { text: "Auf dem Handy tippen, um beschäftigt zu wirken.", next: "interaction_start", suspicionMod: 20 }
+            ]
+        },
+        green_lane_trick: {
+            title: "Der Trickversuch",
+            text: "Du hast die Uhr am Handgelenk. Sie glänzt verdächtig neu. Die leere Schachtel liegt unter dem Beifahrersitz. Du fährst in den grünen Kanal.",
+            choices: [
+                { text: "Arm lässig aus dem Fenster hängen.", next: "interaction_start", suspicionMod: 15 },
+                { text: "Beide Hände fest ans Lenkrad.", next: "interaction_start", suspicionMod: 0 }
+            ]
+        },
+        red_lane: {
+            title: "Roter Kanal",
+            text: "Du fährst in den roten Bereich und hältst an. Der Beamte kommt langsam auf dich zu. 'Guten Tag. Sie möchten etwas anmelden?'",
+            choices: [
+                { text: "Ja, ich habe einiges eingekauft.", next: "red_declaration", suspicionMod: 0 },
+                { text: "Ich bin mir nicht sicher, ob ich über der Grenze bin.", next: "red_unsure", suspicionMod: 0 }
+            ]
+        },
+        interaction_start: {
+            title: "Die Befragung",
+            text: "Der Beamte winkt dich heraus. 'Guten Tag, Zollkontrolle. Woher kommen Sie und haben Sie Waren anzumelden? Fleisch, Alkohol, Tabak oder Waren über 300 Euro?'",
+            choices: [
+                { text: "Nein, nichts Besonderes. Nur Kleinkram.", next: "lie_basic", suspicionMod: 10 },
+                { text: "Nur ein bisschen Schokolade und Käse.", next: "lie_partial", suspicionMod: 5 },
+                { text: "Ehrlich gesagt... ich habe einen neuen Laptop gekauft.", next: "confess_late", suspicionMod: 0 }
+            ]
+        },
+        lie_basic: {
+            title: "Die Lüge",
+            text: "'Nichts? Gar nichts?' Der Beamte zieht eine Augenbraue hoch. Er schaut auf deinen Rücksitz, wo eine Tüte mit einem Elektronik-Markt-Logo hervorlugt.",
+            choices: [
+                { text: "Oh, das... das ist alt. Habe ich schon lange.", next: "search_start", suspicionMod: 30 },
+                { text: "Ups, die habe ich vergessen. Da sind nur Kabel drin.", next: "search_start", suspicionMod: 20 }
+            ]
+        },
+        lie_partial: {
+            title: "Die halbe Wahrheit",
+            text: "'Käse ist in Ordnung. Aber sind Sie sicher, dass das alles ist? Wir kontrollieren stichprobenartig.' Er tritt näher ans Auto.",
+            choices: [
+                { text: "Kofferraum freiwillig öffnen.", next: "search_start", suspicionMod: -10 },
+                { text: "Nervös werden: 'Muss das sein? Ich habe es eilig.'", next: "forced_search", suspicionMod: 50 }
+            ]
+        },
+        search_start: {
+            title: "Die Kontrolle",
+            text: "Der Beamte bittet dich, den Kofferraum zu öffnen. Er sieht den Laptop-Karton und die Whisky-Flaschen.",
+            choices: [
+                { text: "Schweigen.", next: "counting_goods", suspicionMod: 0 },
+                { text: "Versuchen zu erklären: 'Der Laptop war ein Geschenk!'", next: "counting_goods", suspicionMod: 10 }
+            ]
+        },
+        forced_search: {
+            title: "Vollkontrolle",
+            text: "Dein Verhalten war zu verdächtig. 'Bitte Motor ausstellen und aussteigen.' Zwei weitere Beamte kommen hinzu. Sie durchsuchen das Auto gründlich. Sie finden ALLES. Auch die versteckte Uhr (falls vorhanden) oder die Quittungen.",
+            choices: [
+                { text: "Weiter...", next: "end_caught_bad" }
+            ]
+        },
+        counting_goods: {
+            title: "Bestandsaufnahme",
+            text: "Der Beamte rechnet zusammen: <br>1. Laptop (800€)<br>2. Whisky (1.4L)<br>3. Uhr (450€)<br><br>'Sie wissen, dass die Freigrenze bei 300 Euro liegt? Und beim Alkohol sind nur 1 Liter frei.'",
+            choices: [
+                { text: "Ich dachte, die Grenze ist höher!", next: "end_caught_mild" },
+                { text: "Es tut mir leid.", next: "end_caught_mild" }
+            ]
+        },
+        confess_late: {
+            title: "Späte Einsicht",
+            text: "Der Beamte nickt. 'Gut, dass Sie es sagen, bevor ich kontrolliere. Da Sie aber im grünen Kanal stehen, haben Sie eigentlich schon eine Steuerhinterziehung begangen. Weil Sie kooperieren, drücken wir vielleicht ein Auge zu und lassen es bei einer Nachverzollung ohne Strafverfahren.'",
+            choices: [
+                { text: "Puh, Danke.", next: "end_lucky_pay" }
+            ]
+        },
+        red_declaration: {
+            title: "Anmeldung",
+            text: "Du zeigst alle Quittungen vor. Der Beamte rechnet: 'Warenwert 1350 Euro. Das liegt deutlich über der Freimenge von 300 Euro. Da der Wert unter 700 Euro Freimenge liegt, können wir pauschalieren... Moment, nein, der Gesamtwert ist zu hoch. Wir müssen regulär verzollen.'",
+            choices: [
+                { text: "Was kostet mich das?", next: "end_honest_pay" }
+            ]
+        },
+        red_unsure: {
+            title: "Unsicherheit",
+            text: "'Besser fragen als schmuggeln', sagt der Beamte freundlich. Er schaut sich deine Sachen an. 'Der Laptop ist nicht teilbar. Sie müssen die vollen 19% Einfuhrumsatzsteuer darauf zahlen. Für den Whisky zahlen Sie 6,80€ Branntweinsteuer für den Überschuss.'",
+            choices: [
+                { text: "Bezahlen.", next: "end_honest_pay" }
+            ]
+        },
+
+        /* ENDINGS */
+        end_caught_bad: {
+            isEnding: true,
+            title: "Erwischt & Teuer",
+            text: "Das war ein teurer Ausflug. Du wurdest im Grünen Kanal erwischt und hast versucht, Dinge zu verheimlichen.<br><br><strong>Die Rechnung:</strong><br>- Einfuhrabgaben: ca. 300€<br>- Bußgeld (Doppelter Abgabenbetrag wegen Vorsatz): 600€<br>- Strafanzeige wegen Steuerhinterziehung<br><br>Dein Laptop und die Uhr sind beschlagnahmt, bis die Strafe gezahlt ist.",
+            facts: ["valueLimit", "declaration", "alcohol"]
+        },
+        end_caught_mild: {
+            isEnding: true,
+            title: "Nachverzollung + Zuschlag",
+            text: "Du wurdest im Grünen Kanal kontrolliert. Da du nicht aktiv Dinge versteckt hast, kommst du mit einem blauen Auge davon.<br><br><strong>Die Rechnung:</strong><br>- 19% Umsatzsteuer auf alles: ca. 256€<br>- Zollgebühren: ca. 20€<br>- Zollzuschlag (Strafe): 256€<br><br>Gesamtkosten: über 500€ zusätzlich. Das nächste Mal lieber den roten Kanal nehmen!",
+            facts: ["valueLimit", "declaration"]
+        },
+        end_lucky_pay: {
+            isEnding: true,
+            title: "Glück im Unglück",
+            text: "Weil du dich noch im letzten Moment gemeldet hast, verzichtet der Beamte auf das Strafverfahren. Du musst 'nur' die regulären Steuern nachzahlen.<br><br>Du zahlst ca. 280€ an Steuern nach und darfst weiterfahren. Teuer, aber keine Vorstrafe!",
+            facts: ["declaration", "valueLimit"]
+        },
+        end_honest_pay: {
+            isEnding: true,
+            title: "Der korrekte Weg",
+            text: "Du hast alles richtig gemacht. Du hast den roten Kanal gewählt.<br><br><strong>Kosten:</strong><br>- 19% Einfuhrumsatzsteuer auf Waren > 300€<br>- Kleine Zollgebühr für den Whisky<br><br>Gesamt ca. 280€. Das tut weh, aber du fährst mit reinem Gewissen und ohne Angst nach Hause. Der Beamte wünscht dir einen schönen Abend.",
+            facts: ["valueLimit", "alcohol"]
+        }
+    };
+
+    // Initialize Game
+    game.init();
+
+</script>
 </body>
 </html>
+
