@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echoes of the Surface - Extended</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Courier New', Courier, monospace; background: #000; user-select: none; }
+        
+        /* UI Overlay Layer */
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+        
+        /* Crosshair */
+        #crosshair { position: absolute; top: 50%; left: 50%; width: 20px; height: 20px; border: 2px solid rgba(255, 255, 255, 0.5); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+        #crosshair.active { border-color: #0f0; background: rgba(0, 255, 0, 0.2); }
+
+        /* Interaction Text */
+        #interaction-text { position: absolute; top: 60%; width: 100%; text-align: center; color: white; font-size: 24px; text-shadow: 2px 2px 4px #000; opacity: 0; transition: opacity 0.2s; }
+        
+        /* HUD */
+        #hud { position: absolute; bottom: 20px; left: 20px; color: #0f0; font-size: 20px; text-shadow: 1px 1px 2px #000; pointer-events: none; }
+        .hud-item { margin-bottom: 5px; background: rgba(0, 50, 0, 0.5); padding: 5px 10px; border: 1px solid #0f0; }
+        
+        /* Dialog Box */
+        #dialog-box { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); width: 60%; background: rgba(0, 0, 0, 0.85); border: 2px solid white; color: white; padding: 20px; display: none; pointer-events: auto; }
+        #dialog-content { margin-bottom: 15px; font-size: 18px; line-height: 1.5; }
+        #dialog-info { font-size: 14px; color: #aaa; margin-top: 10px; font-style: italic; }
+        #dialog-btn { background: white; color: black; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; float: right; pointer-events: auto; }
+        
+        /* In-Game PC Overlay */
+        #pc-interface { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 600px; background: #1a1a1a; border: 10px solid #333; border-radius: 5px; box-shadow: 0 0 50px rgba(0, 100, 255, 0.5); pointer-events: auto; z-index: 100; font-family: sans-serif; }
+        #pc-screen { width: 100%; height: 100%; background: #008080; position: relative; overflow: hidden; }
+        .window { position: absolute; top: 50px; left: 50px; width: 400px; height: 300px; background: #c0c0c0; border: 2px solid white; border-right-color: #404040; border-bottom-color: #404040; display: none; flex-direction: column; }
+        .title-bar { background: linear-gradient(90deg, #000080, #1084d0); color: white; padding: 2px 5px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { background: #c0c0c0; border: 1px solid #fff; width: 16px; height: 16px; text-align: center; line-height: 14px; cursor: pointer; color: black; }
+        .window-content { padding: 10px; flex-grow: 1; background: white; color: black; overflow-y: auto; font-size: 14px; }
+        .icon { width: 64px; height: 64px; margin: 20px; text-align: center; color: white; cursor: pointer; display: inline-block; }
+        .icon-img { width: 32px; height: 32px; background: #fff; margin: 0 auto 5px; border: 1px solid black; }
+        #pc-login { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; color: #0f0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 101; }
+
+        /* Start Screen */
+        #start-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; z-index: 200; pointer-events: auto; }
+        h1 { font-size: 60px; margin-bottom: 20px; color: #ff3333; text-transform: uppercase; letter-spacing: 5px; }
+        button.main-btn { padding: 20px 40px; font-size: 24px; background: transparent; border: 2px solid #ff3333; color: #ff3333; cursor: pointer; transition: all 0.3s; text-transform: uppercase; }
+        button.main-btn:hover { background: #ff3333; color: black; }
+
+        /* Game Over / Win */
+        #end-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); color: white; z-index: 150; justify-content: center; align-items: center; flex-direction: column; pointer-events: auto; }
+        
+        /* Hints */
+        .key-hint { position: fixed; bottom: 10px; right: 10px; color: gray; font-size: 12px; }
+    </style>
+    <!-- Three.js from CDN -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- UI Elements -->
+    <div id="start-screen">
+        <h1>Echoes of the Surface</h1>
+        <p style="margin-bottom: 40px; max-width: 600px; text-align: center; color: #888;">
+            Kapitel 1: Das Erwachen<br>
+            Steuerung: WASD zum Bewegen, Maus zum Umsehen, E zum Interagieren, Linksklick zum Benutzen.<br>
+            LEERTASTE für Dialoge, ESC um Menüs zu schließen.
+        </p>
+        <button class="main-btn" id="start-btn">Spiel Starten</button>
+    </div>
+
+    <div id="end-screen">
+        <h1 id="end-title">Game Over</h1>
+        <p id="end-msg">Du hast nicht überlebt.</p>
+        <button class="main-btn" onclick="location.reload()">Neustart</button>
+    </div>
+
+    <div id="ui-layer">
+        <div id="crosshair"></div>
+        <div id="interaction-text">Drücke E zum Interagieren</div>
+        <div id="hud">
+            <div class="hud-item" id="hud-hp">Gesundheit: 100%</div>
+            <div class="hud-item" id="hud-rad" style="display:none; color: yellow;">Geiger: 0.00 µSv/h</div>
+            <div class="hud-item" id="hud-obj">Ziel: Finde einen Ausweg</div>
+        </div>
+        
+        <div id="dialog-box">
+            <p id="dialog-content">Text hier...</p>
+            <div id="dialog-info">Drücke [Leertaste] oder klicke Weiter</div>
+            <button id="dialog-btn">Weiter</button>
+        </div>
+        <div class="key-hint">ESC: Menü schließen / Mauszeiger</div>
+    </div>
+
+    <!-- PC Interface Overlay -->
+    <div id="pc-interface">
+        <div id="pc-login">
+            <h2>SYSTEM LOCKED</h2>
+            <p>Bitte Passwort eingeben:</p>
+            <input type="text" id="pc-password-input" style="background:black; border:1px solid #0f0; color:#0f0; font-size:20px; padding:5px; outline:none;" autocomplete="off">
+            <p style="font-size: 12px; color: gray; margin-top: 10px;">Hinweis: Das, was ich am meisten liebe.</p>
+            <button id="pc-login-btn" style="margin-top:10px; background:#0f0; color:black; border:none; padding:5px 15px; cursor:pointer;">LOGIN</button>
+            <p id="login-error" style="color:red; display:none; margin-top:5px;">Zugriff verweigert</p>
+            <p style="margin-top:20px; font-size:12px; color:#555;">[ESC] zum Abbrechen</p>
+        </div>
+        <div id="pc-screen">
+            <div class="icon" id="icon-notes" onclick="openWindow('win-notes')">
+                <div class="icon-img" style="background:yellow;"></div>
+                Notizen.txt
+            </div>
+            <div class="icon" id="icon-browser" onclick="openWindow('win-browser')">
+                <div class="icon-img" style="background:blue;"></div>
+                Netzwerk
+            </div>
+            <div class="icon" id="icon-control" onclick="openWindow('win-control')">
+                <div class="icon-img" style="background:red;"></div>
+                Türsteuerung
+            </div>
+            
+            <button onclick="closePC()" style="position:absolute; bottom:10px; left:10px; padding:5px 10px;">Herunterfahren [ESC]</button>
+
+            <!-- Window: Notes -->
+            <div class="window" id="win-notes">
+                <div class="title-bar"><span>Notizen.txt</span><div class="close-btn" onclick="closeWindow('win-notes')">X</div></div>
+                <div class="window-content">
+                    TO-DO:<br>
+                    - Hund füttern (Bello ist so brav heute)<br>
+                    - Türschloss reparieren<br>
+                    - Taschenlampe in die Kommode legen<br>
+                    - Einkaufen
+                </div>
+            </div>
+
+            <!-- Window: Browser -->
+            <div class="window" id="win-browser">
+                <div class="title-bar"><span>GlobalNet Browser v1.0</span><div class="close-btn" onclick="closeWindow('win-browser')">X</div></div>
+                <div class="window-content">
+                    <h1>Breaking News</h1>
+                    <p style="color:red; font-weight:bold;">WARNUNG: VORFALL IN SEKTOR 7</p>
+                    <p>Unbekannte biologische Gefahr. Militär riegelt die Stadt ab.</p>
+                </div>
+            </div>
+
+            <!-- Window: Control -->
+            <div class="window" id="win-control">
+                <div class="title-bar"><span>Security Control</span><div class="close-btn" onclick="closeWindow('win-control')">X</div></div>
+                <div class="window-content" style="background:black; color:#0f0;">
+                    STATUS: TÜR VERRIEGELT<br><br>
+                    <button id="unlock-btn" style="background:#0f0; color:black; border:none; padding:10px; width:100%; cursor:pointer;">TÜR ENTRIEGELN</button>
+                    <p id="unlock-msg" style="margin-top:10px;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
+        // --- GAME CONFIG & STATE ---
+        const gameState = {
+            level: 1, // 1: Haus, 2: Stadt, 3: Bunker
+            hp: 100,
+            hasWeapon: false,
+            hasGeiger: false,
+            hasFlashlight: false,
+            flashlightBroken: false,
+            flashlightParts: 0, // Need 2 to fix
+            pcUnlocked: false,
+            doorUnlocked: false,
+            bunkerCodeFound: false,
+            radiationLevel: 0,
+            isUsingPC: false,
+            isDialogOpen: false,
+            bunkerReady: { food: 0, healed: false, sealed: false }
+        };
+
+        // --- GENERATE TEXTURES ---
+        function createTexture(color, style = 'noise') {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256; canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = color;
+            ctx.fillRect(0,0,256,256);
+            
+            if (style === 'noise') {
+                for(let i=0; i<5000; i++) {
+                    ctx.fillStyle = `rgba(0,0,0,${Math.random()*0.1})`;
+                    ctx.fillRect(Math.random()*256, Math.random()*256, 2, 2);
+                }
+            } else if (style === 'bricks') {
+                ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+                ctx.lineWidth = 2;
+                for(let y=0; y<256; y+=32) {
+                    for(let x=0; x<256; x+=64) {
+                        ctx.strokeRect(x + (y%64===0?0:32), y, 64, 32);
+                    }
+                }
+            }
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.wrapS = THREE.RepeatWrapping;
+            tex.wrapT = THREE.RepeatWrapping;
+            return tex;
+        }
+
+        const texConcrete = createTexture('#555555', 'noise');
+        const texBrick = createTexture('#884444', 'bricks');
+        const texFloor = createTexture('#333333', 'noise');
+        const texWood = createTexture('#5c3a21', 'noise');
+
+        // --- THREE.JS SETUP ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x050505);
+        scene.fog = new THREE.Fog(0x050505, 0, 15);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.y = 1.6;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        document.body.appendChild(renderer.domElement);
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.2); // Very dark initially
+        scene.add(ambientLight);
+        
+        const flashlight = new THREE.SpotLight(0xffffff, 0); // Off initially
+        flashlight.position.set(0, 1.6, 0);
+        flashlight.target = camera;
+        flashlight.angle = 0.5;
+        flashlight.penumbra = 0.3;
+        flashlight.distance = 25;
+        flashlight.castShadow = true;
+        camera.add(flashlight);
+        camera.add(flashlight.target);
+        scene.add(camera);
+
+        // Controls
+        const controls = new PointerLockControls(camera, document.body);
+        
+        // Physics
+        const velocity = new THREE.Vector3();
+        const direction = new THREE.Vector3();
+        let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+        
+        // Interaction & Collision
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let interactableObject = null;
+        const interactables = [];
+        const enemies = [];
+        const collidables = []; // Walls, buildings
+        const blinkers = []; // Lights that flicker
+
+        // --- UI REFS ---
+        const uiInteraction = document.getElementById('interaction-text');
+        const dialogBox = document.getElementById('dialog-box');
+        const dialogContent = document.getElementById('dialog-content');
+        const dialogBtn = document.getElementById('dialog-btn');
+
+        // --- INIT GAME ---
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.getElementById('start-screen').style.display = 'none';
+            initLevel1();
+            controls.lock();
+        });
+
+        // Input
+        const onKeyDown = function (event) {
+            if(gameState.isUsingPC) {
+                if(event.code === 'Escape') window.closePC();
+                return;
+            }
+            
+            // Dialog Handling
+            if(gameState.isDialogOpen) {
+                if(event.code === 'Space' || event.code === 'Enter') closeDialog();
+                return;
+            }
+
+            switch (event.code) {
+                case 'ArrowUp': case 'KeyW': moveForward = true; break;
+                case 'ArrowLeft': case 'KeyA': moveLeft = true; break;
+                case 'ArrowDown': case 'KeyS': moveBackward = true; break;
+                case 'ArrowRight': case 'KeyD': moveRight = true; break;
+                case 'KeyE': interact(); break;
+                case 'Space': if(!gameState.isDialogOpen) jump(); break; // Optional jump
+            }
+        };
+        const onKeyUp = function (event) {
+            switch (event.code) {
+                case 'ArrowUp': case 'KeyW': moveForward = false; break;
+                case 'ArrowLeft': case 'KeyA': moveLeft = false; break;
+                case 'ArrowDown': case 'KeyS': moveBackward = false; break;
+                case 'ArrowRight': case 'KeyD': moveRight = false; break;
+            }
+        };
+        document.addEventListener('keydown', onKeyDown);
+        document.addEventListener('keyup', onKeyUp);
+        document.addEventListener('mousedown', () => {
+            if (controls.isLocked && gameState.hasWeapon) shoot();
+            if (gameState.isDialogOpen) closeDialog(); // Click to continue
+        });
+
+        function jump() {
+            // Very simple jump, physics is basic
+            if(camera.position.y <= 1.7) velocity.y = 5;
+        }
+
+        // --- LEVEL GENERATION HELPER ---
+        function createWall(x, y, z, w, h, d, color=0x808080) {
+            const geo = new THREE.BoxGeometry(w, h, d);
+            const mat = new THREE.MeshPhongMaterial({ color: color });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.set(x, y, z);
+            scene.add(mesh);
+            collidables.push(new THREE.Box3().setFromObject(mesh));
+            return mesh;
+        }
+
+        function createFloor(w, d, texture) {
+            const geo = new THREE.PlaneGeometry(w, d);
+            texture.repeat.set(w/2, d/2);
+            const mat = new THREE.MeshPhongMaterial({ map: texture });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.rotation.x = -Math.PI / 2;
+            scene.add(mesh);
+        }
+
+        function clearScene() {
+            // Remove everything except camera and basic lights if needed
+            const toRemove = [];
+            scene.traverse(child => {
+                if(child.isMesh || (child.isLight && child !== ambientLight && child !== flashlight)) {
+                    toRemove.push(child);
+                }
+                // Remove Groups (like Exit Signs)
+                if(child.isGroup) toRemove.push(child);
+            });
+            toRemove.forEach(obj => {
+                if(obj.geometry) obj.geometry.dispose();
+                if(obj.material) {
+                    if(Array.isArray(obj.material)) obj.material.forEach(m => m.dispose());
+                    else obj.material.dispose();
+                }
+                scene.remove(obj);
+            });
+            interactables.length = 0;
+            enemies.length = 0;
+            collidables.length = 0;
+            blinkers.length = 0;
+        }
+
+        // --- HELPER: EXIT SIGN ---
+        function createExitSign(x, y, z, ry = 0) {
+            const group = new THREE.Group();
+            
+            // Texture for "EXIT"
+            const canvas = document.createElement('canvas');
+            canvas.width = 256; canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#003300';
+            ctx.fillRect(0,0,256,128);
+            ctx.fillStyle = '#00ff00';
+            ctx.font = 'bold 80px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('EXIT', 128, 64);
+            ctx.strokeStyle = '#00ff00';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(10,10,236,108);
+            
+            const tex = new THREE.CanvasTexture(canvas);
+            
+            // Box Mesh
+            const box = new THREE.Mesh(
+                new THREE.BoxGeometry(1.6, 0.8, 0.1),
+                new THREE.MeshPhongMaterial({ map: tex, color: 0xffffff, emissive: 0x00aa00, emissiveIntensity: 1 })
+            );
+            group.add(box);
+            
+            // Green Light
+            const light = new THREE.PointLight(0x00ff00, 2, 15);
+            light.position.set(0, 0, 0.5);
+            group.add(light);
+            
+            group.position.set(x, y, z);
+            group.rotation.y = ry;
+            
+            scene.add(group);
+            blinkers.push({ light: light, mat: box.material, timeOffset: Math.random() * 100 });
+        }
+
+        // --- LEVEL 1: THE HOUSE (Expanded) ---
+        function initLevel1() {
+            clearScene();
+            gameState.level = 1;
+            scene.fog.color.setHex(0x050505);
+            
+            // Floor (Entire House)
+            createFloor(20, 20, texWood);
+
+            // -- ROOM 1: Bedroom (Start) --
+            // Walls: center at 0,0. Size 6x6
+            createWall(0, 2.5, -3, 6, 5, 0.2); // North
+            createWall(-3, 2.5, 0, 0.2, 5, 6); // West
+            createWall(3, 2.5, 0, 0.2, 5, 6); // East
+            // South wall with door gap
+            createWall(-1.5, 2.5, 3, 3.2, 5, 0.2);
+            createWall(2, 2.5, 3, 2.2, 5, 0.2); 
+            createWall(0.25, 4, 3, 1.3, 2, 0.2); // Door header
+
+            // Furniture
+            // Desk & PC
+            const desk = new THREE.Mesh(new THREE.BoxGeometry(2, 1, 1), new THREE.MeshPhongMaterial({color: 0x8b4513}));
+            desk.position.set(0, 0.5, -2.5);
+            scene.add(desk);
+            collidables.push(new THREE.Box3().setFromObject(desk));
+
+            const monitor = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.1), new THREE.MeshPhongMaterial({color: 0x111111}));
+            monitor.position.set(0, 1.3, -2.5);
+            monitor.userData = { interactable: true, type: 'pc' };
+            scene.add(monitor);
+            interactables.push(monitor);
+            
+            const screen = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 0.5), new THREE.MeshBasicMaterial({color: 0x00ffff}));
+            screen.position.set(0, 1.3, -2.44);
+            scene.add(screen);
+
+            // Picture Frame (Clue)
+            const frame = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.7, 0.05), new THREE.MeshPhongMaterial({color: 0xffffff}));
+            frame.position.set(2.8, 1.5, -1);
+            frame.rotation.y = -Math.PI/2;
+            frame.userData = { interactable: true, type: 'info', msg: "Ein Foto eines Hundes. Darunter steht: 'Bello - 2018'" };
+            scene.add(frame);
+            interactables.push(frame);
+
+            // -- HALLWAY --
+            // Extends from z=3 to z=8
+            createWall(-1.5, 2.5, 5.5, 0.2, 5, 5); // West Hall
+            createWall(1.5, 2.5, 5.5, 0.2, 5, 5); // East Hall
+
+            // -- ROOM 2: Kitchen (West off Hallway) --
+            // Door at z=6, x=-1.5
+            // Room center x=-5, z=6
+            createWall(-5, 2.5, 3, 7, 5, 0.2); // North
+            createWall(-8.5, 2.5, 6, 0.2, 5, 6); // West
+            createWall(-5, 2.5, 9, 7, 5, 0.2); // South
+            
+            // Dresser with Flashlight
+            const dresser = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.2, 1), new THREE.MeshPhongMaterial({color: 0x5c3a21}));
+            dresser.position.set(-8, 0.6, 6);
+            scene.add(dresser);
+            collidables.push(new THREE.Box3().setFromObject(dresser));
+            
+            const flMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.15, 0.5), new THREE.MeshPhongMaterial({color: 0xffff00}));
+            flMesh.position.set(-8, 1.3, 6);
+            flMesh.rotation.z = Math.PI/2;
+            flMesh.userData = { interactable: true, type: 'flashlight_pickup' };
+            scene.add(flMesh);
+            interactables.push(flMesh);
+
+            // -- ROOM 3: Living Room (End of Hall) --
+            // z=8 to z=15
+            createWall(0, 2.5, 15, 10, 5, 0.2); // South (Exit)
+            createWall(-5, 2.5, 11.5, 0.2, 5, 7); // West
+            createWall(5, 2.5, 11.5, 0.2, 5, 7); // East
+            
+            // Exit Door
+            const exitDoor = new THREE.Mesh(new THREE.BoxGeometry(2, 3, 0.2), new THREE.MeshPhongMaterial({color: 0x333333}));
+            exitDoor.position.set(0, 1.5, 14.9);
+            exitDoor.userData = { interactable: true, type: 'door_lvl1' };
+            scene.add(exitDoor);
+            interactables.push(exitDoor);
+
+            // Exit Sign above door
+            createExitSign(0, 3.8, 14.8, 0);
+
+            // Ceiling
+            const ceil = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.MeshPhongMaterial({color: 0x222222, side:THREE.BackSide}));
+            ceil.rotation.x = Math.PI/2;
+            ceil.position.y = 5;
+            scene.add(ceil);
+
+            showDialog("Wo bin ich? Es ist so dunkel... Ich brauche Licht.");
+        }
+
+        // --- LEVEL 2: THE CITY (Improved) ---
+        function initLevel2() {
+            clearScene();
+            gameState.level = 2;
+            gameState.hasWeapon = false; // Find weapon first
+            
+            // Flashlight breaks event
+            gameState.hasFlashlight = true; 
+            gameState.flashlightBroken = true;
+            flashlight.intensity = 0; // Light goes out
+            
+            scene.background = new THREE.Color(0x1a0505);
+            scene.fog = new THREE.Fog(0x1a0505, 5, 40);
+            
+            document.getElementById('hud-obj').innerText = "Ziel: Finde Ersatzteile für die Lampe & den Bunker";
+            document.getElementById('hud-rad').style.display = 'block';
+
+            // Ground
+            createFloor(200, 200, texConcrete);
+
+            // Buildings with Collisions & Textures
+            const matBuilding = new THREE.MeshPhongMaterial({ map: texBrick });
+            
+            for(let i=0; i<40; i++) {
+                const w = 4 + Math.random() * 6;
+                const h = 8 + Math.random() * 10;
+                const d = 4 + Math.random() * 6;
+                const x = Math.random()*100 - 50;
+                const z = Math.random()*100 - 50;
+
+                // Simple overlap prevention for start area
+                if(Math.abs(x) < 10 && Math.abs(z) < 10) continue;
+
+                const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), matBuilding);
+                b.position.set(x, h/2, z);
+                scene.add(b);
+                collidables.push(new THREE.Box3().setFromObject(b));
+            }
+
+            // Flashlight Repair Part 1 (Battery)
+            const bat = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.1, 0.1), new THREE.MeshPhongMaterial({color: 0x00ff00}));
+            bat.position.set(5, 0.2, 5);
+            bat.userData = { interactable: true, type: 'part_battery' };
+            scene.add(bat);
+            interactables.push(bat);
+
+            // Flashlight Repair Part 2 (Bulb)
+            const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.1), new THREE.MeshPhongMaterial({color: 0xffff00}));
+            bulb.position.set(-10, 0.2, 8);
+            bulb.userData = { interactable: true, type: 'part_bulb' };
+            scene.add(bulb);
+            interactables.push(bulb);
+
+            // Weapon (Pipe)
+            const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1), new THREE.MeshPhongMaterial({color: 0x888888}));
+            pipe.position.set(2, 0.5, 15);
+            pipe.rotation.z = Math.PI / 4;
+            pipe.userData = { interactable: true, type: 'weapon_pickup' };
+            scene.add(pipe);
+            interactables.push(pipe);
+            
+            // Geiger Counter (Hidden behind a building)
+            const geiger = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.2, 0.1), new THREE.MeshPhongMaterial({color: 0xffff00}));
+            geiger.position.set(-15, 0.2, -15);
+            geiger.userData = { interactable: true, type: 'geiger_pickup' };
+            scene.add(geiger);
+            interactables.push(geiger);
+
+            // Clue for Bunker
+            const note = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.05, 0.5), new THREE.MeshPhongMaterial({color: 0x0000ff}));
+            note.position.set(15, 0.1, 15);
+            note.userData = { interactable: true, type: 'clue_lvl2', msg: "BUNKER KOORDINATEN: 47-Alpha. (Code gespeichert)" };
+            scene.add(note);
+            interactables.push(note);
+            
+            // Bunker Entrance
+            const bunker = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 0.5, 32), new THREE.MeshPhongMaterial({color: 0x444444}));
+            bunker.position.set(0, 0.25, -40);
+            bunker.userData = { interactable: true, type: 'bunker_enter' };
+            scene.add(bunker);
+            interactables.push(bunker);
+
+            // Exit Signs on posts in the city
+            const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 3);
+            const poleMat = new THREE.MeshPhongMaterial({color:0x333333});
+            
+            // Sign 1: Near Start
+            const pole1 = new THREE.Mesh(poleGeo, poleMat);
+            pole1.position.set(5, 1.5, 12);
+            scene.add(pole1);
+            collidables.push(new THREE.Box3().setFromObject(pole1));
+            createExitSign(5, 3, 12, Math.PI); // Facing player ish
+
+            // Sign 2: Near Bunker
+            const pole2 = new THREE.Mesh(poleGeo, poleMat);
+            pole2.position.set(2, 1.5, -35);
+            scene.add(pole2);
+            collidables.push(new THREE.Box3().setFromObject(pole2));
+            createExitSign(2, 3, -35, 0);
+
+            showDialog("Verdammt! Meine Taschenlampe ist kaputt gegangen. Ich sehe kaum etwas. Ich muss Batterien und eine Birne finden.");
+        }
+
+        // --- LEVEL 3: THE BUNKER ---
+        function initLevel3() {
+            clearScene();
+            gameState.level = 3;
+            // Bunker restored light
+            flashlight.intensity = 1.5;
+            
+            scene.background = new THREE.Color(0x000000);
+            document.getElementById('hud-obj').innerText = "Ziel: Überlebe. Richte den Bunker ein.";
+
+            // Room Walls
+            const matWall = new THREE.MeshPhongMaterial({ color: 0x556655 });
+            const roomW = 20, roomD = 20;
+            createFloor(roomW, roomD, texConcrete);
+            
+            // Outer Shell for collisions
+            const shell = new THREE.Mesh(new THREE.BoxGeometry(20, 8, 20), new THREE.MeshPhongMaterial({color: 0x222222, side: THREE.BackSide}));
+            shell.position.y = 4;
+            scene.add(shell);
+            
+            // Simple collision boundaries
+            // Not adding explicit collision boxes for walls here as player is confined by logic, 
+            // but let's add simple bounds in update loop or invisible walls
+            createWall(0, 4, -10, 20, 8, 1, 0x556655);
+            createWall(0, 4, 10, 20, 8, 1, 0x556655);
+            createWall(-10, 4, 0, 1, 8, 20, 0x556655);
+            createWall(10, 4, 0, 1, 8, 20, 0x556655);
+
+            // Interactables
+            const farm = new THREE.Mesh(new THREE.BoxGeometry(3, 0.5, 3), new THREE.MeshPhongMaterial({color: 0x3d2817}));
+            farm.position.set(-5, 0.25, -5);
+            farm.userData = { interactable: true, type: 'farm' };
+            scene.add(farm);
+            interactables.push(farm);
+            collidables.push(new THREE.Box3().setFromObject(farm));
+
+            const survivor = new THREE.Mesh(new THREE.CapsuleGeometry(0.5, 1.8), new THREE.MeshPhongMaterial({color: 0xffcccc}));
+            survivor.position.set(5, 0.9, 5);
+            survivor.userData = { interactable: true, type: 'survivor' };
+            scene.add(survivor);
+            interactables.push(survivor);
+            collidables.push(new THREE.Box3().setFromObject(survivor));
+
+            const sealWheel = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.1), new THREE.MeshPhongMaterial({color: 0xff0000}));
+            sealWheel.position.set(0, 1.5, 9);
+            sealWheel.userData = { interactable: true, type: 'seal' };
+            scene.add(sealWheel);
+            interactables.push(sealWheel);
+
+            showDialog("Sicher... vorerst. Ich muss diesen Ort bewohnbar machen.");
+        }
+
+        // --- ENEMY SYSTEM ---
+        function spawnEnemy() {
+            if(!gameState.hasWeapon) return; // Only spawn if player can fight
+
+            // Complex Mutant Shape
+            const group = new THREE.Group();
+            const mat = new THREE.MeshPhongMaterial({ color: 0x880000 });
+            
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.2, 0.4), mat);
+            body.position.y = 0.6;
+            group.add(body);
+            
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), mat);
+            head.position.y = 1.4;
+            group.add(head);
+
+            const arm1 = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.8, 0.15), mat);
+            arm1.position.set(0.45, 1.0, 0.2);
+            arm1.rotation.x = -Math.PI/4;
+            group.add(arm1);
+
+            const arm2 = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.8, 0.15), mat);
+            arm2.position.set(-0.45, 1.0, 0.2);
+            arm2.rotation.x = -Math.PI/4;
+            group.add(arm2);
+
+            // Spawn pos
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 20 + Math.random() * 10;
+            group.position.set(Math.cos(angle)*dist, 0, Math.sin(angle)*dist);
+            
+            group.userData = { hp: 2, type: 'mutant' }; // Less HP
+            scene.add(group);
+            enemies.push(group);
+        }
+
+        // --- INTERACTION LOGIC ---
+        function interact() {
+            if (!interactableObject) return;
+            const type = interactableObject.userData.type;
+
+            // Level 1
+            if (type === 'pc') usePC();
+            else if (type === 'info') showDialog(interactableObject.userData.msg);
+            else if (type === 'flashlight_pickup') {
+                gameState.hasFlashlight = true;
+                flashlight.intensity = 2; // Light on!
+                scene.remove(interactableObject);
+                showDialog("Eine Taschenlampe! Endlich Licht.");
+            }
+            else if (type === 'door_lvl1') {
+                if (gameState.doorUnlocked) {
+                    showDialog("Die Tür ist offen. Nichts wie weg hier.");
+                    setTimeout(showStoryTransition, 2000);
+                } else {
+                    showDialog("Verschlossen. Elektronisches Schloss. Kabel führen zum PC.");
+                }
+            }
+            // Level 2
+            else if (type === 'part_battery' || type === 'part_bulb') {
+                gameState.flashlightParts++;
+                scene.remove(interactableObject);
+                if(gameState.flashlightParts >= 2) {
+                    gameState.flashlightBroken = false;
+                    flashlight.intensity = 1.5;
+                    showDialog("Taschenlampe repariert!");
+                } else {
+                    showDialog("Ein Teil gefunden. Fehlt noch eins.");
+                }
+            }
+            else if (type === 'weapon_pickup') {
+                gameState.hasWeapon = true;
+                scene.remove(interactableObject);
+                showDialog("Ein rostiges Rohr. Besser als nichts. (Linksklick zum Schlagen/Schießen)");
+                // Start Enemy Spawning
+                setInterval(() => {
+                    if(gameState.level === 2 && !gameState.isPaused && enemies.length < 3) spawnEnemy();
+                }, 5000);
+            }
+            else if (type === 'geiger_pickup') {
+                gameState.hasGeiger = true;
+                document.getElementById('hud-rad').style.display = 'block';
+                scene.remove(interactableObject);
+                showDialog("Ein Geigerzähler. Er tickt bereits...");
+            }
+            else if (type === 'clue_lvl2') {
+                gameState.bunkerCodeFound = true;
+                showDialog(interactableObject.userData.msg);
+            }
+            else if (type === 'bunker_enter') {
+                if(gameState.bunkerCodeFound) {
+                    showDialog("Koordinaten eingegeben... Schleuse öffnet sich.");
+                    setTimeout(initLevel3, 2000);
+                } else {
+                    showDialog("Die Luke ist versiegelt. Ich brauche den Zugangscode.");
+                }
+            }
+            // Level 3
+            else if (type === 'farm') { /* ... same as before ... */ 
+                 if(gameState.bunkerReady.food < 100) {
+                    gameState.bunkerReady.food += 25;
+                    interactableObject.material.color.setHex(0x00ff00);
+                    showDialog("Nahrungsproduktion läuft.");
+                    checkEndGame();
+                }
+            }
+            else if (type === 'survivor') { /* ... */ 
+                if(!gameState.bunkerReady.healed) {
+                    gameState.bunkerReady.healed = true;
+                    showDialog("Er ist stabil.");
+                    checkEndGame();
+                }
+            }
+            else if (type === 'seal') { /* ... */ 
+                if(!gameState.bunkerReady.sealed) {
+                    gameState.bunkerReady.sealed = true;
+                    interactableObject.material.color.setHex(0x00ff00);
+                    showDialog("Bunker hermetisch abgeriegelt.");
+                    checkEndGame();
+                }
+            }
+        }
+
+        function checkEndGame() {
+            if(gameState.bunkerReady.food > 0 && gameState.bunkerReady.healed && gameState.bunkerReady.sealed) {
+                setTimeout(() => {
+                    document.getElementById('end-title').innerText = "SPIEL GEWONNEN";
+                    document.getElementById('end-title').style.color = "#0f0";
+                    document.getElementById('end-msg').innerText = "Du hast eine sichere Zuflucht geschaffen.";
+                    document.getElementById('end-screen').style.display = 'flex';
+                    controls.unlock();
+                }, 2000);
+            }
+        }
+
+        // --- STORY TRANSITION ---
+        function showStoryTransition() {
+            controls.unlock();
+            const div = document.createElement('div');
+            Object.assign(div.style, {
+                position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                background: 'black', color: 'white', display: 'flex', flexDirection: 'column',
+                justifyContent: 'center', alignItems: 'center', zIndex: 999, textAlign: 'center', padding: '20px'
+            });
+            div.innerHTML = "<h1>KAPITEL 2</h1><p>Du trittst ins Freie. Die Taschenlampe flackert und erlischt.</p><p>Ein beißender Wind weht dir entgegen.</p>";
+            document.body.appendChild(div);
+            
+            setTimeout(() => {
+                document.body.removeChild(div);
+                initLevel2();
+                controls.lock();
+            }, 5000);
+        }
+
+        // --- COMBAT ---
+        function shoot() {
+            if(!gameState.hasWeapon) return;
+            // Visual feedback
+            const domCrosshair = document.getElementById('crosshair');
+            domCrosshair.style.borderColor = "red";
+            setTimeout(() => domCrosshair.style.borderColor = "rgba(255,255,255,0.5)", 100);
+
+            raycaster.setFromCamera(new THREE.Vector2(0,0), camera);
+            // Check intersection with recursive true for groups
+            const intersects = raycaster.intersectObjects(enemies, true);
+            
+            if(intersects.length > 0 && intersects[0].distance < 4) { // Range limit
+                // Find the parent group with userData
+                let target = intersects[0].object;
+                while(target.parent && target.parent.type !== 'Scene') {
+                    if(target.userData.hp !== undefined) break;
+                    target = target.parent;
+                }
+
+                if(target.userData.hp !== undefined) {
+                    target.userData.hp--;
+                    // Hit effect
+                    target.children.forEach(c => c.material.color.setHex(0xffffff));
+                    setTimeout(() => target.children.forEach(c => c.material.color.setHex(0x880000)), 100);
+
+                    if(target.userData.hp <= 0) {
+                        scene.remove(target);
+                        enemies.splice(enemies.indexOf(target), 1);
+                    }
+                }
+            }
+        }
+
+        // --- PC & DIALOG UI LOGIC ---
+        function usePC() {
+            gameState.isUsingPC = true;
+            controls.unlock();
+            document.getElementById('pc-interface').style.display = 'block';
+        }
+        window.closePC = function() {
+            gameState.isUsingPC = false;
+            document.getElementById('pc-interface').style.display = 'none';
+            controls.lock();
+        }
+
+        // Login
+        document.getElementById('pc-login-btn').addEventListener('click', () => {
+            const val = document.getElementById('pc-password-input').value.toLowerCase();
+            if(val.includes('bello')) {
+                document.getElementById('pc-login').style.display = 'none';
+                gameState.pcUnlocked = true;
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        });
+        document.getElementById('unlock-btn').addEventListener('click', () => {
+            gameState.doorUnlocked = true;
+            document.getElementById('unlock-msg').innerText = "ENTRIEGELT";
+        });
+
+        // Window Mgmt
+        window.openWindow = (id) => {
+            document.querySelectorAll('.window').forEach(w => w.style.display='none');
+            document.getElementById(id).style.display='flex';
+        };
+        window.closeWindow = (id) => document.getElementById(id).style.display='none';
+
+        // Dialogs
+        function showDialog(text) {
+            gameState.isDialogOpen = true;
+            dialogContent.innerText = text;
+            dialogBox.style.display = 'block';
+            controls.unlock(); // Unlock mouse so user can click or read comfortably
+        }
+        function closeDialog() {
+            gameState.isDialogOpen = false;
+            dialogBox.style.display = 'none';
+            controls.lock();
+        }
+        dialogBtn.addEventListener('click', closeDialog);
+
+        // --- UPDATE LOOP ---
+        function update(dt) {
+            // Blinking Lights Logic
+            const time = performance.now() / 1000;
+            blinkers.forEach(b => {
+                // Flickering noise
+                const flicker = Math.sin(time * 15 + b.timeOffset) + Math.sin(time * 5 + b.timeOffset) * 0.5;
+                const on = flicker > -0.5; 
+                
+                b.light.intensity = on ? 2.5 : 0.2; // Bright vs Dim
+                b.mat.emissiveIntensity = on ? 1.0 : 0.1;
+            });
+
+            // Radiation
+            if(gameState.level === 2 && gameState.hasGeiger) {
+                gameState.radiationLevel += 0.0005; // slower rads
+                document.getElementById('hud-rad').innerText = `Geiger: ${(0.05 + gameState.radiationLevel * 10).toFixed(2)} µSv/h`;
+            }
+
+            // Enemies
+            if(gameState.level === 2) {
+                enemies.forEach(e => {
+                    const dir = new THREE.Vector3().subVectors(camera.position, e.position).normalize();
+                    e.position.add(dir.multiplyScalar(3.0 * dt)); // Slower speed
+                    e.lookAt(camera.position);
+
+                    if(e.position.distanceTo(camera.position) < 1.0) {
+                        gameState.hp -= 0.1; // Less damage
+                        document.getElementById('hud-hp').innerText = `Gesundheit: ${Math.floor(gameState.hp)}%`;
+                        document.getElementById('hud-hp').style.color = "red";
+                        if(gameState.hp <= 0) {
+                            controls.unlock();
+                            document.getElementById('end-screen').style.display = 'flex';
+                        }
+                    }
+                });
+            }
+
+            // Movement & Collision
+            if (controls.isLocked) {
+                const delta = dt;
+                
+                // Friction
+                velocity.x -= velocity.x * 10.0 * delta;
+                velocity.z -= velocity.z * 10.0 * delta;
+                velocity.y -= 9.8 * 2.0 * delta; // Gravity
+
+                direction.z = Number(moveForward) - Number(moveBackward);
+                direction.x = Number(moveRight) - Number(moveLeft);
+                direction.normalize();
+
+                if (moveForward || moveBackward) velocity.z -= direction.z * 100.0 * delta;
+                if (moveLeft || moveRight) velocity.x -= direction.x * 100.0 * delta;
+
+                // Proposed movement
+                const moveX = -velocity.x * delta;
+                const moveZ = -velocity.z * delta;
+
+                // Collision Detection (Simple AABB vs Player Point)
+                // We check X and Z axes separately for sliding
+                
+                const oldPos = camera.position.clone();
+                
+                // Try X Move
+                controls.moveRight(moveX);
+                if(checkCollision(camera.position)) {
+                    camera.position.x = oldPos.x; // Revert X if hit
+                    velocity.x = 0;
+                }
+
+                // Try Z Move
+                controls.moveForward(moveZ);
+                if(checkCollision(camera.position)) {
+                    camera.position.z = oldPos.z; // Revert Z if hit
+                    velocity.z = 0;
+                }
+
+                // Y Movement (Jump/Floor)
+                camera.position.y += velocity.y * delta;
+                if(camera.position.y < 1.6) {
+                    velocity.y = 0;
+                    camera.position.y = 1.6;
+                }
+            }
+
+            // Raycasting
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(interactables);
+            if (intersects.length > 0 && intersects[0].distance < 3) {
+                interactableObject = intersects[0].object;
+                uiInteraction.style.opacity = 1;
+                document.getElementById('crosshair').classList.add('active');
+            } else {
+                interactableObject = null;
+                uiInteraction.style.opacity = 0;
+                document.getElementById('crosshair').classList.remove('active');
+            }
+        }
+
+        function checkCollision(pos) {
+            // Player Bounds (approx radius 0.5)
+            const pBox = new THREE.Box3();
+            pBox.setFromCenterAndSize(pos, new THREE.Vector3(0.5, 2, 0.5));
+
+            for(let box of collidables) {
+                if(pBox.intersectsBox(box)) return true;
+            }
+            return false;
+        }
+
+        // Loop
+        let lastTime = performance.now();
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = performance.now();
+            const delta = (time - lastTime) / 1000;
+            lastTime = time;
+            update(delta);
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+
+    </script>
+</body>
+</html>
