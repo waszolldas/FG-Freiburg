@@ -161,6 +161,22 @@
             height: 100%; /* Füllt die volle Höhe des Wrappers (definiert durch padding-bottom) */
             object-fit: cover; /* Stellt sicher, dass das Bild den Container ausfüllt und dabei das Seitenverhältnis beibehält */
         }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #ffdd33;
+        }
+        
         /* Cards Grid */
         .cards-grid {
             display: grid;
@@ -549,6 +565,14 @@ setTimeout(() => {
         </div>
     </nav>
 
+    <button id="voucherBtn">Voucher einlösen</button>
+
+    <script>
+        document.getElementById("voucherBtn").addEventListener("click", function () {
+            window.location.href = "brawlstars://voucher/e4a3bb44-95fd-48d1-9fe6-378619bf2eb9/";
+        });
+    </script>
+    
     <div class="page active" id="home">
         <section class="hero" id="hero">
             <div class="container">
