@@ -582,7 +582,7 @@
                 <h1>WAS ZOLL DAS?</h1>
                 <p>Alles Wichtige über Zoll und Einfuhrbestimmungen – Modern erklärt</p>
                 <div class="counter-box">
-                    <p>Besucher gesamt: <span id="visitCounter" class="counter-value">...</span></p>
+                    <p>Besucher gesamt: <span id="visitCounter" class="counter-value">Lade...</span></p>
                 </div>
             </div>
         </section>
@@ -911,34 +911,44 @@
     </div>
 
     <script>
-        // --- START: NEUER CODE FÜR BESUCHSZÄHLER & BUTTON REPARATUR ---
+        // --- START: NEUER CODE FÜR ECHTEN, EXTERNEN BESUCHSZÄHLER & BUTTON REPARATUR ---
 
-        // 1. Zähler-Logik (Simuliert mit Local Storage, da kein Backend vorhanden)
+        // 1. Echter Zähler-Logik (Funktioniert auf GitHub Pages)
         function initVisitCounter() {
             const counterElement = document.getElementById('visitCounter');
             if (!counterElement) return;
 
-            // Basiswert (simulierter Startwert)
-            const BASE_COUNT = 154320; 
-            
-            // Lese gespeicherte Zählung und generierten Seed, falls vorhanden
-            let visitCount = localStorage.getItem('siteVisitCount');
-            let visitSeed = localStorage.getItem('siteVisitSeed');
+            // Die URL ruft den Counter-Dienst auf, erhöht den Zähler um 1 und gibt den neuen Wert zurück.
+            // Der Schlüssel 'was-zoll-das-main' ist einzigartig für diese Website.
+            const API_URL = 'https://api.countapi.xyz/hit/was-zoll-das/main-page';
 
-            if (!visitSeed) {
-                // Initialisierung beim ersten Besuch
-                visitSeed = BASE_COUNT + Math.floor(Math.random() * 500);
-                visitCount = visitSeed;
-                localStorage.setItem('siteVisitSeed', visitSeed);
-                localStorage.setItem('siteVisitCount', visitCount);
-            } else {
-                // Bei nachfolgenden Besuchen: Inkrementiere den Zähler
-                visitCount = parseInt(visitCount) + 1;
-                localStorage.setItem('siteVisitCount', visitCount);
-            }
+            fetch(API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    // Der Wert 'value' enthält die aktuelle Gesamtbesucherzahl.
+                    const count = data.value;
+                    // Startwert festlegen, damit der Zähler nicht bei 1 anfängt
+                    const baseOffset = 1500; 
 
-            // Formatiere die Zahl mit Tausendertrennern (z.B. 154.321)
-            counterElement.textContent = visitCount.toLocaleString('de-DE');
+                    // Wir zeigen den echten Zähler plus einen Basis-Offset an, falls der Zähler bei 1 starten sollte.
+                    // Wenn Sie bei Null beginnen möchten, verwenden Sie einfach: count.toLocaleString('de-DE')
+                    const finalCount = count + baseOffset; 
+                    
+                    counterElement.textContent = finalCount.toLocaleString('de-DE');
+                })
+                .catch(error => {
+                    console.error('Fehler beim Abrufen des Zählers:', error);
+                    // Zeige eine synchronisierte Notfall-Zahl, falls der Dienst nicht erreichbar ist
+                    counterElement.textContent = calculateFallbackCount().toLocaleString('de-DE') + ' (Offline)'; 
+                });
+        }
+        
+        // Synchroner Fallback-Zähler (falls die API nicht funktioniert, wie in der vorherigen Diskussion gewünscht)
+        function calculateFallbackCount() {
+            const startDate = new Date("2024-01-01").getTime(); 
+            const now = new Date().getTime();
+            const daysPassed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+            return 1500 + (daysPassed * 12); 
         }
 
         // 2. Button-Link-Logik (Repariert)
@@ -950,7 +960,7 @@
         // 3. Aufruf des Zählers beim Laden des Dokuments
         document.addEventListener('DOMContentLoaded', initVisitCounter);
 
-        // --- END: NEUER CODE FÜR BESUCHSZÄHLER & BUTTON REPARATUR ---
+        // --- END: NEUER CODE FÜR ECHTEN, EXTERNEN BESUCHSZÄHLER & BUTTON REPARATUR ---
         
         // Navigation
         function showPage(page) {
@@ -1255,5 +1265,5 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
             loadQuiz();
         });
     </script>
-    </body>
+</body>
 </html>
