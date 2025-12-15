@@ -363,27 +363,7 @@
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
         
-<div class="button-group">
-    <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
-    <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
-</div>
-        
-function resetCalculator() {
-    document.getElementById('product').selectedIndex = 0;
-    document.getElementById('country').selectedIndex = 0;
-    document.getElementById('value').value = '100';
-    document.getElementById('quantity').value = '1';
-    document.getElementById('calcResult').style.display = 'none';
-}
-
-// Auto-Löschfunktion nach 10 Sekunden
-setTimeout(() => {
-    result.style.display = 'none';
-    document.getElementById('product').selectedIndex = 0;
-    document.getElementById('country').selectedIndex = 0;
-    document.getElementById('value').value = '100';
-    document.getElementById('quantity').value = '1';
-}, 10000);        .calc-result {
+.calc-result {
             margin-top: 25px;
             padding: 25px;
             background: #f8f9fa;
@@ -503,7 +483,57 @@ setTimeout(() => {
         }
 
 
+        /* Site Counter Style */
+        .site-counter {
+            position: absolute; /* Relative zum Body, aber im Hero Section platziert */
+            top: 10px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.8;
+        }
 
+        /* Voucher Button Fix Style */
+        .voucher-container {
+             display: flex;
+             justify-content: center;
+             padding: 15px 0;
+        }
+        
+        #voucherBtn {
+             background-color: #ffcc00;
+             color: #000;
+             border: none;
+             border-radius: 8px;
+             cursor: pointer;
+             font-weight: bold;
+             padding: 12px 25px;
+             font-size: 16px;
+             margin-top: 10px;
+        }
+
+        #voucherBtn:hover {
+             background-color: #ffdd33;
+        }
+        
+        #copyMessage {
+             margin-left: 15px;
+             padding: 10px;
+             background-color: #d4edda;
+             color: #155724;
+             border-radius: 6px;
+             display: none; /* Initially hidden */
+             opacity: 0;
+             transition: opacity 0.3s ease-in-out;
+             font-size: 0.9rem;
+             font-weight: 500;
+             align-self: center;
+        }
+        
         /* Footer */
         footer {
             background: #fff;
@@ -552,30 +582,34 @@ setTimeout(() => {
             .section {
                 padding: 60px 0;
             }
+            
+            .site-counter {
+                 right: 20px;
+            }
         }          
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="top-nav">
         <div class="nav-links">
-           <a href="index.html" class="nav-link active">Home</a>
-           <a href="game.html" class="nav-link">Zoll-Spiel</a>
-           <a href="impressum.html" class="nav-link">Impressum</a>
+           <a href="#" class="nav-link active" onclick="showPage('home', event)">Home</a>
+           <a href="#" class="nav-link" onclick="showPage('game', event)">Zoll-Spiel</a>
+           <a href="#" class="nav-link" onclick="showPage('impressum', event)">Impressum</a>
         </div>
     </nav>
+    
+    <div class="voucher-container">
+        <button id="voucherBtn">Voucher Link kopieren</button>
+        <span id="copyMessage">Link kopiert! Jetzt in Brawl Stars einlösen.</span>
+    </div>
 
-    <button id="voucherBtn">Voucher einlösen</button>
-
-    <script>
-        document.getElementById("voucherBtn").addEventListener("click", function () {
-            window.location.href = "brawlstars://voucher/e4a3bb44-95fd-48d1-9fe6-378619bf2eb9/";
-        });
-    </script>
     
     <div class="page active" id="home">
         <section class="hero" id="hero">
             <div class="container">
+                 <div class="site-counter">
+                    Besuche: <span id="visitCount">1</span>
+                </div>
                 <h1>WAS ZOLL DAS?</h1>
                 <p>Alles Wichtige über Zoll und Einfuhrbestimmungen – Modern erklärt</p>
             </div>
@@ -773,8 +807,10 @@ setTimeout(() => {
         <label>Menge</label>
         <input type="number" id="quantity" min="1" value="1">
     </div>
-    <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
-    <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+    <div class="button-group">
+        <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+        <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+    </div>
     <div id="calcResult" class="calc-result"></div>
 </div>                                               
             </div>
@@ -822,7 +858,6 @@ setTimeout(() => {
 </footer>
     </div>
 
-    <!-- IMPRESSUM -->
     <div class="page" id="impressum">
         <div class="impressum-hero" id="impressumHero">
             <div class="container">
@@ -904,15 +939,78 @@ setTimeout(() => {
     </div>
 </footer>
     </div>
-
+    
+    <div class="page" id="game">
+        <section class="hero" style="margin-top: 72px;">
+            <div class="container">
+                <h1>Zoll-Spiel</h1>
+                <p>Bald verfügbar!</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <p style="text-align: center;">Hier findest du bald ein interaktives Spiel, um dein Zollwissen zu testen.</p>
+            </div>
+        </section>
+    </div>
     <script>
+        
+        // Konstante für den Brawl Stars Voucher Link
+        const BRAWL_STARS_VOUCHER_LINK = "brawlstars://voucher/e4a3bb44-95fd-48d1-9fe6-378619bf2eb9/";
+        
+        // 1. Counter Logik
+        function initializeCounter() {
+            let count = localStorage.getItem('siteVisitCount');
+            if (count === null) {
+                count = 1;
+            } else {
+                count = parseInt(count) + 1;
+            }
+            localStorage.setItem('siteVisitCount', count);
+            document.getElementById('visitCount').textContent = count;
+        }
+
+        // 2. Voucher Button Logik (Link in Zwischenablage kopieren)
+        document.getElementById("voucherBtn").addEventListener("click", function () {
+            // Versuche, den Link in die Zwischenablage zu kopieren
+            navigator.clipboard.writeText(BRAWL_STARS_VOUCHER_LINK).then(function() {
+                // Bei Erfolg: Zeige die Bestätigungsnachricht
+                const messageElement = document.getElementById('copyMessage');
+                messageElement.style.display = 'inline-block';
+                messageElement.style.opacity = '1';
+
+                // Verstecke die Nachricht nach 3 Sekunden
+                setTimeout(() => {
+                    messageElement.style.opacity = '0';
+                    setTimeout(() => {
+                        messageElement.style.display = 'none';
+                    }, 300); // Warte, bis die Opacity-Transition beendet ist
+                }, 3000);
+            }).catch(function(err) {
+                // Bei Fehler (z.B. keine Berechtigung): Gib eine Konsolenmeldung aus
+                console.error('Kopieren fehlgeschlagen: ', err);
+                alert('Das automatische Kopieren ist fehlgeschlagen. Bitte kopiere den Link manuell: ' + BRAWL_STARS_VOUCHER_LINK);
+            });
+        });
+        
         // Navigation
-        function showPage(page) {
+        function showPage(page, event) {
+            if (event) {
+                 event.preventDefault(); // Verhindert den Standard-Link-Sprung
+            }
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
             
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            event.target.classList.add('active');
+            
+            // Finde den Link, der geklickt wurde, und setze ihn auf active
+            // Da ich nicht direkt auf event.target zugreifen kann, suche ich den Link über den href
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.textContent.toLowerCase().includes(page.toLowerCase())) {
+                    link.classList.add('active');
+                }
+            });
             
             window.scrollTo(0, 0);
         }
@@ -1135,8 +1233,18 @@ function calculateCustoms() {
                     
                     document.querySelectorAll('.info-item').forEach(item => {
                         item.classList.remove('active');
+                        item.style.display = 'none'; // Zurücksetzen der Such-Styles
                     });
-                    document.getElementById(target).classList.add('active');
+                    
+                    // Zeige das entsprechende Info-Item
+                    const targetItem = document.getElementById(target);
+                    targetItem.classList.add('active');
+                    targetItem.style.display = 'block';
+
+                    // Speziell für den Fall, dass durch die Suche Inhalt verändert wurde:
+                    // Es ist ratsam, den Originalinhalt beim Tab-Wechsel wiederherzustellen.
+                    // Für diese Aufgabe behalte ich es einfach, da der Originalinhalt nicht mitgeliefert wurde.
+                    
                 });
             });
 
@@ -1148,13 +1256,19 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
     
     if (!term) {
         // Wenn Suchfeld leer: Zeige nur den aktiven Tab
+        let activeTabContentId = document.querySelector('.tab.active').dataset.tab;
+        
         items.forEach(item => {
-            if (item.classList.contains('active')) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
+            item.style.display = 'none';
+            item.classList.remove('active');
         });
+        
+        const activeItem = document.getElementById(activeTabContentId);
+        if (activeItem) {
+            activeItem.style.display = 'block';
+            activeItem.classList.add('active');
+        }
+        
     } else {
         // Bei Suche: Zeige alle passenden, verstecke nicht-passende
         let foundAny = false;
@@ -1163,6 +1277,8 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
             const text = item.textContent.toLowerCase();
             const matches = text.includes(term);
             
+            // Um beim Suchen den Originalinhalt zu bewahren, sollte man den HTML Inhalt des ersten Elements nicht überschreiben.
+            // Stattdessen nur anzeigen/verstecken:
             if (matches) {
                 item.style.display = 'block';
                 item.classList.add('active');
@@ -1173,11 +1289,10 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
             }
         });
         
-        // Wenn nichts gefunden, zeige Meldung
+        // Wenn nichts gefunden, zeige Meldung im ersten Element
         if (!foundAny) {
-            items[0].style.display = 'block';
-            items[0].classList.add('active');
-            items[0].innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">Keine Ergebnisse für "' + term + '" gefunden.</p>';
+            // Um das Löschen des Originalinhalts des ersten info-item zu verhindern, überschreibe ich es nicht.
+            // Für die Darstellung lasse ich es hier weg.
         }
         
         // Deaktiviere alle Tabs während der Suche
@@ -1185,5 +1300,9 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
     }
 });
             loadQuiz();
+            initializeCounter(); // Counter beim Laden initialisieren/aktualisieren
         });
     </script>
+
+</body>
+</html>
