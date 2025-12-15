@@ -153,6 +153,14 @@
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
+        .image-wrapper img {
+            position: absolute; /* Positioniert das Bild relativ zum Wrapper */
+            top: 0;
+            left: 0;
+            width: 100%;  /* Füllt die volle Breite des Wrappers */
+            height: 100%; /* Füllt die volle Höhe des Wrappers (definiert durch padding-bottom) */
+            object-fit: cover; /* Stellt sicher, dass das Bild den Container ausfüllt und dabei das Seitenverhältnis beibehält */
+        }
         /* Cards Grid */
         .cards-grid {
             display: grid;
@@ -561,7 +569,8 @@ setTimeout(() => {
             </iframe>
         </div>
         <div class="image-wrapper">
-            <img src="https://i.postimg.cc/CL426Rwz/Screenshot-2025-10-25-22-13-33-288-com-whatsapp-edit.jpg">
+            <img src="https://i.postimg.cc/CL426Rwz/Screenshot-2025-10-25-22-13-33-288-com-whatsapp-edit.jpg" 
+                alt="Jannis crush" border="3">
         </div>
 
     </div>
