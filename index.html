@@ -482,36 +482,6 @@
             font-weight: 600;
         }
 
-        /* Counter Styles */
-        .counter-box {
-            background: #f0f4ff; /* Light blue/grey to stand out */
-            padding: 15px 25px;
-            border-radius: 8px;
-            margin: 20px auto 0;
-            max-width: 600px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .counter-box p {
-            font-size: 1rem;
-            color: #667eea;
-            font-weight: 600;
-            margin: 0;
-            opacity: 1; /* Override hero opacity */
-        }
-
-        .counter-value {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #1a1a1a;
-            display: inline-block;
-        }
-
-
         /* Footer */
         footer {
             background: #fff;
@@ -573,7 +543,7 @@
     </nav>
 
     <div style="text-align: center; padding-top: 100px;">
-        <button id="voucherBtn">Voucher einlösen</button>
+        <button id="voucherBtn">klick mich nicht</button>
     </div>
     
     <div class="page active" id="home">
@@ -581,9 +551,6 @@
             <div class="container">
                 <h1>WAS ZOLL DAS?</h1>
                 <p>Alles Wichtige über Zoll und Einfuhrbestimmungen – Modern erklärt</p>
-                <div class="counter-box">
-                    <p>Besucher gesamt: <span id="visitCounter" class="counter-value">Lade...</span></p>
-                </div>
             </div>
         </section>
 
@@ -598,7 +565,6 @@
                     allowfullscreen>
             </iframe>
         </div>
-        
 
     </div>
 </section>
@@ -911,58 +877,9 @@
     </div>
 
     <script>
-        // --- START: NEUER CODE FÜR ECHTEN, EXTERNEN BESUCHSZÄHLER & BUTTON REPARATUR ---
-
-        // 1. Echter Zähler-Logik (Funktioniert auf GitHub Pages)
-        function initVisitCounter() {
-            const counterElement = document.getElementById('visitCounter');
-            if (!counterElement) return;
-
-            // Die URL ruft den Counter-Dienst auf, erhöht den Zähler um 1 und gibt den neuen Wert zurück.
-            // Der Schlüssel 'was-zoll-das-main' ist einzigartig für diese Website.
-            const API_URL = 'https://api.countapi.xyz/hit/was-zoll-das/main-page';
-
-            fetch(API_URL)
-                .then(response => response.json())
-                .then(data => {
-                    // Der Wert 'value' enthält die aktuelle Gesamtbesucherzahl.
-                    const count = data.value;
-                    // Startwert festlegen, damit der Zähler nicht bei 1 anfängt
-                    const baseOffset = 1500; 
-
-                    // Wir zeigen den echten Zähler plus einen Basis-Offset an, falls der Zähler bei 1 starten sollte.
-                    // Wenn Sie bei Null beginnen möchten, verwenden Sie einfach: count.toLocaleString('de-DE')
-                    const finalCount = count + baseOffset; 
-                    
-                    counterElement.textContent = finalCount.toLocaleString('de-DE');
-                })
-                .catch(error => {
-                    console.error('Fehler beim Abrufen des Zählers:', error);
-                    // Zeige eine synchronisierte Notfall-Zahl, falls der Dienst nicht erreichbar ist
-                    counterElement.textContent = calculateFallbackCount().toLocaleString('de-DE') + ' (Offline)'; 
-                });
-        }
-        
-        // Synchroner Fallback-Zähler (falls die API nicht funktioniert, wie in der vorherigen Diskussion gewünscht)
-        function calculateFallbackCount() {
-            const startDate = new Date("2024-01-01").getTime(); 
-            const now = new Date().getTime();
-            const daysPassed = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
-            return 1500 + (daysPassed * 12); 
-        }
-
-        // 2. Button-Link-Logik (Repariert)
         document.getElementById("voucherBtn").addEventListener("click", function () {
-            // Der Link wird nun direkt im Event-Listener korrekt aufgerufen
             window.location.href = "brawlstars://voucher/e4a3bb44-95fd-48d1-9fe6-378619bf2eb9/";
         });
-
-        // 3. Aufruf des Zählers beim Laden des Dokuments
-        document.addEventListener('DOMContentLoaded', initVisitCounter);
-
-        // --- END: NEUER CODE FÜR ECHTEN, EXTERNEN BESUCHSZÄHLER & BUTTON REPARATUR ---
-        
-        // Navigation
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
