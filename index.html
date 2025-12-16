@@ -161,22 +161,6 @@
             height: 100%; /* Füllt die volle Höhe des Wrappers (definiert durch padding-bottom) */
             object-fit: cover; /* Stellt sicher, dass das Bild den Container ausfüllt und dabei das Seitenverhältnis beibehält */
         }
-
-        #voucherBtn {
-            padding: 15px 30px;
-            font-size: 18px;
-            background-color: #ffcc00;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        #voucherBtn:hover {
-            background-color: #ffdd33;
-        }
-        
         /* Cards Grid */
         .cards-grid {
             display: grid;
@@ -363,7 +347,27 @@
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
         
-.calc-result {
+<div class="button-group">
+    <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+    <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+</div>
+        
+function resetCalculator() {
+    document.getElementById('product').selectedIndex = 0;
+    document.getElementById('country').selectedIndex = 0;
+    document.getElementById('value').value = '100';
+    document.getElementById('quantity').value = '1';
+    document.getElementById('calcResult').style.display = 'none';
+}
+
+// Auto-Löschfunktion nach 10 Sekunden
+setTimeout(() => {
+    result.style.display = 'none';
+    document.getElementById('product').selectedIndex = 0;
+    document.getElementById('country').selectedIndex = 0;
+    document.getElementById('value').value = '100';
+    document.getElementById('quantity').value = '1';
+}, 10000);        .calc-result {
             margin-top: 25px;
             padding: 25px;
             background: #f8f9fa;
@@ -482,6 +486,8 @@
             font-weight: 600;
         }
 
+
+
         /* Footer */
         footer {
             background: #fff;
@@ -534,6 +540,7 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="top-nav">
         <div class="nav-links">
            <a href="index.html" class="nav-link active">Home</a>
@@ -541,7 +548,7 @@
            <a href="impressum.html" class="nav-link">Impressum</a>
         </div>
     </nav>
-    
+
     <div class="page active" id="home">
         <section class="hero" id="hero">
             <div class="container">
@@ -556,10 +563,14 @@
         <p class="section-subtitle">Zoll einfach erklärt in unter 5 Minuten</p>
         
         <div class="video-wrapper">
-            <iframe src="https://youtube.com/shorts/tjsSI1BS3q0" 
+            <iframe src="https://www.youtube.com/embed/DEIN_VIDEO_ID" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen>
             </iframe>
+        </div>
+        <div class="image-wrapper">
+            <img src="https://i.postimg.cc/CL426Rwz/Screenshot-2025-10-25-22-13-33-288-com-whatsapp-edit.jpg" 
+                alt="Jannis crush" border="3">
         </div>
 
     </div>
@@ -674,77 +685,63 @@
                     </div>
 
                   <div class="card">
-    <h3 class="card-title">Zollrechner</h3>
-    <div class="form-group">
-        <label>Zielland</label>
-        <select id="destination">
-            <option value="de">Deutschland</option>
-            <option value="at">Österreich</option>
-            <option value="fr">Frankreich</option>
-            <option value="it">Italien</option>
-            <option value="es">Spanien</option>
-            <option value="nl">Niederlande</option>
-            <option value="be">Belgien</option>
-            <option value="pl">Polen</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Produktkategorie</label>
-        <select id="product">
-            <option value="electronics">Elektronik & Computer</option>
-            <option value="clothing">Kleidung & Textilien</option>
-            <option value="shoes">Schuhe & Lederwaren</option>
-            <option value="books">Bücher & Druckerzeugnisse</option>
-            <option value="toys">Spielzeug</option>
-            <option value="cosmetics">Kosmetik & Parfüm</option>
-            <option value="watches">Uhren & Schmuck</option>
-            <option value="sports">Sportartikel</option>
-            <option value="furniture">Möbel</option>
-            <option value="steel">Stahl & Stahlprodukte</option>
-            <option value="aluminum">Aluminium & Aluminiumwaren</option>
-            <option value="copper">Kupfer & Kupfererzeugnisse</option>
-            <option value="chemicals">Chemikalien & Kunststoffe</option>
-            <option value="machinery">Maschinen & Anlagen</option>
-            <option value="automotive">Kraftfahrzeuge & KFZ-Teile</option>
-            <option value="pharmaceutical">Pharmazeutische Produkte</option>
-            <option value="semiconductors">Halbleiter & Chips</option>
-            <option value="timber">Holz & Holzprodukte</option>
-            <option value="food">Lebensmittel</option>
-            <option value="agricultural">Agrarprodukte</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Herkunftsland</label>
-        <select id="country">
-            <option value="usa">USA</option>
-            <option value="china">China</option>
-            <option value="uk">Großbritannien</option>
-            <option value="switzerland">Schweiz</option>
-            <option value="japan">Japan</option>
-            <option value="southkorea">Südkorea</option>
-            <option value="canada">Kanada</option>
-            <option value="australia">Australien</option>
-            <option value="turkey">Türkei</option>
-            <option value="india">Indien</option>
-            <option value="vietnam">Vietnam</option>
-            <option value="thailand">Thailand</option>
-            <option value="brazil">Brasilien</option>
-            <option value="mexico">Mexiko</option>
-            <option value="russia">Russland</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Warenwert (€)</label>
-        <input type="number" id="value" min="0" value="100" step="0.01">
-    </div>
-    <div class="form-group">
-        <label>Menge</label>
-        <input type="number" id="quantity" min="1" value="1">
-    </div>
-    <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
-    <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
-    <div id="calcResult" class="calc-result"></div>
-</div>                                               
+                        <h3 class="card-title">Zollrechner</h3>
+                        <div class="form-group">
+                            <label>Zielland</label>
+                            <select id="destination">
+                                <option value="de">Deutschland</option>
+                                <option value="at">Österreich</option>
+                                <option value="fr">Frankreich</option>
+                                <option value="it">Italien</option>
+                                <option value="es">Spanien</option>
+                                <option value="nl">Niederlande</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Produktkategorie</label>
+                            <select id="product">
+                                <option value="electronics">Elektronik (Smartphones, Laptops)</option>
+                                <option value="clothing">Kleidung & Textilien</option>
+                                <option value="shoes">Schuhe</option>
+                                <option value="books">Bücher & Medien</option>
+                                <option value="toys">Spielzeug</option>
+                                <option value="cosmetics">Kosmetik & Parfüm</option>
+                                <option value="watches">Uhren</option>
+                                <option value="jewelry">Schmuck</option>
+                                <option value="sports">Sportartikel</option>
+                                <option value="furniture">Möbel</option>
+                                <option value="food">Lebensmittel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Herkunftsland</label>
+                            <select id="country">
+                                <option value="usa">USA</option>
+                                <option value="china">China</option>
+                                <option value="uk">Großbritannien</option>
+                                <option value="switzerland">Schweiz</option>
+                                <option value="japan">Japan</option>
+                                <option value="southkorea">Südkorea</option>
+                                <option value="canada">Kanada</option>
+                                <option value="australia">Australien</option>
+                                <option value="turkey">Türkei</option>
+                                <option value="india">Indien</option>
+                                <option value="vietnam">Vietnam</option>
+                                <option value="thailand">Thailand</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Warenwert (€)</label>
+                            <input type="number" id="value" min="0" value="100" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Menge</label>
+                            <input type="number" id="quantity" min="1" value="1">
+                        </div>
+                        <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+                        <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+                        <div id="calcResult" class="calc-result"></div>
+                    </div>                      
             </div>
         </section>
             
@@ -790,6 +787,7 @@
 </footer>
     </div>
 
+    <!-- IMPRESSUM -->
     <div class="page" id="impressum">
         <div class="impressum-hero" id="impressumHero">
             <div class="container">
@@ -873,15 +871,13 @@
     </div>
 
     <script>
-
-        });
+        // Navigation
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
             
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            // Finde den Link, der zur aktuellen Seite gehört, um ihn als aktiv zu markieren
-            document.querySelector(`.nav-links a[href="${page.toLowerCase()}.html"]`)?.classList.add('active');
+            event.target.classList.add('active');
             
             window.scrollTo(0, 0);
         }
@@ -1004,93 +1000,80 @@ function restartQuiz() {
     answered = false;
     loadQuiz();
 }        
-function calculateCustoms() {
-    const destination = document.getElementById('destination').value;
-    const product = document.getElementById('product').value;
-    const country = document.getElementById('country').value;
-    const value = parseFloat(document.getElementById('value').value);
-    const quantity = parseInt(document.getElementById('quantity').value);
 
-    // Realistische EU-Zollsätze basierend auf TARIC-Datenbank
-    const rates = {
-        electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 5, india: 6.7, vietnam: 3.7, thailand: 3.7, brazil: 5, mexico: 3, russia: 5 },
-        clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12, southkorea: 12, canada: 12, australia: 12, turkey: 8, india: 12, vietnam: 12, thailand: 12, brazil: 12, mexico: 12, russia: 12 },
-        shoes: { usa: 8, china: 16.9, uk: 8, switzerland: 3, japan: 8, southkorea: 8, canada: 8, australia: 8, turkey: 5, india: 12, vietnam: 16.9, thailand: 12, brazil: 8, mexico: 8, russia: 12 },
-        books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
-        toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7, brazil: 4.7, mexico: 4.7, russia: 4.7 },
-        cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 2.5, japan: 6.5, southkorea: 6.5, canada: 6.5, australia: 6.5, turkey: 5, india: 6.5, vietnam: 6.5, thailand: 6.5, brazil: 6.5, mexico: 6.5, russia: 6.5 },
-        watches: { usa: 4.5, china: 4.5, uk: 4.5, switzerland: 1, japan: 4.5, southkorea: 4.5, canada: 4.5, australia: 4.5, turkey: 2.5, india: 4.5, vietnam: 4.5, thailand: 4.5, brazil: 4.5, mexico: 4.5, russia: 4.5 },
-        sports: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7, brazil: 4.7, mexico: 4.7, russia: 4.7 },
-        furniture: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
-        steel: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
-        aluminum: { usa: 0, china: 7.5, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 4.5, india: 7.5, vietnam: 7.5, thailand: 7.5, brazil: 6, mexico: 4, russia: 7.5 },
-        copper: { usa: 0, china: 6, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 3, india: 6, vietnam: 6, thailand: 6, brazil: 5, mexico: 3, russia: 6 },
-        chemicals: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5, southkorea: 6.5, canada: 6.5, australia: 6.5, turkey: 5, india: 6.5, vietnam: 6.5, thailand: 6.5, brazil: 6.5, mexico: 6.5, russia: 6.5 },
-        machinery: { usa: 0, china: 2.7, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 2, india: 4, vietnam: 2.7, thailand: 2.7, brazil: 3, mexico: 2, russia: 4 },
-        automotive: { usa: 10, china: 10, uk: 10, switzerland: 5, japan: 10, southkorea: 10, canada: 10, australia: 10, turkey: 7, india: 10, vietnam: 10, thailand: 10, brazil: 10, mexico: 10, russia: 10 },
-        pharmaceutical: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
-        semiconductors: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
-        timber: { usa: 0, china: 2, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 2, vietnam: 2, thailand: 2, brazil: 0, mexico: 0, russia: 2 },
-        food: { usa: 9.6, china: 9.6, uk: 9.6, switzerland: 4, japan: 9.6, southkorea: 9.6, canada: 9.6, australia: 9.6, turkey: 7, india: 9.6, vietnam: 9.6, thailand: 9.6, brazil: 9.6, mexico: 9.6, russia: 9.6 },
-        agricultural: { usa: 8, china: 8, uk: 8, switzerland: 3, japan: 8, southkorea: 8, canada: 8, australia: 8, turkey: 5, india: 8, vietnam: 8, thailand: 8, brazil: 8, mexico: 8, russia: 8 }
-    };
+      function calculateCustoms() {
+         const destination = document.getElementById('destination').value;
+         const product = document.getElementById('product').value;
+         const country = document.getElementById('country').value;
+         const value = parseFloat(document.getElementById('value').value);
+         const quantity = parseInt(document.getElementById('quantity').value);
 
-    const vatRates = {
-        de: 0.19,
-        at: 0.20,
-        fr: 0.20,
-        it: 0.22,
-        es: 0.21,
-        nl: 0.21,
-        be: 0.21,
-        pl: 0.23
-    };
+          const rates = {
+          electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 2.5, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 5, india: 7, vietnam: 3.7, thailand: 3.7 },
+          clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12, southkorea: 12, canada: 12, australia: 12, turkey: 8, india: 12, vietnam: 12, thailand: 12 },
+          shoes: { usa: 8, china: 17, uk: 8, switzerland: 4, japan: 8, southkorea: 8, canada: 8, australia: 8, turkey: 6, india: 12, vietnam: 17, thailand: 17 },
+          books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0 },
+          toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7 },
+          cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5, southkorea: 6.5, canada: 6.5, australia: 6.5, turkey: 4, india: 6.5, vietnam: 6.5, thailand: 6.5 },
+          watches: { usa: 4.5, china: 4.5, uk: 4.5, switzerland: 2, japan: 4.5, southkorea: 4.5, canada: 4.5, australia: 4.5, turkey: 3, india: 4.5, vietnam: 4.5, thailand: 4.5 },
+          jewelry: { usa: 2.5, china: 4, uk: 2.5, switzerland: 1.5, japan: 2.5, southkorea: 2.5, canada: 2.5, australia: 2.5, turkey: 2, india: 4, vietnam: 4, thailand: 4 },
+          sports: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2.5, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7 },
+          furniture: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0 },
+          food: { usa: 9.6, china: 9.6, uk: 9.6, switzerland: 5, japan: 9.6, southkorea: 9.6, canada: 9.6, australia: 9.6, turkey: 7, india: 9.6, vietnam: 9.6, thailand: 9.6 }
+        };
 
-    const total = value * quantity;
-    const rate = rates[product][country];
-    const duty = total * (rate / 100);
-    const vatRate = vatRates[destination];
-    const vat = (total + duty) * vatRate;
-    const finalTotal = total + duty + vat;
+          const vatRates = {
+            de: 0.19,
+            at: 0.20,
+            fr: 0.20,
+            it: 0.22,
+            es: 0.21,
+            nl: 0.21
+          };
 
-    const result = document.getElementById('calcResult');
-    result.style.display = 'block';
-    result.innerHTML = `
-        <h3>💰 Berechnungsergebnis</h3>
-        <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
-        <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
-            <span style="color: #666; font-weight: 500;">Warenwert</span>
-            <span style="color: #1a1a1a; font-weight: 600;">${total.toFixed(2)} €</span>
+          const total = value * quantity;
+          const rate = rates[product][country];
+          const duty = total * (rate / 100);
+          const vatRate = vatRates[destination];
+          const vat = (total + duty) * vatRate;
+          const finalTotal = total + duty + vat;
+   
+          const result = document.getElementById('calcResult');
+            result.style.display = 'block';
+            result.innerHTML = `
+            <h3>💰 Berechnungsergebnis</h3>
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Warenwert</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${total.toFixed(2)} €</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Zollsatz</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${rate}%</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Zollgebühr</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${duty.toFixed(2)} €</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 2px solid #e5e5e5;">
+                <span style="color: #666; font-weight: 500;">Einfuhrumsatzsteuer (${(vatRate * 100).toFixed(0)}%)</span>
+                <span style="color: #1a1a1a; font-weight: 600;">${vat.toFixed(2)} €</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 15px 0 5px 0; margin-top: 10px;">
+                <span style="color: #667eea; font-weight: 700; font-size: 1.1rem;">Gesamtkosten</span>
+                <span style="color: #667eea; font-weight: 700; font-size: 1.2rem;">${finalTotal.toFixed(2)} €</span>
+            </div>
         </div>
-        <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
-            <span style="color: #666; font-weight: 500;">Zollsatz</span>
-            <span style="color: #1a1a1a; font-weight: 600;">${rate}%</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e5e5;">
-            <span style="color: #666; font-weight: 500;">Zollgebühr</span>
-            <span style="color: #1a1a1a; font-weight: 600;">${duty.toFixed(2)} €</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 2px solid #e5e5e5;">
-            <span style="color: #666; font-weight: 500;">Einfuhrumsatzsteuer (${(vatRate * 100).toFixed(0)}%)</span>
-            <span style="color: #1a1a1a; font-weight: 600;">${vat.toFixed(2)} €</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; padding: 15px 0 5px 0; margin-top: 10px;">
-            <span style="color: #667eea; font-weight: 700; font-size: 1.1rem;">Gesamtkosten</span>
-            <span style="color: #667eea; font-weight: 700; font-size: 1.2rem;">${finalTotal.toFixed(2)} €</span>
-        </div>
-    </div>
     `;
-}
-      
-                  
+}               
          function resetCalculator() {
-    document.getElementById('destination').selectedIndex = 0;
-    document.getElementById('product').selectedIndex = 0;
-    document.getElementById('country').selectedIndex = 0;
-    document.getElementById('value').value = '100';
-    document.getElementById('quantity').value = '1';
-    document.getElementById('calcResult').style.display = 'none';
-}
+          document.getElementById('destination').selectedIndex = 0;
+          document.getElementById('product').selectedIndex = 0;
+          document.getElementById('country').selectedIndex = 0;
+          document.getElementById('value').value = '100';
+          document.getElementById('quantity').value = '1';
+          document.getElementById('calcResult').style.display = 'none';
+        }
         
         // Info Tabs
         document.addEventListener('DOMContentLoaded', function() {
@@ -1144,30 +1127,9 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
         
         // Wenn nichts gefunden, zeige Meldung
         if (!foundAny) {
-            // Setze den Inhalt des ersten Elements zurück, falls er durch eine vorherige Suche überschrieben wurde
-            const firstItemContent = `
-                <div style="border-left: 4px solid #667eea; padding-left: 20px; margin-bottom: 30px;">
-                    <h3>📚 Was ist Zoll?</h3>
-                </div>
-                <p style="font-size: 1.05rem; line-height: 1.9; color: #444;">
-                    Unter Zöllen verstehen wir Abgaben, welche beim grenzüberschreitenden Warenverkehr erhoben werden. Sie werden fällig, wenn Waren aus dem Ausland in ein Land eingeführt werden.
-                </p>
-                
-                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 12px; margin: 25px 0;">
-                    <p style="margin-bottom: 20px;"><strong style="color: #667eea; font-size: 1.1rem;">🛡️ 1. Schutz der heimischen Wirtschaft</strong><br>
-                    <span style="color: #555;">Durch Zölle werden ausländische Waren teurer. Dadurch werden einheimische Unternehmen vor billiger Importkonkurrenz geschützt.</span></p>
-                    
-                    <p style="margin-bottom: 20px;"><strong style="color: #667eea; font-size: 1.1rem;">💰 2. Einnahmequelle für den Staat</strong><br>
-                    <span style="color: #555;">Durch Zölle werden die Staatskassen gefüllt und können zur Finanzierung öffentlicher Aufgaben beitragen.</span></p>
-                    
-                    <p style="margin-bottom: 0;"><strong style="color: #667eea; font-size: 1.1rem;">🌍 3. Handelspolitisches Instrument</strong><br>
-                    <span style="color: #555;">Zölle können eingesetzt werden, um politischen Druck gegenüber anderen Ländern auszuüben oder Handelsbeziehungen zu beeinflussen.</span></p>
-                </div>
-            `;
-            
-            items[0].innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">Keine Ergebnisse für "' + term + '" gefunden. Bitte versuchen Sie es mit einem anderen Begriff.</p>';
             items[0].style.display = 'block';
             items[0].classList.add('active');
+            items[0].innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">Keine Ergebnisse für "' + term + '" gefunden.</p>';
         }
         
         // Deaktiviere alle Tabs während der Suche
@@ -1177,5 +1139,3 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
             loadQuiz();
         });
     </script>
-</body>
-</html>
