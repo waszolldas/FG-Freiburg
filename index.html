@@ -154,13 +154,50 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         .image-wrapper img {
-            position: absolute; /* Positioniert das Bild relativ zum Wrapper */
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;  /* Füllt die volle Breite des Wrappers */
-            height: 100%; /* Füllt die volle Höhe des Wrappers (definiert durch padding-bottom) */
-            object-fit: cover; /* Stellt sicher, dass das Bild den Container ausfüllt und dabei das Seitenverhältnis beibehält */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
+        /* Werbung – rechter Rand */
+.ad-sidebar {
+    position: fixed;
+    top: 100px; 
+    right: 0;
+    width: 220px;
+    height: calc(100vh - 120px);
+    background: #f8f9fa;
+    border-left: 1px solid #e5e5e5;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+}
+
+.ad-sidebar img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* Platz für Werbung im Content schaffen */
+@media (min-width: 1200px) {
+    body {
+        padding-right: 220px;
+    }
+}
+
+/* Werbung auf Mobile ausblenden */
+@media (max-width: 1199px) {
+    .ad-sidebar {
+        display: none;
+    }
+}
+
         /* Cards Grid */
         .cards-grid {
             display: grid;
@@ -541,6 +578,10 @@ setTimeout(() => {
 </head>
 <body>
     <!-- Navigation -->
+    <div class="ad-sidebar">
+    <img id="adImage" src="https://i.postimg.cc/CKWcswtK/2225017-Kopie.jpg" alt="Werbung">
+</div>
+
     <nav class="top-nav">
         <div class="nav-links">
            <a href="index.html" class="nav-link active">Home</a>
@@ -1133,4 +1174,19 @@ document.getElementById('searchBar').addEventListener('input', function(e) {
 });
             loadQuiz();
         });
+        // Werbung rotieren
+const ads = [
+    "https://via.placeholder.com/300x600?text=Werbung+1",
+    "https://via.placeholder.com/300x600?text=Werbung+2",
+    "https://via.placeholder.com/300x600?text=Werbung+3"
+];
+
+let currentAd = 0;
+const adImage = document.getElementById("adImage");
+
+setInterval(() => {
+    currentAd = (currentAd + 1) % ads.length;
+    adImage.src = ads[currentAd];
+}, 5000); // Wechsel alle 5 Sekunden
+
     </script>
