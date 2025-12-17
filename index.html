@@ -573,98 +573,66 @@ setTimeout(() => {
 
 <section class="section">
     <div class="container">
-        <h2 class="section-title">Wissensdatenbank</h2>
-        <p class="section-subtitle">Alle wichtigen Informationen an einem Ort</p>        
-        <input type="text" class="search-bar" id="searchBar" placeholder="Suche nach Themen...">
+        <h2 class="section-title">Wichtigste Definitionen</h2>
+        <p class="section-subtitle">Die Grundlagen auf einen Blick</p>
         
-        <div class="tabs">
-            <button class="tab active" data-tab="grundlagen">Grundlagen</button>
-            <button class="tab" data-tab="zollsaetze">Zollsätze</button>
-            <button class="tab" data-tab="freimengen">Freimengen</button>
-            <button class="tab" data-tab="verfahren">Verfahren</button>
-        </div>
-
-        <div class="info-content">
-            <div id="grundlagen" class="info-item active">
-                <div style="border-left: 4px solid #667eea; padding-left: 20px; margin-bottom: 30px;">
-                    <h3>📚 Was ist Zoll?</h3>
-                </div>
-                <p style="font-size: 1.05rem; line-height: 1.9; color: #444;">
-                    Unter Zöllen verstehen wir Abgaben, welche beim grenzüberschreitenden Warenverkehr erhoben werden. Sie werden fällig, wenn Waren aus dem Ausland in ein Land eingeführt werden.
-                </p>
-                
-                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 12px; margin: 25px 0;">
-                    <p style="margin-bottom: 20px;"><strong style="color: #667eea; font-size: 1.1rem;">🛡️ 1. Schutz der heimischen Wirtschaft</strong><br>
-                    <span style="color: #555;">Durch Zölle werden ausländische Waren teurer. Dadurch werden einheimische Unternehmen vor billiger Importkonkurrenz geschützt.</span></p>
-                    
-                    <p style="margin-bottom: 20px;"><strong style="color: #667eea; font-size: 1.1rem;">💰 2. Einnahmequelle für den Staat</strong><br>
-                    <span style="color: #555;">Durch Zölle werden die Staatskassen gefüllt und können zur Finanzierung öffentlicher Aufgaben beitragen.</span></p>
-                    
-                    <p style="margin-bottom: 0;"><strong style="color: #667eea; font-size: 1.1rem;">🌍 3. Handelspolitisches Instrument</strong><br>
-                    <span style="color: #555;">Zölle können eingesetzt werden, um politischen Druck gegenüber anderen Ländern auszuüben oder Handelsbeziehungen zu beeinflussen.</span></p>
-                </div>
-            </div>
-
-            <div id="zollsaetze" class="info-item">
-                <div style="border-left: 4px solid #667eea; padding-left: 20px; margin-bottom: 30px;">
-                    <h3>📊 Zollsätze verstehen</h3>
-                </div>
-                <p style="font-size: 1.05rem; line-height: 1.9; color: #444;">
-                    Zollsätze variieren je nach Produktkategorie und Herkunftsland. Die EU unterhält Freihandelsabkommen mit vielen Ländern, wodurch Waren aus diesen Ländern zollfrei oder zu reduzierten Sätzen eingeführt werden können.
-                </p>
-                <div style="background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%); padding: 25px; border-radius: 12px; margin: 25px 0; border-left: 4px solid #ff6b6b;">
-                    <p style="margin: 0; color: #555;">
-                        <strong style="color: #ff6b6b;">💡 Gut zu wissen:</strong><br>
-                        Typische Zollsätze in der EU liegen zwischen <strong>0% und 17%</strong>, wobei Elektronik oft niedrigere Sätze hat (ca. 0-5%) und Textilien höhere (ca. 8-12%).
-                    </p>
-                </div>
-            </div>
-
-            <div id="freimengen" class="info-item">
-                <div style="border-left: 4px solid #667eea; padding-left: 20px; margin-bottom: 30px;">
-                    <h3>✈️ Freimengen und Freigrenzen</h3>
-                </div>
-                <p style="font-size: 1.05rem; line-height: 1.9; color: #444;">
-                    Bei der Einreise aus Nicht-EU-Ländern gelten Freimengen für persönliche Waren.
-                </p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0;">
-                    <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 25px; border-radius: 12px; text-align: center; border-left: 4px solid #2196f3;">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">✈️</div>
-                        <div style="font-size: 1.8rem; font-weight: 700; color: #1976d2; margin-bottom: 5px;">430€</div>
-                        <div style="color: #555; font-weight: 500;">Flugreisende</div>
-                    </div>
-                    <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); padding: 25px; border-radius: 12px; text-align: center; border-left: 4px solid #9c27b0;">
-                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🚗</div>
-                        <div style="font-size: 1.8rem; font-weight: 700; color: #7b1fa2; margin-bottom: 5px;">300€</div>
-                        <div style="color: #555; font-weight: 500;">Andere Reisende</div>
-                    </div>
-                </div>
-                <p style="font-size: 1.05rem; line-height: 1.9; color: #444;">
-                    <strong style="color: #667eea;">⚠️ Wichtig:</strong> Für bestimmte Waren wie Alkohol und Tabak gelten zusätzliche Mengenbeschränkungen, auch wenn der Wert unter der Freigrenze liegt.
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto;">
+            
+            <!-- Definition 1: Was ist Zoll? -->
+            <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); border: 1px solid #e5e5e5;">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">📚</div>
+                <h3 style="color: #667eea; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700;">Was ist Zoll?</h3>
+                <p style="color: #555; line-height: 1.7;">
+                    Zölle sind Abgaben, die beim grenzüberschreitenden Warenverkehr erhoben werden. Sie schützen die heimische Wirtschaft und sind eine wichtige Einnahmequelle für den Staat.
                 </p>
             </div>
 
-            <div id="verfahren" class="info-item">
-                <div style="border-left: 4px solid #667eea; padding-left: 20px; margin-bottom: 30px;">
-                    <h3>📋 Zollverfahren</h3>
-                </div>
-                <p style="font-size: 1.05rem; line-height: 1.9; color: #444; margin-bottom: 25px;">
-                    Bei der Einfuhr von Waren müssen diese beim Zoll angemeldet werden.
-                </p>
-                
-                <div style="background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); padding: 25px; border-radius: 12px; margin: 25px 0;">
-                    <p style="margin-bottom: 15px;"><strong style="color: #f57c00; font-size: 1.05rem;">📝 Anmeldemöglichkeiten:</strong></p>
-                    <ul style="list-style: none; padding-left: 0; margin: 0;">
-                        <li style="padding: 10px 0; color: #555;">✓ Mündlich (bei Reisenden)</li>
-                        <li style="padding: 10px 0; color: #555;">✓ Schriftlich</li>
-                        <li style="padding: 10px 0; color: #555;">✓ Elektronisch</li>
-                    </ul>
-                </div>
-                
-                <p style="font-size: 1.05rem; line-height: 1.9; color: #444;">
-                    Nach der Anmeldung prüft der Zoll die Ware und berechnet die fälligen Abgaben. Diese müssen vor der Freigabe der Ware bezahlt werden.
+            <!-- Definition 2: Freimengen -->
+            <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); border: 1px solid #e5e5e5;">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">✈️</div>
+                <h3 style="color: #667eea; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700;">Freimengen</h3>
+                <p style="color: #555; line-height: 1.7;">
+                    Bei Flugreisen gilt eine Freigrenze von <strong>430€</strong>, bei anderen Reisen (Auto, Zug) <strong>300€</strong>. Darüber hinaus müssen Waren verzollt werden.
                 </p>
             </div>
+
+            <!-- Definition 3: Einfuhrumsatzsteuer -->
+            <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); border: 1px solid #e5e5e5;">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">💶</div>
+                <h3 style="color: #667eea; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700;">Einfuhrumsatzsteuer</h3>
+                <p style="color: #555; line-height: 1.7;">
+                    Zusätzlich zum Zoll wird die Einfuhrumsatzsteuer (EUSt) fällig – meist <strong>19%</strong> des Warenwerts plus Zoll. Sie entspricht der deutschen Mehrwertsteuer.
+                </p>
+            </div>
+
+            <!-- Definition 4: Grüner & Roter Kanal -->
+            <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); border: 1px solid #e5e5e5;">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🚦</div>
+                <h3 style="color: #667eea; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700;">Grüner & Roter Kanal</h3>
+                <p style="color: #555; line-height: 1.7;">
+                    <strong style="color: #10b981;">Grün:</strong> Nichts zu verzollen<br>
+                    <strong style="color: #ef4444;">Rot:</strong> Waren über der Freigrenze oder verbotene Güter. Bei Unsicherheit immer den roten Kanal wählen!
+                </p>
+            </div>
+
+            <!-- Definition 5: Verbotene Waren -->
+            <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); border: 1px solid #e5e5e5;">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🚫</div>
+                <h3 style="color: #667eea; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700;">Verbotene Waren</h3>
+                <p style="color: #555; line-height: 1.7;">
+                    Drogen, Waffen, gefälschte Markenprodukte und bestimmte Lebensmittel (z.B. Fleisch aus Nicht-EU-Ländern) dürfen nicht eingeführt werden.
+                </p>
+            </div>
+
+            <!-- Definition 6: Kaufbelege aufbewahren -->
+            <div style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); border: 1px solid #e5e5e5;">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🧾</div>
+                <h3 style="color: #667eea; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700;">Kaufbelege aufbewahren</h3>
+                <p style="color: #555; line-height: 1.7;">
+                    Bewahre immer deine Kaufbelege auf! Sie sind der Nachweis für den Warenwert. Ohne Belege kann der Zoll den Wert höher schätzen.
+                </p>
+            </div>
+
         </div>
     </div>
 </section>
@@ -1023,76 +991,7 @@ function restartQuiz() {
         </div>
     `;
 }               
-         function resetCalculator() {
-          document.getElementById('destination').selectedIndex = 0;
-          document.getElementById('product').selectedIndex = 0;
-          document.getElementById('country').selectedIndex = 0;
-          document.getElementById('value').value = '100';
-          document.getElementById('quantity').value = '1';
-          document.getElementById('calcResult').style.display = 'none';
-        }
         
-        // Info Tabs
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const target = this.dataset.tab;
-                    
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    document.querySelectorAll('.info-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    document.getElementById(target).classList.add('active');
-                });
-            });
-
-// Search
-document.getElementById('searchBar').addEventListener('input', function(e) {
-    const term = e.target.value.toLowerCase().trim();
-    const items = document.querySelectorAll('.info-item');
-    const tabs = document.querySelectorAll('.tab');
-    
-    if (!term) {
-        // Wenn Suchfeld leer: Zeige nur den aktiven Tab
-        items.forEach(item => {
-            if (item.classList.contains('active')) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    } else {
-        // Bei Suche: Zeige alle passenden, verstecke nicht-passende
-        let foundAny = false;
-        
-        items.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            const matches = text.includes(term);
-            
-            if (matches) {
-                item.style.display = 'block';
-                item.classList.add('active');
-                foundAny = true;
-            } else {
-                item.style.display = 'none';
-                item.classList.remove('active');
-            }
-        });
-        
-        // Wenn nichts gefunden, zeige Meldung
-        if (!foundAny) {
-            items[0].style.display = 'block';
-            items[0].classList.add('active');
-            items[0].innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">Keine Ergebnisse für "' + term + '" gefunden.</p>';
-        }
-        
-        // Deaktiviere alle Tabs während der Suche
-        tabs.forEach(tab => tab.classList.remove('active'));
-    }
-});
             loadQuiz();
         });
     </script>
