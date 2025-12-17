@@ -668,7 +668,7 @@ setTimeout(() => {
         </div>
     </div>
 </section>
-        <section class="section" style="background: #fff;">
+       <section class="section" style="background: #fff;">
             <div class="container">
                 <h2 class="section-title">Interaktive Tools</h2>
                 <p class="section-subtitle">Teste dein Wissen und berechne deine Zollkosten</p>
@@ -680,63 +680,77 @@ setTimeout(() => {
                     </div>
 
                   <div class="card">
-                        <h3 class="card-title">Zollrechner</h3>
-                        <div class="form-group">
-                            <label>Zielland</label>
-                            <select id="destination">
-                                <option value="de">Deutschland</option>
-                                <option value="at">Österreich</option>
-                                <option value="fr">Frankreich</option>
-                                <option value="it">Italien</option>
-                                <option value="es">Spanien</option>
-                                <option value="nl">Niederlande</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Produktkategorie</label>
-                            <select id="product">
-                                <option value="electronics">Elektronik (Smartphones, Laptops)</option>
-                                <option value="clothing">Kleidung & Textilien</option>
-                                <option value="shoes">Schuhe</option>
-                                <option value="books">Bücher & Medien</option>
-                                <option value="toys">Spielzeug</option>
-                                <option value="cosmetics">Kosmetik & Parfüm</option>
-                                <option value="watches">Uhren</option>
-                                <option value="jewelry">Schmuck</option>
-                                <option value="sports">Sportartikel</option>
-                                <option value="furniture">Möbel</option>
-                                <option value="food">Lebensmittel</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Herkunftsland</label>
-                            <select id="country">
-                                <option value="usa">USA</option>
-                                <option value="china">China</option>
-                                <option value="uk">Großbritannien</option>
-                                <option value="switzerland">Schweiz</option>
-                                <option value="japan">Japan</option>
-                                <option value="southkorea">Südkorea</option>
-                                <option value="canada">Kanada</option>
-                                <option value="australia">Australien</option>
-                                <option value="turkey">Türkei</option>
-                                <option value="india">Indien</option>
-                                <option value="vietnam">Vietnam</option>
-                                <option value="thailand">Thailand</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Warenwert (€)</label>
-                            <input type="number" id="value" min="0" value="100" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label>Menge</label>
-                            <input type="number" id="quantity" min="1" value="1">
-                        </div>
-                        <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
-                        <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
-                        <div id="calcResult" class="calc-result"></div>
-                    </div>                      
+    <h3 class="card-title">Zollrechner</h3>
+    <div class="form-group">
+        <label>Zielland</label>
+        <select id="destination">
+            <option value="de">Deutschland</option>
+            <option value="at">Österreich</option>
+            <option value="fr">Frankreich</option>
+            <option value="it">Italien</option>
+            <option value="es">Spanien</option>
+            <option value="nl">Niederlande</option>
+            <option value="be">Belgien</option>
+            <option value="pl">Polen</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Produktkategorie</label>
+        <select id="product">
+            <option value="electronics">Elektronik & Computer</option>
+            <option value="clothing">Kleidung & Textilien</option>
+            <option value="shoes">Schuhe & Lederwaren</option>
+            <option value="books">Bücher & Druckerzeugnisse</option>
+            <option value="toys">Spielzeug</option>
+            <option value="cosmetics">Kosmetik & Parfüm</option>
+            <option value="watches">Uhren & Schmuck</option>
+            <option value="sports">Sportartikel</option>
+            <option value="furniture">Möbel</option>
+            <option value="steel">Stahl & Stahlprodukte</option>
+            <option value="aluminum">Aluminium & Aluminiumwaren</option>
+            <option value="copper">Kupfer & Kupfererzeugnisse</option>
+            <option value="chemicals">Chemikalien & Kunststoffe</option>
+            <option value="machinery">Maschinen & Anlagen</option>
+            <option value="automotive">Kraftfahrzeuge & KFZ-Teile</option>
+            <option value="pharmaceutical">Pharmazeutische Produkte</option>
+            <option value="semiconductors">Halbleiter & Chips</option>
+            <option value="timber">Holz & Holzprodukte</option>
+            <option value="food">Lebensmittel</option>
+            <option value="agricultural">Agrarprodukte</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Herkunftsland</label>
+        <select id="country">
+            <option value="usa">USA</option>
+            <option value="china">China</option>
+            <option value="uk">Großbritannien</option>
+            <option value="switzerland">Schweiz</option>
+            <option value="japan">Japan</option>
+            <option value="southkorea">Südkorea</option>
+            <option value="canada">Kanada</option>
+            <option value="australia">Australien</option>
+            <option value="turkey">Türkei</option>
+            <option value="india">Indien</option>
+            <option value="vietnam">Vietnam</option>
+            <option value="thailand">Thailand</option>
+            <option value="brazil">Brasilien</option>
+            <option value="mexico">Mexiko</option>
+            <option value="russia">Russland</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Warenwert (€)</label>
+        <input type="number" id="value" min="0" value="100" step="0.01">
+    </div>
+    <div class="form-group">
+        <label>Menge</label>
+        <input type="number" id="quantity" min="1" value="1">
+    </div>
+    <button class="btn-calculate" onclick="calculateCustoms()">Berechnen</button>
+    <button class="btn-reset" onclick="resetCalculator()">Zurücksetzen</button>
+    <div id="calcResult" class="calc-result"></div>
+</div>                                               
             </div>
         </section>
             
@@ -950,25 +964,35 @@ function restartQuiz() {
 }        
 
       function calculateCustoms() {
-         const destination = document.getElementById('destination').value;
-         const product = document.getElementById('product').value;
-         const country = document.getElementById('country').value;
-         const value = parseFloat(document.getElementById('value').value);
-         const quantity = parseInt(document.getElementById('quantity').value);
+    const destination = document.getElementById('destination').value;
+    const product = document.getElementById('product').value;
+    const country = document.getElementById('country').value;
+    const value = parseFloat(document.getElementById('value').value);
+    const quantity = parseInt(document.getElementById('quantity').value);
 
-          const rates = {
-          electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 2.5, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 5, india: 7, vietnam: 3.7, thailand: 3.7 },
-          clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12, southkorea: 12, canada: 12, australia: 12, turkey: 8, india: 12, vietnam: 12, thailand: 12 },
-          shoes: { usa: 8, china: 17, uk: 8, switzerland: 4, japan: 8, southkorea: 8, canada: 8, australia: 8, turkey: 6, india: 12, vietnam: 17, thailand: 17 },
-          books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0 },
-          toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7 },
-          cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5, southkorea: 6.5, canada: 6.5, australia: 6.5, turkey: 4, india: 6.5, vietnam: 6.5, thailand: 6.5 },
-          watches: { usa: 4.5, china: 4.5, uk: 4.5, switzerland: 2, japan: 4.5, southkorea: 4.5, canada: 4.5, australia: 4.5, turkey: 3, india: 4.5, vietnam: 4.5, thailand: 4.5 },
-          jewelry: { usa: 2.5, china: 4, uk: 2.5, switzerland: 1.5, japan: 2.5, southkorea: 2.5, canada: 2.5, australia: 2.5, turkey: 2, india: 4, vietnam: 4, thailand: 4 },
-          sports: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2.5, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7 },
-          furniture: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0 },
-          food: { usa: 9.6, china: 9.6, uk: 9.6, switzerland: 5, japan: 9.6, southkorea: 9.6, canada: 9.6, australia: 9.6, turkey: 7, india: 9.6, vietnam: 9.6, thailand: 9.6 }
-        };
+    // Realistische EU-Zollsätze basierend auf TARIC-Datenbank
+    const rates = {
+        electronics: { usa: 0, china: 3.7, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 5, india: 6.7, vietnam: 3.7, thailand: 3.7, brazil: 5, mexico: 3, russia: 5 },
+        clothing: { usa: 12, china: 12, uk: 12, switzerland: 6.5, japan: 12, southkorea: 12, canada: 12, australia: 12, turkey: 8, india: 12, vietnam: 12, thailand: 12, brazil: 12, mexico: 12, russia: 12 },
+        shoes: { usa: 8, china: 16.9, uk: 8, switzerland: 3, japan: 8, southkorea: 8, canada: 8, australia: 8, turkey: 5, india: 12, vietnam: 16.9, thailand: 12, brazil: 8, mexico: 8, russia: 12 },
+        books: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
+        toys: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7, brazil: 4.7, mexico: 4.7, russia: 4.7 },
+        cosmetics: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 2.5, japan: 6.5, southkorea: 6.5, canada: 6.5, australia: 6.5, turkey: 5, india: 6.5, vietnam: 6.5, thailand: 6.5, brazil: 6.5, mexico: 6.5, russia: 6.5 },
+        watches: { usa: 4.5, china: 4.5, uk: 4.5, switzerland: 1, japan: 4.5, southkorea: 4.5, canada: 4.5, australia: 4.5, turkey: 2.5, india: 4.5, vietnam: 4.5, thailand: 4.5, brazil: 4.5, mexico: 4.5, russia: 4.5 },
+        sports: { usa: 4.7, china: 4.7, uk: 4.7, switzerland: 2, japan: 4.7, southkorea: 4.7, canada: 4.7, australia: 4.7, turkey: 3, india: 4.7, vietnam: 4.7, thailand: 4.7, brazil: 4.7, mexico: 4.7, russia: 4.7 },
+        furniture: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
+        steel: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
+        aluminum: { usa: 0, china: 7.5, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 4.5, india: 7.5, vietnam: 7.5, thailand: 7.5, brazil: 6, mexico: 4, russia: 7.5 },
+        copper: { usa: 0, china: 6, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 3, india: 6, vietnam: 6, thailand: 6, brazil: 5, mexico: 3, russia: 6 },
+        chemicals: { usa: 6.5, china: 6.5, uk: 6.5, switzerland: 3, japan: 6.5, southkorea: 6.5, canada: 6.5, australia: 6.5, turkey: 5, india: 6.5, vietnam: 6.5, thailand: 6.5, brazil: 6.5, mexico: 6.5, russia: 6.5 },
+        machinery: { usa: 0, china: 2.7, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 2, india: 4, vietnam: 2.7, thailand: 2.7, brazil: 3, mexico: 2, russia: 4 },
+        automotive: { usa: 10, china: 10, uk: 10, switzerland: 5, japan: 10, southkorea: 10, canada: 10, australia: 10, turkey: 7, india: 10, vietnam: 10, thailand: 10, brazil: 10, mexico: 10, russia: 10 },
+        pharmaceutical: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
+        semiconductors: { usa: 0, china: 0, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 0, vietnam: 0, thailand: 0, brazil: 0, mexico: 0, russia: 0 },
+        timber: { usa: 0, china: 2, uk: 0, switzerland: 0, japan: 0, southkorea: 0, canada: 0, australia: 0, turkey: 0, india: 2, vietnam: 2, thailand: 2, brazil: 0, mexico: 0, russia: 2 },
+        food: { usa: 9.6, china: 9.6, uk: 9.6, switzerland: 4, japan: 9.6, southkorea: 9.6, canada: 9.6, australia: 9.6, turkey: 7, india: 9.6, vietnam: 9.6, thailand: 9.6, brazil: 9.6, mexico: 9.6, russia: 9.6 },
+        agricultural: { usa: 8, china: 8, uk: 8, switzerland: 3, japan: 8, southkorea: 8, canada: 8, australia: 8, turkey: 5, india: 8, vietnam: 8, thailand: 8, brazil: 8, mexico: 8, russia: 8 }
+    };
 
           const vatRates = {
             de: 0.19,
