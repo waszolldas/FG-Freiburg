@@ -893,6 +893,11 @@ const questions = [
         q: "Welche Institution ist in Deutschland für die Zollerhebung zuständig?",
         options: ["Finanzamt", "Bundeszollverwaltung", "Bundesbank", "Handelskammer"],
         correct: 1
+    },
+    {
+        q:"wie hoch ist die maximale Freihetsstrafe für Zollhinterziehung?",
+        options: ["6 Monate", "8 Jahre", "10 Monate", "10 Jahre"],
+        correct: 3
     }
 ];
 
@@ -942,10 +947,15 @@ function loadQuiz() {
     `;
 }
 
+        function playCorrectSound() {
+    const sound = new Audio('https://www.myinstants.com/media/sounds/correct-answer.mp3');
+    sound.play().catch(e => console.log("Autoplay blocked:", e));
+}   
+        
 function checkAnswer(selected) {
     if (answered) return; // Verhindere mehrfaches Antworten
     answered = true;
-    
+    playCorrectSound();
     const q = questions[currentQ];
     const result = document.getElementById('quizResult');
     const buttons = document.querySelectorAll('.quiz-btn');
