@@ -951,7 +951,11 @@ function loadQuiz() {
     const sound = new Audio('https://www.myinstants.com/media/sounds/correct.mp3');
     sound.play().catch(e => console.log("Autoplay blocked:", e));
 }   
-        
+         function playWrongSound() {
+    const sound = new Audio('https://www.myinstants.com/media/sounds/wrong-answer-buzzer.mp3');
+    sound.play().catch(e => console.log("Autoplay blocked:", e));
+}   
+       
 function checkAnswer(selected) {
     if (answered) return; // Verhindere mehrfaches Antworten
     answered = true;
@@ -988,6 +992,7 @@ function checkAnswer(selected) {
         result.style.display = 'block';
         result.innerHTML = '<strong>✓ Richtig!</strong> Sehr gut gemacht!';
     } else {
+        playWrongSound();
         result.className = 'quiz-result incorrect';
         result.style.display = 'block';
         result.innerHTML = `<strong>✗ Leider falsch.</strong> Die richtige Antwort ist: ${q.options[q.correct]}`;
