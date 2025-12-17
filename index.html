@@ -577,6 +577,7 @@ setTimeout(() => {
     </style>
 </head>
 <body>
+    <audio id="clickSound" src="https://www.myinstants.com/media/sounds/nelly-ahh.mp3" preload="auto"></audio>
     <!-- Navigation -->
     <div class="ad-sidebar">
     <img id="adImage" src="https://i.postimg.cc/CKWcswtK/2225017-Kopie.jpg" alt="Werbung">
@@ -1188,5 +1189,12 @@ setInterval(() => {
     currentAd = (currentAd + 1) % ads.length;
     adImage.src = ads[currentAd];
 }, 5000); // Wechsel alle 5 Sekunden
+const clickSound = document.getElementById("clickSound");
 
+document.addEventListener("click", function (e) {
+    if (e.target.tagName === "BUTTON") {
+        clickSound.currentTime = 0; // immer von vorne
+        clickSound.play();
+    }
+});
     </script>
