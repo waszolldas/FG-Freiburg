@@ -948,14 +948,13 @@ function loadQuiz() {
 }
 
         function playCorrectSound() {
-    const sound = new Audio('https://www.myinstants.com/media/sounds/correct-answer.mp3');
+    const sound = new Audio('https://www.myinstants.com/media/sounds/correct.mp3');
     sound.play().catch(e => console.log("Autoplay blocked:", e));
 }   
         
 function checkAnswer(selected) {
     if (answered) return; // Verhindere mehrfaches Antworten
     answered = true;
-    playCorrectSound();
     const q = questions[currentQ];
     const result = document.getElementById('quizResult');
     const buttons = document.querySelectorAll('.quiz-btn');
@@ -983,6 +982,7 @@ function checkAnswer(selected) {
     });
     
     if (selected === q.correct) {
+        playCorrectSound();
         correctAnswers++;
         result.className = 'quiz-result correct';
         result.style.display = 'block';
