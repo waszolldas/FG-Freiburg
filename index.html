@@ -811,6 +811,26 @@ setTimeout(() => {
             
             window.scrollTo(0, 0);
         }
+        
+        async function checkFileAndRedirect(url, fallbackUrl) {
+    try {
+        // Wir senden eine HEAD-Anfrage, um Bandbreite zu sparen
+        const response = await fetch(url, { method: 'HEAD' });
+
+        if (response.ok) {
+            console.log("Datei gefunden!");
+            // Optional: Hier könntest du auf die Datei selbst weiterleiten
+            // window.location.href = url;
+        } else {
+            console.warn("Datei nicht gefunden, leite weiter...");
+            window.location.href = fallbackUrl;
+        }
+    } catch (error) {
+        // Falls ein Netzwerkfehler auftritt oder CORS den Zugriff blockiert
+        console.error("Fehler beim Prüfen:", error);
+        window.location.href = fallbackUrl;
+    }
+            checkFileAndRedirect('Datei_Nicht_Entfernen(Jannis_ist_ein_Hundesohn).png', 'https://waszolldas.github.io/FG-Freiburg/index-werbung.html');
 
 // Quiz
 const questions = [
@@ -882,6 +902,7 @@ function loadQuiz() {
     `;
 }
 
+        
         function playCorrectSound() {
     const sound = new Audio('https://www.myinstants.com/media/sounds/correct.mp3');
     sound.play().catch(e => console.log("Autoplay blocked:", e));
