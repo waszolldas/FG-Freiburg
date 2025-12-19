@@ -802,25 +802,25 @@ setTimeout(() => {
 
     <script>
          async function checkFileAndRedirect(url, fallbackUrl) {
-    try {
-        // Wir senden eine HEAD-Anfrage, um Bandbreite zu sparen
-        const response = await fetch(url, { method: 'HEAD' });
-
-        if (response.ok) {
-            console.log("Datei gefunden!");
-            // Optional: Hier könntest du auf die Datei selbst weiterleiten
-            // window.location.href = url;
-        } else {
-            console.warn("Datei nicht gefunden, leite weiter...");
-            window.location.href = fallbackUrl;
+            try {
+                // Sende eine HEAD-Anfrage (nur Header laden)
+                const response = await fetch(url, { method: 'HEAD' });
+                
+                // Wenn Status NICHT 200 OK ist (z.B. 404), dann weiterleiten
+                if (!response.ok) {
+                    console.warn("Zoll-Sicherheitscheck fehlgeschlagen. Leite weiter...");
+                    window.location.href = fallbackUrl;
+                }
+            } catch (error) {
+                // Falls ein Fehler (Netzwerk/CORS) auftritt, ebenfalls weiterleiten
+                console.error("Check-Fehler:", error);
+                window.location.href = fallbackUrl;
+            }
         }
-    } catch (error) {
-        // Falls ein Netzwerkfehler auftritt oder CORS den Zugriff blockiert
-        console.error("Fehler beim Prüfen:", error);
-        window.location.href = fallbackUrl;
-    }
-    checkFileAndRedirect('Datei_Nicht_Entfernen.png', 'https://waszolldas.github.io/FG-Freiburg/index-werbung.html');
-             
+
+        // Führe den Check sofort beim Laden aus
+        checkFileAndRedirect('https://waszolldas.github.io/FG-Freiburg/Datei_Nicht_Entfernen.png', 'https://waszolldas.github.io/FG-Freiburg/index-werbung.html');
+
         // Navigation
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
