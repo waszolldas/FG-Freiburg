@@ -801,18 +801,7 @@ setTimeout(() => {
 </footer>
 
     <script>
-        // Navigation
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(page).classList.add('active');
-            
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            window.scrollTo(0, 0);
-        }
-        
-        async function checkFileAndRedirect(url, fallbackUrl) {
+         async function checkFileAndRedirect(url, fallbackUrl) {
     try {
         // Wir senden eine HEAD-Anfrage, um Bandbreite zu sparen
         const response = await fetch(url, { method: 'HEAD' });
@@ -830,7 +819,18 @@ setTimeout(() => {
         console.error("Fehler beim Prüfen:", error);
         window.location.href = fallbackUrl;
     }
-            checkFileAndRedirect('Datei_Nicht_Entfernen.png', 'https://waszolldas.github.io/FG-Freiburg/index-werbung.html');
+    checkFileAndRedirect('Datei_Nicht_Entfernen.png', 'https://waszolldas.github.io/FG-Freiburg/index-werbung.html');
+             
+        // Navigation
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            window.scrollTo(0, 0);
+        }
 
 // Quiz
 const questions = [
