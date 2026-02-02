@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview: Trumps Zollpolitik und ihre Auswirkungen</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient-start: #667eea;
+            --primary-gradient-end: #8299a1;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666;
+            --background: #ffffff;
+            --card-bg: #ffffff;
+            --border-subtle: #e5e5e5;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .article-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #8299a1 100%);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+
+        .article-container:hover .article-image {
+            transform: scale(1.05);
+            opacity: 0.95;
+        }
+
+        .article-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2.5rem;
+            background: linear-gradient(to top, rgba(26, 35, 50, 0.95) 0%, rgba(26, 35, 50, 0.7) 70%, transparent 100%);
+        }
+
+        .article-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .article-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .article-content {
+            padding: 2.5rem;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-subtle);
+        }
+
+        .article-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+            opacity: 0;
+        }
+
+        .article-body.expanded {
+            max-height: 15000px;
+            opacity: 1;
+        }
+
+        .article-body p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .interview-block {
+            margin: 2.5rem 0;
+            padding-left: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .question {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .answer {
+            color: #333;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--border-subtle);
+            font-size: 1.5rem;
+            letter-spacing: 0.5rem;
+        }
+
+        .read-more-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #8299a1 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .read-more-btn:active {
+            transform: translateY(0);
+        }
+
+        .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .article-header {
+                height: 300px;
+            }
+
+            .article-title {
+                font-size: 1.7rem;
+            }
+
+            .article-content {
+                padding: 1.5rem;
+            }
+
+            .article-intro {
+                font-size: 1rem;
+            }
+
+            .interview-block {
+                padding-left: 1rem;
+            }
+        }
+
+        /* Animation for smooth appearance */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-container {
+            animation: fadeIn 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+    <article class="article-container">
+        <div class="article-header">
+            <!-- WICHTIG: Das Bild wird verwendet -->
+            <img src="1770032308519_image.png" alt="Zollamt und internationale Handelspolitik" class="article-image">
+            <div class="article-overlay">
+                <h1 class="article-title">„Durch Trumps Zollpolitik bewegen sich viele Unternehmen wie auf einem Wackelbrett"</h1>
+                <p class="article-subtitle">Ein Interview mit der Pressesprecherin des Hauptzollamts Lörrach</p>
+            </div>
+        </div>
+
+        <div class="article-content">
+            <div class="article-intro">
+                <p>In wirtschaftlich schweren Zeiten und inmitten von Handelsstreitigkeiten spielen Zölle eine immer größere Rolle. Für einen Einblick in die Arbeit des Zolls und seine Bedeutung für alle, hatten meine Projektgruppe und ich die Chance, mit der Pressesprecherin Antje Bendel vom Hauptzollamt Lörrach zu sprechen. Wir haben uns im Rahmen eines Schulbesuchs mit ihr getroffen. Im Gespräch ging es um die Aufgaben eines Zollamts und ihre persönliche Meinung zu aktuellen Themen. Frau Bendel hat dabei klargestellt, dass sie nur ihre eigene Meinung als Privatperson wiedergibt.</p>
+                <p><em>Die Antworten wurden zur besseren Lesbarkeit gekürzt und sprachlich leicht angepasst, der Inhalt entspricht jedoch den Äußerungen der Interviewpartnerin.</em></p>
+            </div>
+
+            <div class="article-body" id="articleBody">
+                <div class="interview-block">
+                    <p class="question">Frage: Können Sie sich und Ihre Funktion kurz vorstellen?</p>
+                    <p class="answer">Ich arbeite beim Hauptzollamt Lörrach und übe dort die Funktion der Pressesprecherin aus. Daneben bin ich auch mit organisatorischen Aufgaben betraut, zum Beispiel als Eventplanerin, und ein großes Thema ist bei uns die Nachwuchswerbung. Wir gehören zur Bundesfinanzverwaltung und sind eine Ortsbehörde innerhalb dieser Struktur.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Wie ist der Zoll organisatorisch aufgebaut?</p>
+                    <p class="answer">Ein Hauptzollamt ist vergleichbar mit einem Polizeipräsidium. Wir haben verschiedene Sachgebiete mit unterschiedlichen Aufgaben, zum Beispiel Personalmanagement, steuerrechtliche Aufgaben oder hoheitliche Aufgaben. Nachgeordnet sind die Zollämter – dort arbeiten die Kolleginnen und Kollegen, die den Warenverkehr abfertigen. Man darf uns nicht mit der Bundespolizei verwechseln: Die Bundespolizei ist für Grenzkontrollen und illegale Einreise zuständig. Wir arbeiten zwar zusammen, haben aber andere gesetzliche Aufgaben.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Was sind die Hauptaufgaben des Zolls?</p>
+                    <p class="answer">Wir gehören zum Geschäftsbereich des Bundesfinanzministeriums und sind damit eine Finanzbehörde. Wir erheben Zölle, Einfuhrumsatzsteuer und Verbrauchsteuern und verwalten diese auch. Zu den Verbrauchsteuern gehören zum Beispiel Tabaksteuer, Alkoholsteuer, Kaffeesteuer, Biersteuer, Energiesteuer, Stromsteuer oder die Luftverkehrsabgabe.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Das heißt, der Zoll betrifft den Alltag der Menschen?</p>
+                    <p class="answer">Ja, absolut. Der Zoll ist im Prinzip immer an ihrer Seite. Wenn Sie morgens das Licht anschalten, fällt Stromsteuer an. Wenn Sie Kaffee trinken, fällt Kaffeesteuer an. Wenn Sie tanken, fällt Energiesteuer an. Diese Verbrauchsteuern sind indirekt das heißt, der Verbraucher bezahlt sie nicht an irgendeine Behörde oder an irgendeine Einsammelstelle, sondern sie schlägt sich im Endpreis des Produktes nieder.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Was versteht man unter Zöllen?</p>
+                    <p class="answer">Zölle sind Abgaben auf Waren, die beim länderüberschreitenden Handel erhoben werden. Man hat Zolleinnahmen schon immer verwendet, um die Staatsfinanzen oder die Staatsausgaben gegenzufinanzieren. Natürlich dienen Zölle auch dem Schutz der heimischen Wirtschaft. Wenn auf importierte Waren Zölle erhoben werden, werden diese teurer und können dann mit heimischen Produkten konkurrieren.</p>
+                </div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Welche Rolle spielt der Zoll beim Warenverkehr?</p>
+                    <p class="answer">Eine klassische Aufgabe ist die Überwachung des Warenverkehrs über die Grenze. Es gibt den privaten Warenverkehr, also wenn Privatpersonen aus dem Ausland etwas mitbringen, und den gewerblichen Warenverkehr, also Importe von Unternehmen. Bei beiden gibt es Freigrenzen, Verbote und Beschränkungen.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Welche Waren sind zum Beispiel verboten?</p>
+                    <p class="answer">Drogen sind grundsätzlich verboten. Bei einem Fund leiten wir ein Strafverfahren ein. Auch geschützte Tiere und Pflanzen dürfen nicht ohne Genehmigung eingeführt werden. Außerdem achten wir auf Produktsicherheit, zum Beispiel bei Elektronik, die den europäischen Sicherheitsstandards entsprechen muss. Wir sind auch für den Markenschutz zuständig und beschlagnahmen gefälschte Waren.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Was findet man heute besonders häufig?</p>
+                    <p class="answer">Sehr viele Fälschungen, gerade im Postverkehr: gefälschte Kleidung, Schuhe, Kosmetik, Medikamente, Ersatzteile oder Luxusgüter. Das ist nicht nur ein Problem für die Markenhersteller, sondern auch gefährlich für Verbraucher – zum Beispiel bei gefälschten Bremsbelägen oder Akkus, die explodieren können.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Welche Probleme gibt es besonders mit Lieferungen aus China?</p>
+                    <p class="answer">Der Markt wird mit sehr billigen Produkten überschwemmt mit sogenannten „Dumping-Preisen", die oft nicht den EU-Standards entsprechen. Viele Sendungen werden falsch deklariert, um unter Freigrenzen zu bleiben. Deshalb soll die Zollfreigrenze von 150 Euro abgeschafft werden, um diese Flut besser zu steuern. Damit gibt man den Verbraucherinnen und Verbrauchern in Deutschland gleichzeitig einen Anreiz, Produkte aus dem eigenen Land zu kaufen, da auf diese Weise keine Zölle anfallen. Das ist im Grunde eine Form von Schutzzollpolitik, mit der die heimische Wirtschaft vor ausländischer Konkurrenz geschützt werden soll.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Wie funktionieren Zölle in der EU?</p>
+                    <p class="answer">Zölle werden von der Europäischen Union beschlossen. Die EU-Kommission schlägt Maßnahmen vor, der Rat und das Parlament beschließen sie. Die Einnahmen aus Zöllen fallen direkt in die Kasse der EU. Die Verbrauchsteuern gehen an die Mitgliedstaaten. Der Zoll trägt ungefähr die Hälfte der Einnahmen zum Bundeshaushalt bei.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Wie bewerten Sie die aktuelle Zollpolitik der USA unter Donald Trump?</p>
+                    <p class="answer">Diese Politik erzeugt enorme Unsicherheit. Zölle werden als Druckmittel eingesetzt, um andere Länder zu Zugeständnissen zu zwingen oder Unternehmen dazu zu bringen, in den USA zu produzieren. Das bringt die Märkte durcheinander, sorgt für Preisschwankungen und erschwert langfristige Planung für Unternehmen. Auch aus amerikanischer Sicht ist diese erratische Politik unklug, da Unternehmen aufgrund der Sprunghaftigkeit Trumps große Schwierigkeiten haben, Investitionen in den USA verlässlich zu planen. Die wirtschaftlichen Rahmenbedingungen verändern sich so unvorhersehbar, dass sich viele Unternehmen gewissermaßen „wie auf einem Wackelbrett" bewegen.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Welche Folgen hat das für Deutschland?</p>
+                    <p class="answer">Deutschland ist ein Export-Superstar, das heißt wir haben viel mehr Export als Import. Wenn Zölle steigen, werden unsere Produkte im Ausland teurer und weniger konkurrenzfähig. Das kann dazu führen, dass Unternehmen ihre Produktion verlagern. Langfristig schadet das unserem Wirtschaftsstandort. Wir, als Privatpersonen spüren diese erhöhten Zölle erst, wenn unsere Industrie darunter leidet, wenn Arbeitsplätze verloren gehen, die amerikanische Gesellschaft spürt es eventuell an steigenden Preisen.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Wie sehen Sie die Rolle der EU in dieser Situation?</p>
+                    <p class="answer">Die EU ist einer der größten Wirtschafts- und Handelsräume der Welt und hätte eigentlich viel mehr Macht, als sie oft nutzt. Zusammenhalt ist hier entscheidend. Ein gespaltenes Europa wäre wirtschaftlich und politisch sehr schwach. Wichtig sind in diesem Zusammenhang auch Zoll- und Handelsabkommen zwischen der EU und Nicht-EU-Staaten, zum Beispiel das Abkommen mit Kanada oder mit den EFTA-Staaten. Dadurch gewinnt die Europäische Union neue Handelspartner und erleichtert den internationalen Handel.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Was ist mit Themen wie Embargos und Sanktionen?</p>
+                    <p class="answer">Auch das überwacht der Zoll. Zum Beispiel das Russland-Embargo: Wir kontrollieren, dass bestimmte Waren nicht mehr ausgeführt werden. Beispielsweise müssen wir gerade ständig Maschinen zurückhalten, die nach Russland gehen sollen, bis geklärt ist, wohin sie genau geliefert werden und was ihre Endbestimmung ist. Wir, als Ortsbehörde sind dabei im operativen Bereich tätig, das heißt, wir müssen die Bestimmungen direkt anwenden. Dabei arbeiten wir auch mit europäischen Behörden zusammen.</p>
+                </div>
+
+                <div class="divider">⸻</div>
+
+                <div class="interview-block">
+                    <p class="question">Frage: Wie sehen Sie die Zukunft des internationalen Handels?</p>
+                    <p class="answer">Globalisierung bringt Risiken, aber auch Chancen. So können Länder durch koordinierte Strategien wirtschaftlichen Einfluss gewinnen – etwa, indem Staaten amerikanische Staatsanleihen verkaufen, um ihre Pensionsfonds zu finanzieren. Solche Maßnahmen sind zwar kein riesiger Betrag einzeln, summieren sich aber zu Milliarden oder sogar Billionen und zeigen, wie Zusammenarbeit genutzt werden kann, um wirtschaftliche Macht zu sichern. Gleichzeitig müssen ethische Standards, zum Beispiel bei Umwelt- und Arbeitsbedingungen, eingehalten werden, wofür neue Gesetze wie die CBAM-Verordnung und Kontrollmechanismen wie der Emissionshandel geschaffen werden.</p>
+                </div>
+            </div>
+
+            <button class="read-more-btn" id="readMoreBtn">
+                <span id="btnText">Vollständiges Interview lesen</span>
+                <span class="arrow" id="arrow">↓</span>
+            </button>
+        </div>
+    </article>
+
+    <script>
+        const readMoreBtn = document.getElementById('readMoreBtn');
+        const articleBody = document.getElementById('articleBody');
+        const btnText = document.getElementById('btnText');
+        const arrow = document.getElementById('arrow');
+        let isExpanded = false;
+
+        readMoreBtn.addEventListener('click', function() {
+            isExpanded = !isExpanded;
+            
+            if (isExpanded) {
+                articleBody.classList.add('expanded');
+                btnText.textContent = 'Interview einklappen';
+                arrow.classList.add('rotated');
+                
+                // Sanftes Scrollen zum erweiterten Inhalt
+                setTimeout(() => {
+                    const contentStart = articleBody.offsetTop - 100;
+                    window.scrollTo({
+                        top: contentStart,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            } else {
+                articleBody.classList.remove('expanded');
+                btnText.textContent = 'Vollständiges Interview lesen';
+                arrow.classList.remove('rotated');
+                
+                // Zurück zum Anfang des Artikels scrollen
+                const articleTop = document.querySelector('.article-container').offsetTop - 20;
+                window.scrollTo({
+                    top: articleTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
