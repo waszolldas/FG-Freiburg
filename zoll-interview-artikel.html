@@ -28,12 +28,47 @@
             background: var(--background);
             color: var(--text-primary);
             line-height: 1.6;
-            padding: 2rem 1rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #1a1a1a;
         }
 
         .article-container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 72px auto 2rem;
             background: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
@@ -120,8 +155,7 @@
 
         .interview-block {
             margin: 2.5rem 0;
-            padding-left: 1.5rem;
-            border-left: 4px solid #667eea;
+            padding-left: 0;
         }
 
         .question {
@@ -185,8 +219,22 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 1rem 0.5rem;
+            .top-nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+            }
+
+            .article-container {
+                margin: 100px 1rem 1rem;
             }
 
             .article-header {
@@ -206,7 +254,7 @@
             }
 
             .interview-block {
-                padding-left: 1rem;
+                padding-left: 0;
             }
         }
 
@@ -228,6 +276,15 @@
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-links">
+           <a href="index.html" class="nav-link">Home</a>
+           <a href="game.html" class="nav-link">Zoll-Spiel</a>
+           <a href="zoll-interview-artikel.html" class="nav-link active">Interview</a>
+           <a href="impressum.html" class="nav-link">Impressum</a>
+        </div>
+    </nav>
     <article class="article-container">
         <div class="article-header">
             <!-- WICHTIG: Das Bild wird verwendet -->
@@ -360,6 +417,16 @@
         const btnText = document.getElementById('btnText');
         const arrow = document.getElementById('arrow');
         let isExpanded = false;
+
+        // Check if user came from navigation (direct link)
+        // If so, automatically expand the article
+        if (document.referrer && !document.referrer.includes('zoll-interview-artikel.html')) {
+            // User came from another page via navigation - expand automatically
+            articleBody.classList.add('expanded');
+            btnText.textContent = 'Interview einklappen';
+            arrow.classList.add('rotated');
+            isExpanded = true;
+        }
 
         readMoreBtn.addEventListener('click', function() {
             isExpanded = !isExpanded;
