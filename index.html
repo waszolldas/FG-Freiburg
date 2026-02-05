@@ -705,7 +705,7 @@ setTimeout(() => {
                     <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
                         <p style="font-weight: 600; color: #1a1a1a; margin-bottom: 15px; font-size: 1.05rem;"> Themen im Interview:</p>
                         <ul style="margin: 0; padding-left: 20px; color: #555; line-height: 2;">
-                            <li>Wie ist der Zoll aufgebaut und was sind seine Hauptaufgaben?</li>
+                            <li><a href="zoll-interview-artikel.html" onclick="smoothScrollTo('aufbau'); return false;">•Wie ist der Zoll aufgebaut und was sind seine Hausaufgaben?</a></li>
                             <li>Trumps erratische Zollpolitik und ihre Folgen</li>
                             <li>Auswirkungen auf deutsche Export-Unternehmen</li>
                             <li>Die Rolle der EU in Handelskonflikten</li>
@@ -854,10 +854,6 @@ setTimeout(() => {
                 <p style="font-size: 1.1rem; font-weight: 600; color: #1a1a1a; margin-bottom: 5px;">WAS ZOLL DAS?</p>
                 <p style="color: #666; margin: 0;">Dein Informationsportal zum Thema Zoll</p>
             </div>
-            <button onclick="playKlingelton()" style="background: white; color: #667eea; border: 3px; padding: 12px 30px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.3s;">
-                    Audio Test
-               bitte nicht klicken
-                </button>
             <div style="text-align: right;">
                 <p style="color: #666; margin: 0;">© 2025 Alle Rechte vorbehalten</p>
                 <p style="color: #999; font-size: 0.9rem; margin: 5px 0 0 0;">Informationen ohne Gewähr</p>
@@ -1037,6 +1033,10 @@ function restartQuiz() {
     loadQuiz();
 }        
 
+        function smoothScrollTo(id) { 
+  const el = document.getElementById(id); 
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'start' }); 
+}
       function calculateCustoms() {
     const destination = document.getElementById('destination').value;
     const product = document.getElementById('product').value;
