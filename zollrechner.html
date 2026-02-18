@@ -364,7 +364,7 @@
 
     <section class="hero">
         <div class="container">
-            <h1>🧮 Zollrechner</h1>
+            <h1> Zollrechner</h1>
             <p>Berechne deine voraussichtlichen Zollkosten schnell und einfach</p>
         </div>
     </section>
@@ -500,8 +500,92 @@
     </footer>
 
     <script>
-        // ZOLLDATENBANK nach deinem Prinzip
+        // ============================================================
+        // ZOLLDATENBANK - NUR VORHANDENE DATEN
+        // ============================================================
+        
         const tariffDatabase = {
+            
+            // === IMPORTE IN DIE EU (aus Tabellenblättern) ===
+            "USA-EU": {
+                "personalcomputer": 0,
+                "pkw": 10,
+                "sicherheitsnadeln": 2.7,
+                "mantelwolle": 12,
+                "armbanduhren": 4.5,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "CN-EU": {
+                "personalcomputer": 0,
+                "pkw": 10,
+                "sicherheitsnadeln": 2.7,
+                "mantelwolle": 12,
+                "armbanduhren": 4.5,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "JP-EU": {
+                "personalcomputer": 0,
+                "pkw": 1.3,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "GB-EU": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "CH-EU": {
+                "personalcomputer": 0,
+                "pkw": 10,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "IN-EU": {
+                "personalcomputer": 0,
+                "pkw": 10,
+                "sicherheitsnadeln": 2.7,
+                "mantelwolle": 9,6,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "TR-EU": {
+                "personalcomputer": 0,
+                "pkw": 10,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+
+            // === EXPORTE AUS DER EU (aus handgeschriebenen Notizen) ===
             "EU-CN": {
                 "personalcomputer": 10,
                 "pkw": 15,
@@ -510,7 +594,7 @@
                 "armbanduhren": 4.5,
                 "dioden": 0,
                 "fernsehgerate": 0,
-                "mobel": 0,
+                "mobel": 7.5,
                 "hautcreme": 2.5
             },
             "EU-JP": {
@@ -529,9 +613,9 @@
                 "pkw": 2.5,
                 "sicherheitsnadeln": 4.5,
                 "mantelwolle": 15,
-                "armbanduhren": 0,
-                "dioden": 15,
-                "fernsehgerate": 0,
+                "armbanduhren": 15,
+                "dioden": 0,
+                "fernsehgerate": 15,
                 "mobel": 15,
                 "hautcreme": 15
             },
@@ -542,10 +626,12 @@
                 "mantelwolle": 10,
                 "armbanduhren": 15,
                 "dioden": 18,
-                "fernsehgerate": 23.5,
+                "fernsehgerate": 37,
                 "mobel": 25,
                 "hautcreme": 20
             },
+
+            // === EXPORTE AUS USA (aus handgeschriebenen Notizen) ===
             "USA-CN": {
                 "personalcomputer": 10,
                 "pkw": 15,
@@ -555,7 +641,7 @@
                 "dioden": 34,
                 "fernsehgerate": 34,
                 "mobel": 34,
-                "hautcreme": 12.5
+                "hautcreme": 125
             },
             "USA-JP": {
                 "personalcomputer": 0,
@@ -577,84 +663,490 @@
                 "dioden": 0,
                 "fernsehgerate": 36,
                 "mobel": 35,
-                "hautcreme": 10
+                "hautcreme": 40
             },
+
+
+            // ============================================================
+            // AB HIER: FEHLENDE KOMBINATIONEN - NOCH ZU RECHERCHIEREN
+            // ============================================================
+            
+            // EU Exporte (fehlend: GB, CH, TR)
+            "EU-GB": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "EU-CH": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "EU-TR": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+
+            // USA Exporte (fehlend: GB, CH, TR)
+            "USA-GB": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "USA-CH": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "USA-TR": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+
+            // China Exporte (komplett fehlend)
+            "CN-USA": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CN-JP": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CN-GB": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CN-CH": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CN-IN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CN-TR": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+
+            // Japan Exporte (komplett fehlend)
+            "JP-USA": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "JP-CN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "JP-GB": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "JP-CH": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "JP-IN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "JP-TR": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+
+            // Großbritannien Exporte (komplett fehlend)
+            "GB-USA": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "GB-CN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "GB-JP": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "GB-CH": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "GB-IN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "GB-TR": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+
+            // Schweiz Exporte (komplett fehlend)
+            "CH-USA": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CH-CN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CH-JP": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CH-GB": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CH-IN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "CH-TR": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+
+            // Indien Exporte (komplett fehlend)
+            "IN-USA": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "IN-CN": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "IN-JP": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "IN-GB": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "IN-CH": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+            "IN-TR": {
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
+            },
+
+            // Türkei Exporte (komplett fehlend)
             "TR-USA": {
-                "personalcomputer": 0,
-                "pkw": 0,
-                "sicherheitsnadeln": 0,
-                "mantelwolle": 7.7,
-                "armbanduhren": 4.2,
-                "dioden": 0,
-                "fernsehgerate": 0,
-                "mobel": 0,
-                "hautcreme": 0
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
             },
             "TR-CN": {
-                "personalcomputer": 0,
-                "pkw": 24.6,
-                "sicherheitsnadeln": 0,
-                "mantelwolle": 0,
-                "armbanduhren": 0,
-                "dioden": 0,
-                "fernsehgerate": 0,
-                "mobel": 0,
-                "hautcreme": 0
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
             },
             "TR-JP": {
-                "personalcomputer": 0,
-                "pkw": 24.6,
-                "sicherheitsnadeln": 0,
-                "mantelwolle": 0,
-                "armbanduhren": 0,
-                "dioden": 0,
-                "fernsehgerate": 0,
-                "mobel": 0,
-                "hautcreme": 0
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
             },
             "TR-GB": {
-                "personalcomputer": 0,
-                "pkw": 0,
-                "sicherheitsnadeln": 0,
-                "mantelwolle": 0,
-                "armbanduhren": 0,
-                "dioden": 0,
-                "fernsehgerate": 0,
-                "mobel": 0,
-                "hautcreme": 0
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
             },
             "TR-CH": {
-                "personalcomputer": 0,
-                "pkw": 0,
-                "sicherheitsnadeln": 0,
-                "mantelwolle": 0,
-                "armbanduhren": 0,
-                "dioden": 0,
-                "fernsehgerate": 0,
-                "mobel": 0,
-                "hautcreme": 0
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
             },
             "TR-IN": {
-                "personalcomputer": 0,
-                "pkw": 0,
-                "sicherheitsnadeln": 0,
-                "mantelwolle": 0,
-                "armbanduhren": 0,
-                "dioden": 0,
-                "fernsehgerate": 0,
-                "mobel": 0,
-                "hautcreme": 0
-            },
-            "TR-TR": {
-                "personalcomputer": 0,
-                "pkw": 0,
-                "sicherheitsnadeln": 0,
-                "mantelwolle": 0,
-                "armbanduhren": 0,
-                "dioden": 0,
-                "fernsehgerate": 0,
-                "mobel": 0,
-                "hautcreme": 0
+                "personalcomputer": null,
+                "pkw": null,
+                "sicherheitsnadeln": null,
+                "mantelwolle": null,
+                "armbanduhren": null,
+                "dioden": null,
+                "fernsehgerate": null,
+                "mobel": null,
+                "hautcreme": null
             }
         };
 
@@ -699,20 +1191,12 @@
 
         function getTariffRate(from, to, product) {
             const key = `${from}-${to}`;
-            const reverseKey = `${to}-${from}`;
             
-            // Versuche die direkte Kombination
             if (tariffDatabase[key] && tariffDatabase[key][product] !== undefined) {
                 return tariffDatabase[key][product];
             }
             
-            // Versuche die umgekehrte Kombination
-            if (tariffDatabase[reverseKey] && tariffDatabase[reverseKey][product] !== undefined) {
-                return tariffDatabase[reverseKey][product];
-            }
-            
-            // Fallback: 0%
-            return 0;
+            return null;
         }
 
         function calculateCustoms() {
@@ -722,12 +1206,10 @@
             const value = parseFloat(document.getElementById('value').value);
             const quantity = parseInt(document.getElementById('quantity').value);
 
-            // Prüfe ob Länder identisch sind
             if (!validateCountrySelection()) {
                 return;
             }
 
-            // Validierung
             if (!destination || !product || !country) {
                 alert('Bitte fülle alle Felder aus!');
                 return;
@@ -738,10 +1220,14 @@
                 return;
             }
 
-            // Hole Zollsatz aus der Datenbank
             const tariffRate = getTariffRate(country, destination, product);
-            const vatRate = vatRates[destination] || 19;
+            
+            if (tariffRate === null) {
+                alert('❌ Für diese Länderkombination sind noch keine Daten verfügbar.\n\nVerfügbare Kombinationen:\n\n📥 Importe in die EU:\n→ USA, China, Japan, GB, Schweiz, Indien, Türkei\n\n📤 Exporte aus der EU:\n→ China, Japan, USA, Indien\n\n📤 Exporte aus den USA:\n→ China, Japan, Indien, EU');
+                return;
+            }
 
+            const vatRate = vatRates[destination] || 19;
             const total = value * quantity;
             const duty = total * (tariffRate / 100);
             const vat = (total + duty) * (vatRate / 100);
