@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -27,7 +26,6 @@
             padding: 0 40px;
         }
 
-        /* Top Navigation */
         .top-nav {
             position: fixed;
             top: 0;
@@ -61,7 +59,6 @@
             color: #1a1a1a;
         }
 
-        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #8299a1 100%);
             color: #fff;
@@ -84,12 +81,10 @@
             margin: 0 auto;
         }
 
-        /* Section Styles */
         .section {
             padding: 80px 0;
         }
 
-        /* Calculator Card */
         .calculator-wrapper {
             max-width: 800px;
             margin: 0 auto;
@@ -111,7 +106,6 @@
             text-align: center;
         }
 
-        /* Form Styles */
         .form-group {
             margin-bottom: 25px;
         }
@@ -152,7 +146,6 @@
             padding-right: 45px;
         }
 
-        /* Button Group */
         .button-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -201,7 +194,6 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Result Box */
         .calc-result {
             margin-top: 30px;
             padding: 30px;
@@ -249,7 +241,6 @@
             font-weight: 600;
         }
 
-        /* Info Section */
         .info-section {
             background: #f8f9fa;
         }
@@ -312,7 +303,6 @@
             line-height: 1.7;
         }
 
-        /* Footer */
         footer {
             background: #fff;
             padding: 40px 0;
@@ -324,7 +314,6 @@
             color: #666;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .top-nav {
                 padding: 15px 20px;
@@ -363,7 +352,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="top-nav">
         <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
@@ -374,15 +362,13 @@
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <h1> Zollrechner</h1>
+            <h1>🧮 Zollrechner</h1>
             <p>Berechne deine voraussichtlichen Zollkosten schnell und einfach</p>
         </div>
     </section>
 
-    <!-- Calculator Section -->
     <section class="section">
         <div class="container">
             <div class="calculator-wrapper">
@@ -393,14 +379,14 @@
                         <label>Herkunftsland</label>
                         <select id="country" onchange="validateCountrySelection()">
                             <option value="">Bitte wählen...</option>
-                            <option value="european_union">Europäische Union</option>
-                            <option value="usa">USA</option>
-                            <option value="china">China</option>
-                            <option value="switzerland">Schweiz</option>
-                            <option value="japan">Japan</option>
-                            <option value="turkey">Türkei</option>
-                            <option value="india">Indien</option>
-                            <option value="gb">Großbritannien</option>
+                            <option value="EU">Europäische Union (EU)</option>
+                            <option value="USA">USA</option>
+                            <option value="CN">China</option>
+                            <option value="CH">Schweiz</option>
+                            <option value="JP">Japan</option>
+                            <option value="TR">Türkei</option>
+                            <option value="IN">Indien</option>
+                            <option value="GB">Großbritannien</option>
                         </select>
                     </div>
 
@@ -408,14 +394,14 @@
                         <label>Zielland</label>
                         <select id="destination" onchange="validateCountrySelection()">
                             <option value="">Bitte wählen...</option>
-                            <option value="european_union">Europäische Union</option>
-                            <option value="usa">USA</option>
-                            <option value="china">China</option>
-                            <option value="switzerland">Schweiz</option>
-                            <option value="japan">Japan</option>
-                            <option value="turkey">Türkei</option>
-                            <option value="india">Indien</option>
-                            <option value="gb">Großbritannien</option>
+                            <option value="EU">Europäische Union (EU)</option>
+                            <option value="USA">USA</option>
+                            <option value="CN">China</option>
+                            <option value="CH">Schweiz</option>
+                            <option value="JP">Japan</option>
+                            <option value="TR">Türkei</option>
+                            <option value="IN">Indien</option>
+                            <option value="GB">Großbritannien</option>
                         </select>
                     </div>
 
@@ -423,15 +409,15 @@
                         <label>Produktkategorie</label>
                         <select id="product">
                             <option value="">Bitte wählen...</option>
-                            <option value="pc">Personalcomputer</option>
-                            <option value="clothing">Herrenmäntel aus Wolle</option>
-                            <option value="car">PKW (1500ccm)</option>
-                            <option value="watches">Armbanduhren (elektrisch)</option>
-                            <option value="electronic">Dioden</option>
-                            <option value="cosmetics">Hautcreme</option>
-                            <option value="furniture">Sitzmöbel</option>
-                            <option value="television">Fernsehempfangsgerät</option>
-                            <option value="steel">Sicherheitsnadeln</option>
+                            <option value="personalcomputer">Personalcomputer</option>
+                            <option value="pkw">PKW (1500ccm)</option>
+                            <option value="sicherheitsnadeln">Sicherheitsnadeln</option>
+                            <option value="mantelwolle">Mäntel aus Baumwolle</option>
+                            <option value="armbanduhren">Armbanduhren</option>
+                            <option value="dioden">Dioden</option>
+                            <option value="fernsehgerate">Fernsehgeräte</option>
+                            <option value="mobel">Möbel</option>
+                            <option value="hautcreme">Hautcreme</option>
                         </select>
                     </div>
 
@@ -456,8 +442,47 @@
         </div>
     </section>
 
+    <section class="section info-section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; color: #1a1a1a;">Wichtige Hinweise</h2>
+                <p style="font-size: 1.1rem; color: #666;">Was du über die Zollberechnung wissen solltest</p>
+            </div>
 
-    <!-- Footer -->
+            <div class="info-cards">
+                <div class="info-card">
+                    <h3>💡 Hinweis zur Berechnung</h3>
+                    <p>Diese Berechnung basiert auf aktuellen Zollsätzen und dient als <strong>Orientierung</strong>. Die tatsächlichen Kosten können abweichen.</p>
+                    <p>Für verbindliche Auskünfte wenden Sie sich bitte an die zuständigen Zollbehörden.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>📊 Was wird berechnet?</h3>
+                    <ul>
+                        <li><strong>Zollgebühren</strong> – Abgaben auf die Ware</li>
+                        <li><strong>Einfuhrumsatzsteuer</strong> – Ähnlich der Mehrwertsteuer</li>
+                        <li><strong>Gesamtkosten</strong> – Summe aller Abgaben</li>
+                    </ul>
+                    <p style="margin-top: 15px;">Die Zollsätze variieren je nach Produktkategorie und Herkunftsland stark.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>⚠️ Freigrenzen beachten</h3>
+                    <p>Bei Sendungen aus Nicht-EU-Ländern gelten besondere Freigrenzen:</p>
+                    <ul>
+                        <li>Geschenksendungen: bis 45 €</li>
+                        <li>Andere Sendungen: bis 150 €</li>
+                        <li>Reisegepäck (Flug): bis 430 €</li>
+                        <li>Reisegepäck (Land): bis 300 €</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <p><strong>Wichtig:</strong> Diese Freigrenzen sollen 2025 möglicherweise abgeschafft werden!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div style="border-top: 3px solid #667eea; padding-top: 30px; margin-bottom: 20px;"></div>
@@ -475,6 +500,176 @@
     </footer>
 
     <script>
+        // ZOLLDATENBANK nach deinem Prinzip
+        const tariffDatabase = {
+            "EU-CN": {
+                "personalcomputer": 10,
+                "pkw": 15,
+                "sicherheitsnadeln": 5,
+                "mantelwolle": 10,
+                "armbanduhren": 4.5,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 2.5
+            },
+            "EU-JP": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 9.1,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "EU-USA": {
+                "personalcomputer": 15,
+                "pkw": 2.5,
+                "sicherheitsnadeln": 4.5,
+                "mantelwolle": 15,
+                "armbanduhren": 0,
+                "dioden": 15,
+                "fernsehgerate": 0,
+                "mobel": 15,
+                "hautcreme": 15
+            },
+            "EU-IN": {
+                "personalcomputer": 0,
+                "pkw": 35,
+                "sicherheitsnadeln": 10,
+                "mantelwolle": 10,
+                "armbanduhren": 15,
+                "dioden": 18,
+                "fernsehgerate": 23.5,
+                "mobel": 25,
+                "hautcreme": 20
+            },
+            "USA-CN": {
+                "personalcomputer": 10,
+                "pkw": 15,
+                "sicherheitsnadeln": 4.5,
+                "mantelwolle": 12,
+                "armbanduhren": 34,
+                "dioden": 34,
+                "fernsehgerate": 34,
+                "mobel": 34,
+                "hautcreme": 12.5
+            },
+            "USA-JP": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 10,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 15,
+                "hautcreme": 0
+            },
+            "USA-IN": {
+                "personalcomputer": 18,
+                "pkw": 65,
+                "sicherheitsnadeln": 17.5,
+                "mantelwolle": 15,
+                "armbanduhren": 20,
+                "dioden": 0,
+                "fernsehgerate": 36,
+                "mobel": 35,
+                "hautcreme": 10
+            },
+            "TR-USA": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 7.7,
+                "armbanduhren": 4.2,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "TR-CN": {
+                "personalcomputer": 0,
+                "pkw": 24.6,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "TR-JP": {
+                "personalcomputer": 0,
+                "pkw": 24.6,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "TR-GB": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "TR-CH": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "TR-IN": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            },
+            "TR-TR": {
+                "personalcomputer": 0,
+                "pkw": 0,
+                "sicherheitsnadeln": 0,
+                "mantelwolle": 0,
+                "armbanduhren": 0,
+                "dioden": 0,
+                "fernsehgerate": 0,
+                "mobel": 0,
+                "hautcreme": 0
+            }
+        };
+
+        // Einfuhrumsatzsteuer-Sätze
+        const vatRates = {
+            "EU": 19,
+            "USA": 7,
+            "CN": 13,
+            "CH": 7.7,
+            "JP": 10,
+            "TR": 20,
+            "IN": 18,
+            "GB": 20
+        };
+
         function resetCalculator() {
             document.getElementById('product').selectedIndex = 0;
             document.getElementById('country').selectedIndex = 0;
@@ -488,12 +683,9 @@
             const country = document.getElementById('country').value;
             const destination = document.getElementById('destination').value;
             
-            // Wenn beide Felder ausgefüllt sind und identisch
             if (country && destination && country === destination) {
-                // Zeige Warnung
-                alert('Herkunftsland und Zielland dürfen nicht identisch sein!');
+                alert('⚠️ Herkunftsland und Zielland dürfen nicht identisch sein!');
                 
-                // Setze das zuletzt geänderte Feld zurück
                 if (document.activeElement.id === 'country') {
                     document.getElementById('country').selectedIndex = 0;
                 } else {
@@ -503,6 +695,24 @@
                 return false;
             }
             return true;
+        }
+
+        function getTariffRate(from, to, product) {
+            const key = `${from}-${to}`;
+            const reverseKey = `${to}-${from}`;
+            
+            // Versuche die direkte Kombination
+            if (tariffDatabase[key] && tariffDatabase[key][product] !== undefined) {
+                return tariffDatabase[key][product];
+            }
+            
+            // Versuche die umgekehrte Kombination
+            if (tariffDatabase[reverseKey] && tariffDatabase[reverseKey][product] !== undefined) {
+                return tariffDatabase[reverseKey][product];
+            }
+            
+            // Fallback: 0%
+            return 0;
         }
 
         function calculateCustoms() {
@@ -528,47 +738,34 @@
                 return;
             }
 
-            // PLATZHALTER: Hier müssen die echten Zollsätze eingefügt werden
-            // Aktuell nur Beispielwerte zur Demonstration
-            const demoRate = Math.random() * 15; // Zufälliger Satz zwischen 0-15%
-            
-            const vatRates = {
-                european_union: 0.19,
-                usa: 0.07,
-                china: 0.13,
-                switzerland: 0.077,
-                japan: 0.10,
-                turkey: 0.18,
-                india: 0.18,
-                gb: 0.20
-            };
+            // Hole Zollsatz aus der Datenbank
+            const tariffRate = getTariffRate(country, destination, product);
+            const vatRate = vatRates[destination] || 19;
 
             const total = value * quantity;
-            const rate = demoRate; // PLATZHALTER
-            const duty = total * (rate / 100);
-            const vatRate = vatRates[destination] || 0.19;
-            const vat = (total + duty) * vatRate;
+            const duty = total * (tariffRate / 100);
+            const vat = (total + duty) * (vatRate / 100);
             const finalTotal = total + duty + vat;
 
             const result = document.getElementById('calcResult');
             result.style.display = 'block';
             result.innerHTML = `
-                <h3> Berechnungsergebnis</h3>
+                <h3>📊 Berechnungsergebnis</h3>
                 <div style="background: white; padding: 25px; border-radius: 8px; margin-top: 15px;">
                     <div class="result-row">
                         <span class="result-label">Warenwert</span>
                         <span class="result-value">${total.toFixed(2)} €</span>
                     </div>
                     <div class="result-row">
-                        <span class="result-label">Zollsatz (Demo)</span>
-                        <span class="result-value">${rate.toFixed(1)}%</span>
+                        <span class="result-label">Zollsatz</span>
+                        <span class="result-value">${tariffRate.toFixed(1)}%</span>
                     </div>
                     <div class="result-row">
                         <span class="result-label">Zollgebühr</span>
                         <span class="result-value">${duty.toFixed(2)} €</span>
                     </div>
                     <div class="result-row">
-                        <span class="result-label">Einfuhrumsatzsteuer (${(vatRate * 100).toFixed(1)}%)</span>
+                        <span class="result-label">Einfuhrumsatzsteuer (${vatRate.toFixed(1)}%)</span>
                         <span class="result-value">${vat.toFixed(2)} €</span>
                     </div>
                     <div class="result-row">
@@ -576,14 +773,8 @@
                         <span style="color: #667eea; font-weight: 700; font-size: 1.2rem;">${finalTotal.toFixed(2)} €</span>
                     </div>
                 </div>
-                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #ffc107;">
-                    <p style="margin: 0; color: #856404; font-size: 0.9rem;">
-                        <strong> Hinweis:</strong> Dies ist eine Beispielberechnung. Die tatsächlichen Zollsätze müssen noch eingepflegt werden.
-                    </p>
-                </div>
             `;
 
-            // Sanftes Scrollen zum Ergebnis
             setTimeout(() => {
                 result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }, 100);
