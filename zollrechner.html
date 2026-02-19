@@ -1222,10 +1222,7 @@
 
             const tariffRate = getTariffRate(country, destination, product);
             
-            if (tariffRate === null) {
-                alert('❌ Für diese Länderkombination sind noch keine Daten verfügbar.\n\nVerfügbare Kombinationen:\n\n📥 Importe in die EU:\n→ USA, China, Japan, GB, Schweiz, Indien, Türkei\n\n📤 Exporte aus der EU:\n→ China, Japan, USA, Indien\n\n📤 Exporte aus den USA:\n→ China, Japan, Indien, EU');
-                return;
-            }
+            
 
             const vatRate = vatRates[destination] || 19;
             const total = value * quantity;
