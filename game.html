@@ -5,7 +5,728 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZollKönig – Handelssimulation</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZollKönig – Handelssimulation</title>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --g1:#667eea; --g2:#8299a1;
+  --grad: linear-gradient(135deg, var(--g1) 0%, var(--g2) 100%);
+  --card-shadow: 0 2px 20px rgba(0,0,0,.08);
+  --radius:12px;
+}
+body {
+  font-family:'Inter',sans-serif;
+  background:#f8f9fa;
+  color:#1a1a1a;
+  line-height:1.6;
+  min-height:100vh;
+}
+/* ─── NAV (copy-style from main site) ─── */
+.top-nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:18px 40px;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #e5e5e5;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.nav-links { display:flex; gap:30px; }
+.nav-link {
+  color:#666; text-decoration:none; font-weight:500; font-size:.95rem;
+  transition:color .2s;
+}
+.nav-link:hover, .nav-link.active { color:#1a1a1a; }
+/* ─── HERO ─── */
+.hero {
+  background:var(--grad);
+  color:#fff;
+  padding:140px 0 60px;
+  text-align:center;
+}
+.hero h1 { font-size:clamp(2.2rem,5vw,3.4rem); font-weight:800; letter-spacing:-.02em; margin-bottom:10px; }
+.hero p { font-size:1.1rem; opacity:.92; max-width:560px; margin:0 auto; }
+/* ─── LAYOUT ─── */
+.container { max-width:1100px; margin:0 auto; padding:0 24px; }
+.game-wrap { padding:36px 0 60px; }
+/* ─── ROUND HEADER BAR ─── */
+.round-bar {
+  display:flex; justify-content:space-between; align-items:center;
+  background:#fff; border-radius:var(--radius); box-shadow:var(--card-shadow);
+  padding:16px 28px; margin-bottom:24px; flex-wrap:wrap; gap:12px;
+}
+.round-bar .label { font-size:.82rem; color:#999; text-transform:uppercase; letter-spacing:.06em; font-weight:600; }
+.round-bar .val  { font-size:1.35rem; font-weight:800; color:var(--g1); }
+.round-badge {
+  background:var(--grad); color:#fff; padding:6px 18px; border-radius:20px;
+  font-size:.88rem; font-weight:700;
+}
+/* ─── STATS GRID ─── */
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(175px,1fr));
+  gap:14px; margin-bottom:28px;
+}
+.stat-card {
+  background:#fff; border-radius:var(--radius); box-shadow:var(--card-shadow);
+  padding:18px 16px; text-align:center;
+  transition:transform .2s;
+}
+.stat-card:hover { transform:translateY(-2px); }
+.stat-card .icon { font-size:1.6rem; margin-bottom:6px; }
+.stat-card .name { font-size:.78rem; color:#666; text-transform:uppercase; letter-spacing:.05em; font-weight:600; margin-bottom:8px; }
+.stat-card .num  { font-size:1.35rem; font-weight:800; color:#1a1a1a; margin-bottom:8px; }
+.stat-bar-bg { background:#eee; border-radius:6px; height:8px; overflow:hidden; }
+.stat-bar-fill {
+  height:100%; border-radius:6px;
+  transition:width .6s cubic-bezier(.4,0,.2,1), background .4s;
+}
+/* ─── EVENT CARD ─── */
+.event-card {
+  background:#fff; border-radius:var(--radius); box-shadow:var(--card-shadow);
+  overflow:hidden; margin-bottom:28px;
+}
+.event-header {
+  background:var(--grad); padding:22px 28px; display:flex; align-items:center; gap:14px;
+}
+.event-header .tag {
+  background:rgba(255,255,255,.2); color:#fff; padding:4px 14px; border-radius:14px;
+  font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+}
+.event-header h2 { color:#fff; font-size:1.25rem; font-weight:700; margin:0; }
+.event-body { padding:28px; }
+.event-body .country-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#f0f4ff; color:var(--g1); padding:6px 14px; border-radius:18px;
+  font-size:.85rem; font-weight:600; margin-bottom:14px;
+}
+.event-body p { color:#444; font-size:1.02rem; line-height:1.8; margin-bottom:6px; }
+.event-body .highlight {
+  background:#f8f9fa; border-left:4px solid var(--g1);
+  padding:14px 18px; border-radius:8px; margin:16px 0;
+}
+.event-body .highlight p { margin:0; color:#333; font-size:.95rem; }
+/* ─── DECISION BUTTONS ─── */
+.decisions { display:flex; flex-direction:column; gap:12px; margin-top:8px; }
+.dec-btn {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:18px 22px;
+  background:#f8f9fa; border:2px solid #e5e5e5;
+  border-radius:10px; cursor:pointer; text-align:left;
+  font-family:'Inter',sans-serif;
+  transition:all .22s;
+  width:100%;
+}
+.dec-btn:hover {
+  border-color:var(--g1); background:#eef1ff;
+  transform:translateX(5px);
+  box-shadow:0 3px 12px rgba(102,126,234,.18);
+}
+.dec-btn .dec-num {
+  min-width:30px; height:30px; border-radius:50%;
+  background:var(--grad); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:.9rem; flex-shrink:0;
+}
+.dec-btn .dec-text strong { display:block; color:#1a1a1a; font-size:1rem; margin-bottom:3px; }
+.dec-btn .dec-text span { color:#666; font-size:.88rem; }
+/* ─── CONSEQUENCE OVERLAY (after decision) ─── */
+.consequence-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.52); z-index:900;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .3s;
+}
+.consequence-overlay.show { opacity:1; pointer-events:auto; }
+.consequence-box {
+  background:#fff; border-radius:var(--radius); max-width:520px; width:90%;
+  box-shadow:0 20px 60px rgba(0,0,0,.2); overflow:hidden;
+  transform:translateY(30px); transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.consequence-overlay.show .consequence-box { transform:translateY(0); }
+.consequence-box .cb-header {
+  background:var(--grad); padding:22px 28px; color:#fff;
+}
+.consequence-box .cb-header h3 { font-size:1.2rem; font-weight:700; }
+.consequence-box .cb-header p { opacity:.88; font-size:.9rem; margin-top:4px; }
+.consequence-box .cb-body { padding:24px 28px; }
+.consequence-box .cb-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:10px 0; border-bottom:1px solid #f0f0f0;
+}
+.consequence-box .cb-row:last-of-type { border-bottom:none; }
+.consequence-box .cb-row .cb-label { font-size:.92rem; color:#444; display:flex; align-items:center; gap:8px; }
+.consequence-box .cb-row .cb-val { font-weight:700; font-size:.95rem; }
+.cb-val.up { color:#10b981; } .cb-val.down { color:#ef4444; } .cb-val.same { color:#6b7280; }
+.btn-next {
+  width:100%; padding:14px;
+  background:var(--grad); color:#fff; border:none;
+  font-size:1rem; font-weight:600; border-radius:8px;
+  cursor:pointer; font-family:'Inter',sans-serif;
+  margin-top:18px; transition:transform .2s, box-shadow .2s;
+  box-shadow:0 4px 14px rgba(102,126,234,.3);
+}
+.btn-next:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(102,126,234,.4); }
+/* ─── RELATIONS ROW ─── */
+.relations-row {
+  display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px;
+}
+.rel-chip {
+  background:#fff; border-radius:20px; box-shadow:var(--card-shadow);
+  padding:8px 16px; display:flex; align-items:center; gap:10px;
+  font-size:.82rem; font-weight:600;
+}
+.rel-chip .rel-flag { font-size:1.1rem; }
+.rel-chip .rel-name { color:#444; }
+.rel-chip .rel-bar-bg { width:46px; height:6px; background:#eee; border-radius:3px; overflow:hidden; }
+.rel-chip .rel-bar-fill { height:100%; border-radius:3px; transition:width .5s; }
+/* ─── START / END SCREENS ─── */
+.screen { display:none; }
+.screen.active { display:block; }
+#startScreen, #endScreen { text-align:center; padding-top:60px; }
+.big-card {
+  background:#fff; border-radius:var(--radius); box-shadow:var(--card-shadow);
+  max-width:680px; margin:0 auto; padding:50px 40px;
+}
+.big-card h2 { font-size:1.9rem; font-weight:800; margin-bottom:16px; }
+.big-card p  { color:#555; font-size:1.02rem; line-height:1.85; margin-bottom:18px; }
+.btn-start {
+  display:inline-block; padding:16px 48px;
+  background:var(--grad); color:#fff; border:none;
+  font-size:1.1rem; font-weight:700; border-radius:10px;
+  cursor:pointer; font-family:'Inter',sans-serif;
+  box-shadow:0 4px 18px rgba(102,126,234,.35);
+  transition:transform .2s, box-shadow .2s; margin-top:10px;
+}
+.btn-start:hover { transform:translateY(-2px); box-shadow:0 7px 24px rgba(102,126,234,.45); }
+.info-pills { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:22px 0; }
+.info-pill { background:#f0f4ff; color:var(--g1); padding:7px 16px; border-radius:18px; font-size:.85rem; font-weight:600; }
+/* ─── GAME OVER SPECIFICS ─── */
+.end-score { font-size:3rem; font-weight:800; color:var(--g1); margin:10px 0; }
+.end-badge {
+  display:inline-block; padding:8px 24px; border-radius:22px;
+  font-weight:700; font-size:.95rem; margin-bottom:16px;
+}
+.end-badge.win  { background:#d1fae5; color:#065f46; }
+.end-badge.lose { background:#fee2e2; color:#991b1b; }
+/* ─── FOOTER ─── */
+footer {
+  background:#fff; padding:28px 0; text-align:center;
+  border-top:1px solid #e5e5e5; margin-top:20px;
+}
+footer p { color:#666; font-size:.88rem; }
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px){
+  .top-nav { padding:14px 18px; }
+  .hero { padding:100px 0 42px; }
+  .stats-grid { grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; }
+  .event-body, .event-header { padding:18px; }
+  .big-card { padding:36px 22px; }
+}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+    <div class="nav-links">
+       <a href="index.html" class="nav-link active">Home</a>
+       <a href="game.html" class="nav-link">Zoll-Spiel</a>
+       <a href="zoll-interview-artikel.html" class="nav-link">Interview</a>
+       <a href="impressum.html" class="nav-link">Impressum</a>
+       <a href="zollrechner.html" class="nav-link">Zoll-Rechner</a>
+    </div>
+</nav>
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>ZollKönig</h1>
+    <p>Führe dein Land durch internationale Handelskonflikte – Entscheidungen haben Konsequenzen!</p>
+  </div>
+</section>
+<!-- ─── START SCREEN ─── -->
+<div id="startScreen" class="screen active">
+  <div class="game-wrap">
+    <div class="container">
+      <div class="big-card">
+        <div style="font-size:3.2rem;margin-bottom:12px;">🏛️</div>
+        <h2>Willkommen, Staatsoberhaupt!</h2>
+        <p>Du übernimmst die Führung von <strong>Valdoria</strong> – einer aufstrebenden Handelsnation. Deine Aufgabe: Wirtschaft stärken, Bevölkerung zufrieden halten und Handelsbeziehungen geschickt navigieren.</p>
+        <p>In <strong>16 Runden</strong> wirst du mit realen Handelsszenarios konfrontiert – von Zollkonflikten bis zu Subventionsentscheidungen. Jede Wahl hat Folgen!</p>
+        <div class="info-pills">
+          <span class="info-pill">📊 16 Runden</span>
+          <span class="info-pill">🌍 5 Länder</span>
+          <span class="info-pill">⚖️ 5 Kennzahlen</span>
+          <span class="info-pill">🎯 Strategie</span>
+        </div>
+        <button class="btn-start" onclick="startGame()">Spiel starten →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ─── MAIN GAME SCREEN ─── -->
+<div id="gameScreen" class="screen">
+  <div class="game-wrap">
+    <div class="container">
+      <!-- Round bar -->
+      <div class="round-bar">
+        <div><div class="label">Runde</div><div class="val" id="roundDisp">1 / 16</div></div>
+        <div><div class="label">Punkte</div><div class="val" id="scoreDisp">0</div></div>
+      </div>
+      <!-- Stats -->
+      <div class="stats-grid" id="statsGrid"></div>
+      <!-- Event -->
+      <div class="event-card" id="eventCard"></div>
+    </div>
+  </div>
+</div>
+<!-- ─── END SCREEN ─── -->
+<div id="endScreen" class="screen">
+  <div class="game-wrap">
+    <div class="container">
+      <div class="big-card">
+        <div class="end-badge" id="endBadge">…</div>
+        <div class="end-score" id="endScore">0</div>
+        <div style="color:#999;font-size:.95rem;margin-bottom:8px;">von max. <strong id="endMaxScore">0</strong> Punkten</div>
+        <h2 id="endTitle">Spiel beendet</h2>
+        <p id="endMsg"></p>
+        <div id="endStats" style="margin:20px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left;"></div>
+        <button class="btn-start" onclick="restartGame()">Erneut spielen →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ─── CONSEQUENCE OVERLAY ─── -->
+<div class="consequence-overlay" id="conseqOverlay">
+  <div class="consequence-box">
+    <div class="cb-header">
+      <h3 id="cbTitle">Folgen deiner Entscheidung</h3>
+      <p id="cbSubtitle"></p>
+    </div>
+    <div class="cb-body" id="cbBody"></div>
+    <div style="padding:0 28px 24px;">
+      <button class="btn-next" id="btnNext">Weiter →</button>
+    </div>
+  </div>
+</div>
+<footer><div class="container"><p>© 2026 WAS ZOLL DAS? – Schulprojekt | Informationen ohne Gewähr</p></div></footer>
+<!-- ═══════════════════════════════════════════════════════════════════
+     GAME ENGINE
+     ═══════════════════════════════════════════════════════════════════ -->
+<script>
+// ─── WORLD DATA ───────────────────────────────────────────────────
+const COUNTRIES = [
+  { id:"techno",  name:"Technorea",   flag:"", focus:"Technologie", exports:["Elektronik","Software","Chips"], stance:"liberal", baseRelation:70 },
+  { id:"agri",    name:"Grünland",    flag:"", focus:"Landwirtschaft", exports:["Getreide","Fleisch","Obst"], stance:"protektionistisch", baseRelation:55 },
+  { id:"rohstoff",name:"Minera",      flag:"", focus:"Rohstoffe", exports:["Stahl","Kupfer","Öl"], stance:"opportunistisch", baseRelation:60 },
+  { id:"industrie",name:"Ironval",    flag:"", focus:"Industrie", exports:["Maschinen","Autos","Chemikalien"], stance:"aggressiv", baseRelation:45 },
+  { id:"finanz",  name:"Goldenburg",  flag:"", focus:"Finanzwesen", exports:["Kapital","Versicherungen","Beratung"], stance:"diplomatisch", baseRelation:75 }
+];
+const TOTAL_ROUNDS = 16;
+// ─── EVENTS POOL ──────────────────────────────────────────────────
+const EVENTS = [
+  // 1 – Zölle von Ironval
+  {
+    title:"Ironval verhängt Importzölle!",
+    country:"industrie",
+    text:"Das Industrieland Ironval hat plötzlich <strong>25 % Zölle auf deine Exportgüter</strong> verhängt. Deine Exportunternehmen sind alarmiert – ohne Reaktion verlieren sie einen wichtigen Markt.",
+    decisions:[
+      { label:"Gegenzölle verhängen", desc:"Auch du erhöhst Zölle auf Ironval-Waren – Signal stärken.", effects:{economy:-8, revenue:12, happiness:-5, relations_industrie:-20, jobs:-4} },
+      { label:"Diplomatische Verhandlungen", desc:"Du sendest eine Delegation nach Ironval.", effects:{economy:-2, revenue:-3, happiness:4, relations_industrie:8, jobs:0} },
+      { label:"Zölle akzeptieren", desc:"Du lässt die Situation zunächst laufen, um Eskalation zu vermeiden.", effects:{economy:-12, revenue:-5, happiness:-8, relations_industrie:3, jobs:-6} }
+    ]
+  },
+  // 2 – Handelsabkommen Technorea
+  {
+    title:"Turogan bietet Handelsabkommen an",
+    country:"techno",
+    text:"Das technologisch führende <strong>Technorea</strong> möchte ein Freihandelsabkommen mit Valdoria schließen. Das würde Zölle gegenseitig abschaffen – aber auch den heimischen Markt stärker öffnen.",
+    decisions:[
+      { label:"Abkommen unterschreiben", desc:"Freier Handel mit Turogan ab sofort.", effects:{economy:5, revenue:3, happiness:4, jobs:3} },
+      { label:"Abkommen ablehnen", desc:"Du schützst heimische Industrie.", effects:{economy:0, revenue:0, happiness:-2, jobs:0} },
+      { label:"Teilabkommen vorschlagen", desc:"Nur bestimmte Waren zollfrei – Kompromiss.", effects:{economy:6, revenue:4, happiness:3, jobs:3} }
+    ]
+  },
+  // 3 – Rezessionsgefahr
+  {
+    title:"Rezessionsgefahr im Inland!",
+    country:null,
+    text:"Wirtschaftsexperten warnen: <strong>Das BIP könnte im nächsten Quartal schrumpfen.</strong> Die Bevölkerung wird nervös. Du musst jetzt handeln.",
+    decisions:[
+      { label:"Staatliche Subventionen", desc:"Du pumpst Geld in heimische Industrie.", effects:{economy:4, revenue:-7, happiness:4, jobs:4} },
+      { label:"Sparmaßnahmen", desc:"Kosten senken, Haushalt sanieren, Steuern runter.", effects:{economy:1, revenue:3, happiness:-4, jobs:-3} },
+      { label:"Handelsöffnung", desc:"Mehr Importe zulassen – Preise sinken.", effects:{economy:-2, revenue:1, happiness:4, jobs:-2} }
+    ]
+  },
+  // 4 – Minera Rohstoffpreise
+  {
+    title:"Sansirien drosselt Rohstofflieferungen!",
+    country:"rohstoff",
+    text:"<strong>Sansirien</strong> reduziert plötzlich seine Rohstoffexporte nach Valdoria um 40 %. Deine Industrie braucht Silber und Kupfer.",
+    decisions:[
+      { label:"Druck auf Sansirien aufbauen", desc:"Drohen mit dem Verkauf von Staatsanleihen", effects:{economy:0, revenue:0, happiness:3, jobs:0} },
+      { label:"Verhandlungen mit Sansirien", desc:"Du versuchst, die Lieferung wiederherzustellen.", effects:{economy:-2, revenue:-2, happiness:1, jobs:-1} },
+      { label:"Rohstoffvorräte aufbauen", desc:"Langfristige Investition – kurzfristig teuer.", effects:{economy:3, revenue:-9, happiness:4, jobs:2} }
+    ]
+  },
+  // 5 – Goldenburg Kapitalzufluss
+  {
+    title:"Bahran möchte in Valdoria investieren",
+    country:"finanz",
+    text:"Das Finanzministerium von <strong>Bahran</strong> bietet an, <strong>5 Milliarden in Valdorias Infrastruktur</strong> zu investieren – aber nur, wenn Valdoria seine Bürokratie im Zollwesen abbaut.",
+    decisions:[
+      { label:"Investition annehmen", desc:"Chance nutzen, generell Bürokratie abbauen.", effects:{economy:11, revenue:12, happiness:6, jobs:8} },
+      { label:"Investition ablehnen", desc:"Keine Einflussnahme von außen zulassen.", effects:{economy:0, revenue:0, happiness:-7, jobs:0} },
+      { label:"Teilinvestition mit Bedingungen", desc:"Du verhandelt eigene Konditionen.", effects:{economy:6, revenue:5, happiness:3, jobs:3} }
+    ]
+  },
+  // 6 – Handelskrieg Eskalation
+  {
+    title:"Globale Handelsspannung steigt!",
+    country:null,
+    text:"Mehrere Länder verschärfen ihre Handelspolitik weltweit. <strong>Zölle steigen überall.</strong> Valdoria muss eine klare Position einnehmen – protektionistisch oder offen.",
+    decisions:[
+      { label:"Protektionismus wählen", desc:"Valdoria schließt sich ab, schützt heimische Märkte.", effects:{economy:-4, revenue:-3, happiness:-2, jobs:-2} },
+      { label:"Offene Handelspolitik", desc:"Valdoria bleibt ein offener Markt.", effects:{economy:1, revenue:1, happiness:0, jobs:1} },
+      { label:"Selektive Zölle", desc:"Nur gezielte Zölle auf bestimmte Länder.", effects:{economy:4, revenue:3, happiness:2, jobs:2} }
+    ]
+  },
+  // 7 – Technologie-Import
+  {
+    title:"Chance: Technologie aus Katalania importieren",
+    country:"techno",
+    text:"<strong>Technorea</strong> bietet dir <strong>günstige Zugänge zu modernster Technologie</strong> an. Das könnte deine Industrie massiv modernisieren – aber verursacht Abhängigkeiten.",
+    decisions:[
+      { label:"Import annehmen", desc:"Günstige Technologie – Industrie modernisieren.", effects:{economy:6, revenue:2, happiness:1, jobs:3} },
+      { label:"Import ablehnen", desc:"Eigenständige Forschung fördern.", effects:{economy:2, revenue:-4, happiness:2, jobs:1} },
+      { label:"Lizenzmodell vereinbaren", desc:"Zugang, aber unter kontrollierten Bedingungen.", effects:{economy:3, revenue:1, happiness:1, jobs:2} }
+    ]
+  },
+  // 8 – Ausgleich des Außenhandelsüberschusses
+  {
+    title:"Ausgleich des Außenhandelsüberschusses!",
+    country:null,
+    text:"<strong>Sansorien</strong> droht mit Importzöllen auf deine Waren, um den Außenhandelsüberschuss auszugleichen.",
+    decisions:[
+      { label:"Gegenzölle erheben", desc:"Wirtschaftlich starke Sektoren gezielt schädigen.", effects:{economy:-4, revenue:-3, happiness:-5, jobs:-2} },
+      { label:"Zölle akzeptieren und auf neue Absatzmärkte fokussieren", desc:"Stärkerer Fokus auf neue Länder und Diversifizierung.", effects:{economy:-2, revenue:-4, happiness:1, jobs:-2} },
+      { label:"Diplomatischer Weg", desc:"Du schickst eine Delegation um zu verhandeln.", effects:{economy:-2, revenue:-1, happiness:0, jobs:-1} }
+    ]
+  },
+  // 9 – Waffenexporte
+  {
+    title:"Waffenexporte in Kriegsgebiete",
+    country:"industrie",
+    text:"Stavira hat Turogan überfallen. Beide Länder bitten dich um Waffenexporte. Das ist eine große Chance für deine Rüstungsindustrie. Stavira ist dabei bereit, doppelt so viel für Waffen auszugeben wie Turogan.",
+    decisions:[
+      { label:"Waffen an Stavira verkaufen", desc:"Waffen gehen direkt an den Kriegstreiber.", effects:{economy:4, revenue:4, happiness:-3, jobs:3} },
+      { label:"Waffen an Turogan verkaufen", desc:"Waffen gehen an Turogan, um sich zu verteidigen.", effects:{economy:2, revenue:2, happiness:2, jobs:5} },
+      { label:"Moralische Haltung", desc:"Keine Waffenlieferungen in Kriegsgebiete.", effects:{economy:0, revenue:0, happiness:3, jobs:0} }
+    ]
+  },
+  // 10 – Billig Stahlimporte
+  {
+    title:"Billig Stahlimporte",
+    country:"finanz",
+    text:"Dein Land wird von <strong>billigen Stahlimporten</strong> aus <strong>Stavira</strong> überschwemmt. Deine starke Stahlindustrie droht zu zerfallen.",
+    decisions:[
+      { label:"Starke Subventionen", desc:"Du probierst den Preisunterschied auszugleichen.", effects:{economy:1, revenue:-4, happiness:1, jobs:1} },
+      { label:"Zölle", desc:"Du erhöhst die Importzölle auf Stahl aus Stavira um den Preis künstlich zu erhöhen.", effects:{economy:-2, revenue:2, happiness:-2, jobs:-2} },
+      { label:"Mindestpreise", desc:"Du verhängst Mindestpreise auf Stahl aus Stavira.", effects:{economy:-1, revenue:-2, happiness:-2, jobs:-2} }
+    ]
+  },
+  // 11 – Erweiterung des Exports
+  {
+    title:"Erweiterung des Exports",
+    country:null,
+    text:"Du willst deine Exporte erweitern, damit du einen stärkeren Anteil in ausländischen Märkten erhältst.",
+    decisions:[
+      { label:"Zölle abbauen", desc:"Du sprichst mit ausländischen Regierungen um Handelsbarrieren abzubauen.", effects:{economy:3, revenue:0, happiness:3, jobs:2} },
+      { label:"Steuerbegünstigungen", desc:"Unternehmen in Exportbranchen erhalten steuerliche Begünstigungen.", effects:{economy:4, revenue:-2, happiness:1, jobs:3} },
+      { label:"Förderung von Forschung und Entwicklung", desc:"Investitionen in aufstrebenden Branchen sowie Start-Up Förderung.", effects:{economy:3, revenue:-1, happiness:2, jobs:4} }
+    ]
+  },
+  // 12 – Medikamente
+  {
+    title:"Kinder ohne Medikamente",
+    country:"agri",
+    text:"Dein Land hat hohe Zölle gegen Medikamente. Du besitzt eine kleine Pharmaindustrie. Viele Familien können sich keine wichtigen Medikamente für ihre Kinder leisten.",
+    decisions:[
+      { label:"Zölle auf Medikamente senken", desc:"Medikamente werden billiger.", effects:{economy:-1, revenue:-3, happiness:5, jobs:0} },
+      { label:"Eigene Pharmaindustrie stärken", desc:"Investitionen in eigene Unternehmen. Erfolg nicht garantiert.", effects:{economy:1, revenue:-1, happiness:1, jobs:2} },
+      { label:"Zölle bleiben intakt", desc:"Nichts verändert sich.", effects:{economy:0, revenue:0, happiness:0, jobs:0} }
+    ]
+  },
+  // 13 – Rohstoffabhängigkeit
+  {
+    title:"Rohstoffabhängigkeit von Bahran",
+    country:"rohstoff",
+    text:"Dein Land ist stark abhängig von Rohstoffen aus Bahran! Bahran bietet zwar die billigsten Rohstoffe an, ist aber nicht krisensicher.",
+    decisions:[
+      { label:"Investitionen in Bahran", desc:"Du versuchst durch Investitionen Bahran krisensicher zu machen.", effects:{economy:1, revenue:-3, happiness:2, jobs:0} },
+      { label:"Lieferketten diversifizieren", desc:"Lieferabkommen mit anderen Ländern abschließen.", effects:{economy:-2, revenue:-2, happiness:1, jobs:0} },
+      { label:"Risiko in Kauf nehmen", desc:"Rohstoffe weiter auf dem billigsten Weg erwerben.", effects:{economy:-6, revenue:-4, happiness:-3, jobs:-5} }
+    ]
+  },
+  // 14 – Finanzmarkt-Abkommen
+  {
+    title:"Finanzmarkt-Abkommen",
+    country:"finanz",
+    text:"<strong>Katalania</strong> möchte einen offenen <strong>Finanzmarkt</strong> zwischen beiden Ländern schaffen. Das bringt Kapital – aber auch Risiken.",
+    decisions:[
+      { label:"Abkommen unterschreiben", desc:"Offener Finanzmarkt – viel Kapital.", effects:{economy:4, revenue:3, happiness:3, jobs:2} },
+      { label:"Abkommen ablehnen", desc:"Valdoria bleibt finanziell souverän.", effects:{economy:0, revenue:0, happiness:-2, jobs:0} },
+      { label:"Teilöffnung", desc:"Kontrollierter Zugang zum Finanzmarkt.", effects:{economy:2, revenue:1, happiness:2, jobs:1} }
+    ]
+  },
+  // 15 – Inflation
+  {
+    title:"Inflation in Valdoria!",
+    country:null,
+    text:"Die <strong>Inflation steigt</strong> – Lebenskosten werden höher. Die Bevölkerung spürt es.",
+    decisions:[
+      { label:"Zinsen erhöhen", desc:"Wirtschaft bremsen, Inflation bekämpfen.", effects:{economy:-3, revenue:-1, happiness:2, jobs:-2} },
+      { label:"Zölle senken", desc:"Werde beliebter und bekämpfe die hohen Preise, aber die Konkurrenzfähigkeit sinkt.", effects:{economy:-3, revenue:-5, happiness:3, jobs:-2} },
+      { label:"Nichts tun", desc:"Inflation läuft weiter.", effects:{economy:2, revenue:2, happiness:-5, jobs:-4} }
+    ]
+  },
+  // 16 – Valdoria auf der Weltbühne
+  {
+    title:"Valdoria auf der Weltbühne",
+    country:null,
+    text:"Eine <strong>internationale Handelskonferenz</strong> findet statt – Valdoria kann eine starke Position einnehmen.",
+    decisions:[
+      { label:"Aktiv teilnehmen", desc:"Valdoria präsentiert sich selbst offensiv.", effects:{economy:5, revenue:2, happiness:6, jobs:2} },
+      { label:"Passiv beobachten", desc:"Du lernst aus der Konferenz.", effects:{economy:0, revenue:0, happiness:1, jobs:0} },
+      { label:"Kritische Rolle", desc:"Du forderst andere Länder auf, fairer zu handeln.", effects:{economy:-2, revenue:0, happiness:5, jobs:0} }
+    ]
+  }
+];
+// ─── GAME STATE ───────────────────────────────────────────────────
+let state = {};
+function initState() {
+  state = {
+    round: 1,
+    score: 0,
+    stats: { economy:70, revenue:60, happiness:65, jobs:60 },
+    startStats: { economy:70, revenue:60, happiness:65, jobs:60 },
+    relations: {},
+    usedEvents: [],
+    gameOver: false,
+    gameWon: false
+  };
+  COUNTRIES.forEach(c => { state.relations[c.id] = c.baseRelation; });
+}
+// ─── HELPERS ──────────────────────────────────────────────────────
+function clamp(v, min=0, max=100) { return Math.max(min, Math.min(max, v)); }
+function calcScore() {
+  const s = state.stats;
+  return Math.round((s.economy*0.35 + s.revenue*0.25 + s.happiness*0.25 + s.jobs*0.15) * state.round / 5);
+}
+function pickEvent() {
+  let pool = EVENTS.filter((_,i) => !state.usedEvents.includes(i));
+  if (pool.length === 0) { state.usedEvents = []; pool = EVENTS; }
+  const idx = EVENTS.indexOf(pool[Math.floor(Math.random()*pool.length)]);
+  state.usedEvents.push(idx);
+  return EVENTS[idx];
+}
+function applyDrift() {
+  ['economy','revenue','happiness','jobs'].forEach(k => {
+    state.stats[k] = clamp(state.stats[k] + (Math.random()*6 - 3));
+  });
+  COUNTRIES.forEach(c => {
+    state.relations[c.id] = clamp(state.relations[c.id] + (Math.random()*4 - 2));
+  });
+}
+// ─── RENDER ───────────────────────────────────────────────────────
+function renderStats() {
+  const colors = { economy:'#667eea', revenue:'#f59e0b', happiness:'#10b981', jobs:'#6366f1' };
+  const icons  = { economy:'📊', revenue:'💰', happiness:'😊', jobs:'👷' };
+  const labels = { economy:'Wirtschaft', revenue:'Staatseinnahmen', happiness:'Zufriedenheit', jobs:'Arbeitsplätze' };
+  let html = '';
+  for (const k of ['economy','revenue','happiness','jobs']) {
+    const v = Math.round(state.stats[k]);
+    html += `<div class="stat-card">
+      <div class="icon">${icons[k]}</div>
+      <div class="name">${labels[k]}</div>
+      <div class="num">${v}</div>
+      <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${v}%;background:${colors[k]};"></div></div>
+    </div>`;
+  }
+  document.getElementById('statsGrid').innerHTML = html;
+}
+let currentEvent = null;
+function renderEvent(evt) {
+  currentEvent = evt;
+  let badge = '';
+  if (evt.country) {
+    const c = COUNTRIES.find(x=>x.id===evt.country);
+    badge = `<div class="country-badge">${c.flag} ${c.name} – ${c.focus}</div>`;
+  } else {
+    badge = `<div class="country-badge">🌍 Valdoria intern</div>`;
+  }
+  let decs = evt.decisions.map((d,i) => {
+    return `<button class="dec-btn" onclick="makeDecision(${i})">
+      <div class="dec-num">${i+1}</div>
+      <div class="dec-text">
+        <strong>${d.label}</strong>
+        <span>${d.desc}</span>
+      </div>
+    </button>`;
+  }).join('');
+  document.getElementById('eventCard').innerHTML = `
+    <div class="event-header">
+      <span class="tag">Ereignis – Runde ${state.round}</span>
+    </div>
+    <div class="event-body">
+      ${badge}
+      <h2 style="font-size:1.35rem;font-weight:700;margin-bottom:12px;color:#1a1a1a;">${evt.title}</h2>
+      <p>${evt.text}</p>
+      <div class="highlight"><p>⚡ Wähle eine Reaktion – Überlege die Folgen!</p></div>
+      <div class="decisions">${decs}</div>
+    </div>`;
+}
+function renderRoundBar() {
+  document.getElementById('roundDisp').textContent = `${state.round} / ${TOTAL_ROUNDS}`;
+  document.getElementById('scoreDisp').textContent = calcScore();
+}
+function renderAll() {
+  renderRoundBar();
+  renderStats();
+}
+// ─── DECISION LOGIC ──────────────────────────────────────────────
+function makeDecision(idx) {
+  const dec = currentEvent.decisions[idx];
+  const eff = dec.effects;
+  const oldStats = { ...state.stats };
+  const oldRel   = { ...state.relations };
+  for (const k of ['economy','revenue','happiness','jobs']) {
+    if (eff[k] !== undefined) state.stats[k] = clamp(state.stats[k] + eff[k]);
+  }
+  for (const c of COUNTRIES) {
+    const key = 'relations_'+c.id;
+    if (eff[key] !== undefined) state.relations[c.id] = clamp(state.relations[c.id] + eff[key]);
+  }
+  if (dec.allRelations !== undefined) {
+    COUNTRIES.forEach(c => { state.relations[c.id] = clamp(state.relations[c.id] + dec.allRelations); });
+  }
+  state.score = calcScore();
+  showConsequences(dec, oldStats, oldRel);
+}
+function showConsequences(dec, oldStats, oldRel) {
+  document.getElementById('cbTitle').textContent = dec.label;
+  document.getElementById('cbSubtitle').textContent = dec.desc;
+  const statLabels = { economy:'📊 Wirtschaft', revenue:'💰 Staatseinnahmen', happiness:'😊 Zufriedenheit', jobs:'👷 Arbeitsplätze' };
+  let rows = '';
+  for (const k of ['economy','revenue','happiness','jobs']) {
+    const diff = Math.round(state.stats[k] - oldStats[k]);
+    const diffStart = Math.round(state.stats[k] - state.startStats[k]);
+    const cls  = diff > 0 ? 'up' : diff < 0 ? 'down' : 'same';
+    const sign = diff > 0 ? '+' : '';
+    const clsStart = diffStart > 0 ? 'up' : diffStart < 0 ? 'down' : 'same';
+    const signStart = diffStart > 0 ? '+' : '';
+    rows += `<div class="cb-row">
+      <span class="cb-label">${statLabels[k]}</span>
+      <span style="display:flex;gap:14px;align-items:center;">
+        <span class="cb-val ${cls}">${sign}${diff} → <strong>${Math.round(state.stats[k])}</strong></span>
+        <span style="font-size:.78rem;color:#999;">Gesamt: <span class="cb-val ${clsStart}" style="font-size:.78rem;">${signStart}${diffStart}</span></span>
+      </span>
+    </div>`;
+  }
+
+  document.getElementById('cbBody').innerHTML = rows;
+  document.getElementById('conseqOverlay').classList.add('show');
+  document.getElementById('btnNext').onclick = () => {
+    document.getElementById('conseqOverlay').classList.remove('show');
+    advanceRound();
+  };
+}
+// ─── ROUND ADVANCE & WIN/LOSE ─────────────────────────────────────
+function advanceRound() {
+  if (state.stats.economy < 8) return endGame(false, "Die Wirtschaft von Valdoria ist vollständig kollabiert. Das Land kann sich nicht erholen.");
+  if (state.stats.happiness < 8) return endGame(false, "Die Bevölkerung ist extrem unzufrieden – Valdoria steht vor einer politischen Krise.");
+  const avgRel = Object.values(state.relations).reduce((a,b)=>a+b,0)/COUNTRIES.length;
+  if (avgRel < 15) return endGame(false, "Valdoria ist international isoliert – ein eskalierender Handelskrieg hat das Land umzingelt.");
+  state.round++;
+  if (state.round > TOTAL_ROUNDS) return endGame(true, "Du hast Valdoria erfolgreich durch 16 Runden Handelspolitik geführt!");
+  renderAll();
+  const evt = pickEvent();
+  renderEvent(evt);
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function endGame(won, msg) {
+  state.gameOver = true;
+  state.gameWon = won;
+  state.score = calcScore();
+  // Max possible score: all stats at 100, all relations at 100, at round TOTAL_ROUNDS
+  const maxScore = Math.round((100*0.35 + 100*0.25 + 100*0.25 + 100*0.15) * TOTAL_ROUNDS / 5);
+  const pct = Math.round((state.score / maxScore) * 100);
+
+  // Rating based on percentage
+  let rating, ratingColor;
+  if (pct >= 85)      { rating = "🌟 Ausgezeichnet"; ratingColor = "#065f46"; }
+  else if (pct >= 70) { rating = "👍 Gut"; ratingColor = "#1d4ed8"; }
+  else if (pct >= 50) { rating = "😐 Durchschnittlich"; ratingColor = "#92400e"; }
+  else                { rating = "📉 Schwach"; ratingColor = "#991b1b"; }
+
+  document.getElementById('gameScreen').classList.remove('active');
+  document.getElementById('endScreen').classList.add('active');
+  document.getElementById('endBadge').className = 'end-badge ' + (won?'win':'lose');
+  document.getElementById('endBadge').textContent = won ? '🏆 Sieg!' : '💀 Game Over';
+  document.getElementById('endScore').textContent = state.score + ' Punkte';
+  document.getElementById('endMaxScore').textContent = maxScore + ' Punkten';
+  document.getElementById('endTitle').textContent = won ? 'Glückwunsch, Staatsoberhaupt!' : 'Valdoria braucht Hilfe…';
+  document.getElementById('endMsg').textContent = msg;
+
+  // Stat summary
+  const s = state.stats;
+  const statLabels = { economy:'📊 Wirtschaft', revenue:'💰 Staatseinnahmen', happiness:'😊 Zufriedenheit', jobs:'👷 Arbeitsplätze' };
+  let statsHtml = '';
+  for (const k of ['economy','revenue','happiness','jobs']) {
+    const v = Math.round(s[k]);
+    const start = Math.round(state.startStats[k]);
+    const diff = v - start;
+    const col = v >= 60 ? '#10b981' : v >= 35 ? '#f59e0b' : '#ef4444';
+    const diffCol = diff > 0 ? '#10b981' : diff < 0 ? '#ef4444' : '#6b7280';
+    const diffSign = diff > 0 ? '+' : '';
+    statsHtml += `<div style="background:#f8f9fa;border-radius:10px;padding:14px 16px;">
+      <div style="font-size:.78rem;color:#999;font-weight:600;text-transform:uppercase;margin-bottom:4px;">${statLabels[k]}</div>
+      <div style="display:flex;align-items:baseline;gap:8px;">
+        <div style="font-size:1.4rem;font-weight:800;color:${col};">${v}</div>
+        <div style="font-size:.82rem;font-weight:700;color:${diffCol};">${diffSign}${diff} zum Start</div>
+      </div>
+      <div style="font-size:.75rem;color:#bbb;margin-top:2px;">Start: ${start}</div>
+      <div style="background:#eee;border-radius:4px;height:6px;margin-top:6px;overflow:hidden;">
+        <div style="width:${v}%;height:100%;background:${col};border-radius:4px;"></div>
+      </div>
+    </div>`;
+  }
+  statsHtml += `<div style="background:#f0f4ff;border-radius:10px;padding:14px 16px;grid-column:1/-1;text-align:center;">
+    <div style="font-size:.78rem;color:#999;font-weight:600;text-transform:uppercase;margin-bottom:4px;">Gesamtbewertung</div>
+    <div style="font-size:1.2rem;font-weight:800;color:${ratingColor};">${rating} (${pct}%)</div>
+  </div>`;
+  document.getElementById('endStats').innerHTML = statsHtml;
+}
+// ─── START / RESTART ──────────────────────────────────────────────
+function startGame() {
+  initState();
+  document.getElementById('startScreen').classList.remove('active');
+  document.getElementById('gameScreen').classList.add('active');
+  renderAll();
+  const evt = pickEvent();
+  renderEvent(evt);
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function restartGame() {
+  document.getElementById('endScreen').classList.remove('active');
+  startGame();
+}
+</script>
+</body>
+</html>
+
 * { margin:0; padding:0; box-sizing:border-box; }
 :root {
   --g1:#667eea; --g2:#8299a1;
