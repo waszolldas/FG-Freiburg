@@ -354,11 +354,11 @@ footer p { color:#666; font-size:.88rem; }
 <script>
 // ─── WORLD DATA ───────────────────────────────────────────────────
 const COUNTRIES = [
-  { id:"techno",  name:"Technorea",   flag:"🖥️", focus:"Technologie", exports:["Elektronik","Software","Chips"], stance:"liberal", baseRelation:70 },
-  { id:"agri",    name:"Grünland",    flag:"🌾", focus:"Landwirtschaft", exports:["Getreide","Fleisch","Obst"], stance:"protektionistisch", baseRelation:55 },
-  { id:"rohstoff",name:"Minera",      flag:"⛏️", focus:"Rohstoffe", exports:["Stahl","Kupfer","Öl"], stance:"opportunistisch", baseRelation:60 },
-  { id:"industrie",name:"Ironval",    flag:"🏭", focus:"Industrie", exports:["Maschinen","Autos","Chemikalien"], stance:"aggressiv", baseRelation:45 },
-  { id:"finanz",  name:"Goldenburg",  flag:"💰", focus:"Finanzwesen", exports:["Kapital","Versicherungen","Beratung"], stance:"diplomatisch", baseRelation:75 }
+  { id:"techno",  name:"Technorea",   flag:"", focus:"Technologie", exports:["Elektronik","Software","Chips"], stance:"liberal", baseRelation:70 },
+  { id:"agri",    name:"Grünland",    flag:"", focus:"Landwirtschaft", exports:["Getreide","Fleisch","Obst"], stance:"protektionistisch", baseRelation:55 },
+  { id:"rohstoff",name:"Minera",      flag:"", focus:"Rohstoffe", exports:["Stahl","Kupfer","Öl"], stance:"opportunistisch", baseRelation:60 },
+  { id:"industrie",name:"Ironval",    flag:"", focus:"Industrie", exports:["Maschinen","Autos","Chemikalien"], stance:"aggressiv", baseRelation:45 },
+  { id:"finanz",  name:"Goldenburg",  flag:"", focus:"Finanzwesen", exports:["Kapital","Versicherungen","Beratung"], stance:"diplomatisch", baseRelation:75 }
 ];
 
 const TOTAL_ROUNDS = 25;
@@ -457,6 +457,8 @@ const EVENTS = [
       { label:"Lizenzmodell vereinbaren", desc:"Zugang, aber unter kontrollierten Bedingungen.", effects:{economy:6, revenue:-4, happiness:3, relations_techno:5, jobs:3}, tags:[{t:"Kontrolliert",c:"neu"},{t:"Mäßig positiv",c:"pos"}] }
     ]
   },
+
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 9 – Bevölkerungsunzufriedenheit
   {
     title:"Protest in Valdoria!",
@@ -468,6 +470,7 @@ const EVENTS = [
       { label:"Dialog mit Demonstranten", desc:"Öffentliche Anhörung – Kompromiss finden.", effects:{economy:0, revenue:0, happiness:5, jobs:0}, tags:[{t:"Zufriedenheit ↑",c:"pos"},{t:"Keine direkten Kosten",c:"pos"}] }
     ]
   },
+
   // 10 – Ironval Waffenrace
   {
     title:"Ironval produziert Maschinen für Valdorias Konkurrenten!",
@@ -490,6 +493,7 @@ const EVENTS = [
       { label:"Internationale Zusammenarbeit", desc:"Du lernst von anderen Ländern.", effects:{economy:-4, revenue:-3, happiness:4, jobs:-1}, tags:[{t:"Zusammenarbeit",c:"pos"},{t:"Langfristig positiv",c:"pos"}], allRelations:5 }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 12 – Goldenburg Finanzkrise
   {
     title:"Goldenburg kämpft mit Finanzkrise!",
@@ -501,6 +505,7 @@ const EVENTS = [
       { label:"Bedingete Hilfe", desc:"Du hilfst, aber verlangst Zugänge zum Finanzmarkt.", effects:{economy:3, revenue:4, happiness:1, relations_finanz:8, jobs:2}, tags:[{t:"Strategisch",c:"pos"},{t:"Kompromiss",c:"neu"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 13 – Neuer Markt
   {
     title:"Neuer Markt entsteht!",
@@ -512,6 +517,7 @@ const EVENTS = [
       { label:"Kleine Pilotprojekte", desc:"Moderate Investition, niedrig Risiko.", effects:{economy:4, revenue:-5, happiness:3, jobs:4}, tags:[{t:"Besonnen",c:"neu"},{t:"Mäßig positiv",c:"pos"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 14 – Grünland Ernteausschuss
   {
     title:"Grünland: Ernteausschuss – Lebensmittelpreise steigen!",
@@ -523,6 +529,7 @@ const EVENTS = [
       { label:"Handelskette optimieren", desc:"Effizienter verteilend.", effects:{economy:5, revenue:1, happiness:3, relations_agri:5, jobs:2}, tags:[{t:"Effizient",c:"pos"},{t:"Win-Win",c:"pos"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 15 – Minera Riesenvorkommen
   {
     title:"Minera entdeckt Giant-Vorkommen!",
@@ -534,6 +541,7 @@ const EVENTS = [
       { label:"Warten", desc:"Preise könnten noch sinken.", effects:{economy:-2, revenue:2, happiness:0, relations_rohstoff:-2, jobs:0}, tags:[{t:"Risiko",c:"neg"},{t:"Vielleicht günstiger",c:"neu"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 16 – Zollkontrolle
   {
     title:"Schmuggel in Valdoria!",
@@ -556,6 +564,7 @@ const EVENTS = [
       { label:"Kompromiss suchen", desc:"Du verhandelt eine Mittelstraße.", effects:{economy:0, revenue:0, happiness:1, relations_industrie:5, jobs:0}, tags:[{t:"Kompromiss",c:"neu"},{t:"Stabil",c:"pos"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 18 – Bildungsinvestition
   {
     title:"Chance: Bildungsinvestition!",
@@ -567,6 +576,7 @@ const EVENTS = [
       { label:"Abwarten", desc:"Andere Länder investieren zuerst.", effects:{economy:-2, revenue:2, happiness:-3, jobs:-2}, tags:[{t:"Nachholer",c:"neg"},{t:"Spart Geld",c:"pos"}] }
     ]
   },
+  
   // 19 – Goldenburg Handelsabkommen
   {
     title:"Goldenburg: Finanzmarkt-Abkommen",
@@ -578,6 +588,7 @@ const EVENTS = [
       { label:"Teilöffnung", desc:"Kontrollierter Zugang zum Finanzmarkt.", effects:{economy:6, revenue:3, happiness:2, relations_finanz:6, jobs:2}, tags:[{t:"Kontrolliert",c:"neu"},{t:"Mäßig positiv",c:"pos"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   // 20 – Klimagipfel
   {
     title:"Internationaler Klimagipfel!",
@@ -589,7 +600,9 @@ const EVENTS = [
       { label:"Ablehnen", desc:"Valdoria will sich nicht binden.", effects:{economy:3, revenue:2, happiness:-8, jobs:1}, tags:[{t:"Zufriedenheit ↓↓",c:"neg"},{t:"Ruf ↓",c:"neg"}], allRelations:-10 }
     ]
   },
+  
   // Filler events (leichter) um auf 25 zu kommen
+  // antworten ändern !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   {
     title:"Inflation in Valdoria!",
     country:null,
@@ -600,6 +613,7 @@ const EVENTS = [
       { label:"Nichts tun", desc:"Inflation läuft weiter.", effects:{economy:-5, revenue:-2, happiness:-8, jobs:-2}, tags:[{t:"Zufriedenheit ↓↓",c:"neg"},{t:"Wirtschaft ↓",c:"neg"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   {
     title:"Tech-Boom in Valdoria!",
     country:null,
@@ -610,6 +624,7 @@ const EVENTS = [
       { label:"Balanced Approach", desc:"Förderung mit mäßiger Regulierung.", effects:{economy:4, revenue:-2, happiness:3, jobs:3}, tags:[{t:"Balance",c:"neu"},{t:"Positiv",c:"pos"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   {
     title:"Exportbonus-Programm",
     country:null,
@@ -620,6 +635,7 @@ const EVENTS = [
       { label:"Kein Programm", desc:"Einnahmen sparen.", effects:{economy:-2, revenue:3, happiness:-3, jobs:-1}, tags:[{t:"Spart Geld",c:"pos"},{t:"Exporte ↓",c:"neg"}] }
     ]
   },
+  
   {
     title:"Valdoria auf der Weltbühne",
     country:null,
@@ -630,6 +646,7 @@ const EVENTS = [
       { label:"Kritische Rolle", desc:"Du fordert andere Länder auf, fairer zu handeln.", effects:{economy:-2, revenue:0, happiness:5, jobs:0}, tags:[{t:"Moral ↑",c:"pos"},{t:"Polarisierend",c:"neg"}], allRelations:-4 }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   {
     title:"Sicherheitslage: Grenzschutz",
     country:null,
@@ -640,6 +657,7 @@ const EVENTS = [
       { label:"Balance", desc:"Selektive Kontrollen.", effects:{economy:2, revenue:2, happiness:0, jobs:2}, tags:[{t:"Balance",c:"neu"},{t:"Stabil",c:"pos"}] }
     ]
   },
+  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   {
     title:"Valdoria: Wirtschaftsbericht",
     country:null,
