@@ -381,84 +381,74 @@ const EVENTS = [
   },
   // 2 – Handelsabkommen Technorea
   {
-    title:"Technorea bietet Handelsabkommen an",
+    title:"Turogan bietet Handelsabkommen an",
     country:"techno",
     text:"Das technologisch führende <strong>Technorea</strong> möchte ein Freihandelsabkommen mit Valdoria schließen. Das würde Zölle gegenseitig abschaffen – aber auch den heimischen Markt stärker öffnen.",
     decisions:[
-      { label:"Abkommen unterschreiben", desc:"Freier Handel mit Technorea ab sofort.", effects:{economy:15, revenue:-6, happiness:6, relations_techno:18, jobs:5},  },
-      { label:"Abkommen ablehnen", desc:"Du schützst heimische Industrie.", effects:{economy:-4, revenue:3, happiness:-2, relations_techno:-12, jobs:2},  },
-      { label:"Teilabkommen vorschlagen", desc:"Nur bestimmte Waren zollfrei – Kompromiss.", effects:{economy:6, revenue:-1, happiness:3, relations_techno:7, jobs:2},  }
+      { label:"Abkommen unterschreiben", desc:"Freier Handel mit Turogan ab sofort.", effects:{economy:5, revenue:3, happiness:4, jobs:3},  },
+      { label:"Abkommen ablehnen", desc:"Du schützst heimische Industrie.", effects:{economy:0, revenue:0, happiness:-2, jobs:0},  },
+      { label:"Teilabkommen vorschlagen", desc:"Nur bestimmte Waren zollfrei – Kompromiss.", effects:{economy:6, revenue:4, happiness:3, jobs:3},  }
     ]
   },
   // 3 – Rezessionsgefahr
   {
     title:"Rezessionsgefahr im Inland!",
     country:null,
-    text:"Wirtschaftsexperten warnen: <strong>Das BIP könnte im nächsten Quartal schrumpfen.</strong> Die Bevölkerung wird nervös. Du musst jetzt handeln – aber jede Maßnahme hat ihren Preis.",
+    text:"Wirtschaftsexperten warnen: <strong>Das BIP könnte im nächsten Quartal schrumpfen.</strong> Die Bevölkerung wird nervös. Du musst jetzt handeln.",
     decisions:[
-      { label:"Staatliche Subventionen", desc:"Du pumpst Geld in heimische Industrie.", effects:{economy:12, revenue:-18, happiness:8, jobs:7},  },
-      { label:"Sparmaßnahmen", desc:"Kosten senken, Haushalt sanieren.", effects:{economy:-3, revenue:10, happiness:-10, jobs:-5},  },
-      { label:"Handelsöffnung", desc:"Mehr Imports zulassen – Preise sinken.", effects:{economy:8, revenue:-4, happiness:5, jobs:-3},  }
+      { label:"Staatliche Subventionen", desc:"Du pumpst Geld in heimische Industrie.", effects:{economy:4, revenue:-7, happiness:4, jobs:4},  },
+      { label:"Sparmaßnahmen", desc:"Kosten senken, Haushalt sanieren, Steuern runter.", effects:{economy:1, revenue:3, happiness:-4, jobs:-3},  },
+      { label:"Handelsöffnung", desc:"Mehr Importe zulassen – Preise sinken.", effects:{economy:-2, revenue:1, happiness:4, jobs:-2},  }
     ]
   },
   // 4 – Minera Rohstoffpreise
   {
-    title:"Minera drosseltt Rohstofflieferungen!",
+    title:"Sansirien drosseltt Rohstofflieferungen!",
     country:"rohstoff",
-    text:"<strong>Minera</strong> reduziert plötzlich seine Rohstoffexporte nach Valdoria um 40 %. Deine Industrie braucht Stahl und Kupfer – die Preise steigen ruckartig.",
+    text:"<strong>Sansirien</strong> reduziert plötzlich seine Rohstoffexporte nach Valdoria um 40 %. Deine Industrie braucht Silber und Kupfer.",
     decisions:[
-      { label:"Alternative Lieferanten suchen", desc:"Teuer, aber sichert Versorgung.", effects:{economy:-6, revenue:-8, happiness:-3, relations_rohstoff:-2, jobs:-2},  },
-      { label:"Verhandlungen mit Minera", desc:"Du versuchst, die Lieferung wiederherzustellen.", effects:{economy:-4, revenue:-2, happiness:-2, relations_rohstoff:10, jobs:-1},  },
-      { label:"Rohstoffvorräte aufbauen", desc:"Langfristige Investition – kurzfristig teuer.", effects:{economy:-10, revenue:-14, happiness:-4, relations_rohstoff:0, jobs:3},  }
+      { label:"Druck auf Sansirien aufbauen", desc:"Drohen mit dem Verkauf von Staatsanleihen", effects:{economy:0, revenue:0, happiness:3, jobs:0},  },
+      { label:"Verhandlungen mit Sansirien", desc:"Du versuchst, die Lieferung wiederherzustellen.", effects:{economy:-2, revenue:-2, happiness:1, jobs:-1},  },
+      { label:"Rohstoffvorräte aufbauen", desc:"Langfristige Investition – kurzfristig teuer.", effects:{economy:3, revenue:-9, happiness:4, jobs:2},  }
     ]
   },
   // 5 – Goldenburg Kapitalzufuß
   {
-    title:"Goldenburg möchte in Valdoria investieren",
+    title:"Bahran möchte in Valdoria investieren",
     country:"finanz",
-    text:"Das Finanzszentrum <strong>Goldenburg</strong> bietet an, <strong>500 Mio. in Valdorias Infrastruktur</strong> zu investieren – aber nur, wenn Valdoria liberale Wirtschaftsregeln einführt.",
+    text:"Das Finanzministerium von <strong>Bahran</strong> bietet an, <strong>5 Milliarden in Valdorias Infrastruktur</strong> zu investieren – aber nur, wenn Valdoria seine Bürokratie im Zollwesen abbaut.",
     decisions:[
-      { label:"Investition annehmen", desc:"Liberale Regeln, aber viel Geld.", effects:{economy:18, revenue:10, happiness:5, relations_finanz:15, jobs:8},  },
-      { label:"Investition ablehnen", desc:"Souveränität bewahren.", effects:{economy:-3, revenue:-2, happiness:2, relations_finanz:-15, jobs:-2},  },
-      { label:"Teilinvestition mit Bedingungen", desc:"Du verhandelt eigene Konditionen.", effects:{economy:8, revenue:5, happiness:4, relations_finanz:5, jobs:4},  }
+      { label:"Investition annehmen", desc:"Chance nutzen, generell Bürokratie abbbauen.", effects:{economy:11, revenue:12, happiness:6, jobs:8},  },
+      { label:"Investition ablehnen", desc:"keine Einflussnahme von außen zulassen.", effects:{economy:0, revenue:0, happiness:-7, jobs:0},  },
+      { label:"Teilinvestition mit Bedingungen", desc:"Du verhandelt eigene Konditionen.", effects:{economy:6, revenue:5, happiness:3, jobs:3},  }
     ]
   },
-  // 6 – Grünland Agrarexport
+ 
+  // 6 – Handelskrieg Eskalation
   {
-    title:"Grünland blockiert deine Agrarexporte!",
-    country:"agri",
-    text:"<strong>Grünland</strong> verhängt Einfuhrverbote auf Valdorias landwirtschaftliche Produkte – aus angeblichen <strong>Gesundheitsgründen</strong>. Viele deiner Bauern verlieren Aufträge.",
-    decisions:[
-      { label:"WTO-Beschwerde einreichen", desc:"Offizieller Protest über internationale Organisme.", effects:{economy:-2, revenue:-1, happiness:3, relations_agri:-5, jobs:-3},  },
-      { label:"Gegenmassnahmen ergreifen", desc:"Du blockierst Grünland-Imports.", effects:{economy:-8, revenue:4, happiness:-4, relations_agri:-18, jobs:-5},  },
-      { label:"Gesundheitszertifikat ausstellen", desc:"Du erfüllst Grünlands Forderungen.", effects:{economy:3, revenue:-2, happiness:2, relations_agri:12, jobs:1},  }
-    ]
-  },
-  // 7 – Handelskrieg Eskalation
-  {
-    title:"Globaler Handelsspannung steigt!",
+    title:"Globale Handelsspannung steigt!",
     country:null,
     text:"Mehrere Länder verschärfen ihre Handelspolitik weltweit. <strong>Zölle steigen überall.</strong> Valdoria muss eine klare Position einnehmen – protektionistisch oder offen.",
     decisions:[
-      { label:"Protektionismus wählen", desc:"Valdoria schließt sich ab, schützt heimische Märkte.", effects:{economy:-4, revenue:8, happiness:2, jobs:2},  allRelations:-10 },
-      { label:"Offene Handelspolitik", desc:"Valdoria bleibt ein offener Markt.", effects:{economy:10, revenue:-5, happiness:-3, jobs:-2},  allRelations:5 },
-      { label:"Selektive Zölle", desc:"Nur gezielte Zölle auf bestimmte Länder.", effects:{economy:2, revenue:4, happiness:1, jobs:0}, allRelations:-3 }
+      { label:"Protektionismus wählen", desc:"Valdoria schließt sich ab, schützt heimische Märkte.", effects:{economy:-4, revenue:-3, happiness:-2, jobs:-2},  },
+      { label:"Offene Handelspolitik", desc:"Valdoria bleibt ein offener Markt.", effects:{economy:1, revenue:1, happiness:0, jobs:1},   },
+      { label:"Selektive Zölle", desc:"Nur gezielte Zölle auf bestimmte Länder.", effects:{economy:4, revenue:3, happiness:2, jobs:2},  }
     ]
   },
-  // 8 – Technologie-Import
+  // 7 – Technologie-Import
   {
-    title:"Chance: Technologie aus Technorea importieren",
+    title:"Chance: Technologie aus Katalania importieren",
     country:"techno",
-    text:"<strong>Technorea</strong> bietet dir <strong>günstige Zugänge zu modernster Technologie</strong> an. Das könnte deine Industrie massiv modernisieren – aber creates Abhängigkeit.",
+    text:"<strong>Technorea</strong> bietet dir <strong>günstige Zugänge zu modernster Technologie</strong> an. Das könnte deine Industrie massiv modernisieren – aber verursacht Abhängigkeiten.",
     decisions:[
-      { label:"Import annehmen", desc:"Günstige Technologie – Industrie modernisieren.", effects:{economy:14, revenue:-3, happiness:6, relations_techno:10, jobs:5},  },
-      { label:"Import ablehnen", desc:"Eigenständige Forschung fördern.", effects:{economy:-5, revenue:-7, happiness:-2, relations_techno:-8, jobs:1},  },
-      { label:"Lizenzmodell vereinbaren", desc:"Zugang, aber unter kontrollierten Bedingungen.", effects:{economy:6, revenue:-4, happiness:3, relations_techno:5, jobs:3},  }
+      { label:"Import annehmen", desc:"Günstige Technologie – Industrie modernisieren.", effects:{economy:6, revenue:2, happiness:1, jobs:3},  },
+      { label:"Import ablehnen", desc:"Eigenständige Forschung fördern.", effects:{economy:2, revenue:-4, happiness:2, jobs:1},  },
+      { label:"Lizenzmodell vereinbaren", desc:"Zugang, aber unter kontrollierten Bedingungen.", effects:{economy:3, revenue:1, happiness:1, jobs:2},  }
     ]
   },
 
   // neu !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 9 – Ausgleich des Außenhandelsüberschusses
+  // 8 – Ausgleich des Außenhandelsüberschusses
   {
     title:"Ausgleich des Außenhandelsüberschusses!",
     country:null,
@@ -470,30 +460,20 @@ const EVENTS = [
     ]
   },
 
-  // 10 – Ironval Waffenrace
+  // 9 – Ironval Waffenrace
   {
     title:"Waffenexporte in Kriegsgebiete",
     country:"industrie",
-    text:"<strong>Ironval</strong> liefert modernste Maschinen an Länder, die mit Valdoria konkurrieren. Du könntest selbst Maschinen kaufen – oder andere Wege gehen.",
+    text:"Stavira hat Turogan überfallen. Beide Länder bitten dich um Waffenexporte. Das ist eine große Chanche für deine Rüstungsindustrie. Stavira ist dabei bereit, doppelt so viel für Waffen auszugeben wie Turogan",
     decisions:[
-      { label:"Maschinen von Ironval kaufen", desc:"Deine Industrie wird effizienter – aber du bezahlst Ironval.", effects:{economy:10, revenue:-12, happiness:2, relations_industrie:8, jobs:4}, },
-      { label:"Eigene Produktion steigern", desc:"Langwierig, aber selbstständig.", effects:{economy:-3, revenue:-8, happiness:1, relations_industrie:-5, jobs:5}, },
-      { label:"Koalition mit anderen Ländern", desc:"Gemeinsam kaufen – bessere Konditionen.", effects:{economy:6, revenue:-5, happiness:3, jobs:3}, allRelations:4 }
+      { label:"Waffen an Stavira verkaufen", desc:"Waffen gehen direkt an den Kriegstreiber", effects:{economy:4, revenue:4, happiness:-3, jobs:3}, },
+      { label:"Waffen an Kurogan verkaufen", desc:"Waffe gehen an Kurogan, um sich zu verteidigen", effects:{economy:2, revenue:2, happiness:2, jobs:5}, },
+      { label:"Moarlische Haltung", desc:"Keine Waffenlieferungen in Kriegsgebiete", effects:{economy:0, revenue:0, happiness:3, jobs:0}, }
     ]
   },
-  // 11 – Umweltskandal
-  {
-    title:"Umweltskandal bei Valdorias Fabriken!",
-    country:null,
-    text:"Internationale Medien berichten über <strong>Umweltverschmutzung durch Valdorias Industrie</strong>. Andere Länder drohen mit Sanktionen – du musst reagieren.",
-    decisions:[
-      { label:"Sofortige Umweltmaßnahmen", desc:"Fabriken modernisieren – teuer, aber Ruf retten.", effects:{economy:-10, revenue:-8, happiness:7, jobs:-3}, allRelations:8 },
-      { label:"Skandal herunterspielen", desc:"Du versuchst, das Problem zu minimalisieren.", effects:{economy:2, revenue:0, happiness:-12, jobs:0},  allRelations:-8 },
-      { label:"Internationale Zusammenarbeit", desc:"Du lernst von anderen Ländern.", effects:{economy:-4, revenue:-3, happiness:4, jobs:-1}, allRelations:5 }
-    ]
-  },
+  
   // neu !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 12 – billig Stahlimporte
+  // 10 – billig Stahlimporte
   {
     title:"Billig Stahlimporte",
     country:"finanz",
@@ -505,7 +485,7 @@ const EVENTS = [
     ]
   },
   // neu !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 13 – Erweiterung des Exports
+  // 11 – Erweiterung des Exports
   {
     title:"Erweiterung des Exports",
     country:null,
@@ -517,7 +497,7 @@ const EVENTS = [
     ]
   },
   // neu !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 14 – Medikamente
+  // 12 – Medikamente
   {
     title:"Kinder ohne Medikamente",
     country:"agri",
@@ -529,7 +509,7 @@ const EVENTS = [
     ]
   },
   // neu !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 15 – Rohstoffabhängigkeit
+  // 13 – Rohstoffabhängigkeit
   {
     title:"Dein Land ist stark Abhängig von Rohstoffen aus Bahran! Bahran bietet zwar die billigsten Rohstoffe an, ist aber nicht krisensicher.",
     country:"rohstoff",
@@ -540,133 +520,46 @@ const EVENTS = [
       { label:"Risiko in Kauf nehmen", desc:"Rohstoffe weiter auf dem billigsten Weg erwerben", effects:{economy:-6, revenue:-4, happiness:-3, jobs:-5}, }
     ]
   },
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 16 – Zollkontrolle
-  {
-    title:"Schmuggel in Valdoria!",
-    country:null,
-    text:"Zollbehörden entdecken massenhaftes <strong>Schmuggel von Waren</strong> nach Valdoria. Das schädigt heimische Unternehmen und die Staatseinnahmen.",
-    decisions:[
-      { label:"Zollkontrollen verschärfen", desc:"Mehr Personal, strengere Checks.", effects:{economy:4, revenue:8, happiness:2, jobs:5}, tags:[{t:"Sicherheit ↑",c:"pos"},{t:"Einnahmen ↑",c:"pos"}] },
-      { label:"Technologie einsetzen", desc:"KI und Sensoren für bessere Kontrolle.", effects:{economy:6, revenue:5, happiness:3, jobs:3}, tags:[{t:"Modern",c:"pos"},{t:"Einmalkosten",c:"neg"}] },
-      { label:"Nichts tun", desc:"Schmuggel läuft weiter.", effects:{economy:-6, revenue:-8, happiness:-5, jobs:-3}, tags:[{t:"Wirtschaft ↓",c:"neg"},{t:"Einnahmen ↓",c:"neg"}] }
-    ]
-  },
-  // 17 – Ironval Sanktionen
-  {
-    title:"Ironval droht mit Sanktionen!",
-    country:"industrie",
-    text:"<strong>Ironval</strong> droht, alle Handelsbeziehungen zu Valdoria zu kappen, wenn du eine bestimmte Handelspolitik nicht änderst.",
-    decisions:[
-      { label:"Forderungen erfüllen", desc:"Du änderst die Politik – Ironval bleibt Partner.", effects:{economy:5, revenue:-2, happiness:-8, relations_industrie:15, jobs:2}, tags:[{t:"Beziehungen ↑",c:"pos"},{t:"Souveränität ↓",c:"neg"}] },
-      { label:"Sanktionen ignorieren", desc:"Du bleibst bei deiner Politik – Konsequenzen tragen.", effects:{economy:-10, revenue:-6, happiness:3, relations_industrie:-22, jobs:-5}, tags:[{t:"Selbstständig",c:"pos"},{t:"Wirtschaft ↓",c:"neg"}] },
-      { label:"Kompromiss suchen", desc:"Du verhandelt eine Mittelstraße.", effects:{economy:0, revenue:0, happiness:1, relations_industrie:5, jobs:0}, tags:[{t:"Kompromiss",c:"neu"},{t:"Stabil",c:"pos"}] }
-    ]
-  },
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 18 – Bildungsinvestition
-  {
-    title:"Chance: Bildungsinvestition!",
-    country:null,
-    text:"Experten empfehlen eine <strong>massive Bildungsinvestition</strong> – langfristig werden Valdorias Arbeitskräfte wettbewerbsfähiger. Aber es kostet jetzt viel.",
-    decisions:[
-      { label:"Massive Investition", desc:"Langfristig Früchte tragen.", effects:{economy:-4, revenue:-14, happiness:12, jobs:8}, tags:[{t:"Zufriedenheit ↑↑",c:"pos"},{t:"Langfristig stark",c:"pos"}] },
-      { label:"Kleine Pilotprogramme", desc:"Moderate Kosten, moderate Wirkung.", effects:{economy:1, revenue:-5, happiness:4, jobs:2}, tags:[{t:"Besonnen",c:"neu"},{t:"Mäßig positiv",c:"pos"}] },
-      { label:"Abwarten", desc:"Andere Länder investieren zuerst.", effects:{economy:-2, revenue:2, happiness:-3, jobs:-2}, tags:[{t:"Nachholer",c:"neg"},{t:"Spart Geld",c:"pos"}] }
-    ]
-  },
   
-  // 19 – Goldenburg Handelsabkommen
+
+  
+  // 14 – Goldenburg Handelsabkommen 📍📍📍📍
   {
-    title:"Goldenburg: Finanzmarkt-Abkommen",
+    title:":Finanzmarkt-Abkommen",
     country:"finanz",
-    text:"<strong>Goldenburg</strong> möchte einen offenen <strong>Finanzmarkt</strong> zwischen beiden Ländern schaffen. Das bringt Kapital – aber auch Risiken.",
+    text:"<strong>Katalania</strong> möchte einen offenen <strong>Finanzmarkt</strong> zwischen beiden Ländern schaffen. Das bringt Kapital – aber auch Risiken.",
     decisions:[
-      { label:"Abkommen unterschreiben", desc:"Offener Finanzmarkt – viel Kapital.", effects:{economy:14, revenue:8, happiness:3, relations_finanz:12, jobs:4}, tags:[{t:"Kapital ↑↑",c:"pos"},{t:"Markt-Risiko",c:"neg"}] },
-      { label:"Abkommen ablehnen", desc:"Valdoria bleibt finanziell souverän.", effects:{economy:-3, revenue:-2, happiness:2, relations_finanz:-14, jobs:-1}, tags:[{t:"Souveränität",c:"pos"},{t:"Beziehungen ↓",c:"neg"}] },
-      { label:"Teilöffnung", desc:"Kontrollierter Zugang zum Finanzmarkt.", effects:{economy:6, revenue:3, happiness:2, relations_finanz:6, jobs:2}, tags:[{t:"Kontrolliert",c:"neu"},{t:"Mäßig positiv",c:"pos"}] }
-    ]
-  },
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 20 – Klimagipfel
-  {
-    title:"Internationaler Klimagipfel!",
-    country:null,
-    text:"Ein <strong>Klimagipfel</strong> wird angekündigt. Länder, die sich verpflichten, bekommen Handelsvorteile – aber Umweltauflagen kosten Geld.",
-    decisions:[
-      { label:"Verpflichtung eingehen", desc:"Valdoria wird Klimaführer.", effects:{economy:-5, revenue:-6, happiness:10, jobs:3}, tags:[{t:"Zufriedenheit ↑",c:"pos"},{t:"Imagegewinn",c:"pos"}], allRelations:7 },
-      { label:"Teilhabe ohne Verpflichtung", desc:"Beobachter bleiben.", effects:{economy:0, revenue:0, happiness:1, jobs:0}, tags:[{t:"Neutral",c:"neu"},{t:"Keine Kosten",c:"pos"}], allRelations:-2 },
-      { label:"Ablehnen", desc:"Valdoria will sich nicht binden.", effects:{economy:3, revenue:2, happiness:-8, jobs:1}, tags:[{t:"Zufriedenheit ↓↓",c:"neg"},{t:"Ruf ↓",c:"neg"}], allRelations:-10 }
+      { label:"Abkommen unterschreiben", desc:"Offener Finanzmarkt – viel Kapital.", effects:{economy:4, revenue:3, happiness:3, jobs:2},  },
+      { label:"Abkommen ablehnen", desc:"Valdoria bleibt finanziell souverän.", effects:{economy:0, revenue:0, happiness:-2, jobs:0},  },
+      { label:"Teilöffnung", desc:"Kontrollierter Zugang zum Finanzmarkt.", effects:{economy:2, revenue:1, happiness:2, jobs:1},  }
     ]
   },
   
-  // Filler events (leichter) um auf 25 zu kommen
+  
+  // Filler events (leichter) um auf 25 zu kommen  (15 & 16)
   // antworten ändern !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
   {
     title:"Inflation in Valdoria!",
     country:null,
     text:"Die <strong>Inflation steigt</strong> – Lebenskosten werden höher. Die Bevölkerung spürt es.",
     decisions:[
-      { label:"Zinsen erhöhen", desc:"Wirtschaft bremsen, Inflation bekämpfen.", effects:{economy:-8, revenue:4, happiness:-6, jobs:-4}, tags:[{t:"Inflation ↓",c:"pos"},{t:"Wirtschaft ↓",c:"neg"}] },
-      { label:"Preisbremse", desc:"Staatliche Preiskontrolle.", effects:{economy:-3, revenue:-5, happiness:7, jobs:-1}, tags:[{t:"Zufriedenheit ↑",c:"pos"},{t:"Markteingriff",c:"neg"}] },
-      { label:"Nichts tun", desc:"Inflation läuft weiter.", effects:{economy:-5, revenue:-2, happiness:-8, jobs:-2}, tags:[{t:"Zufriedenheit ↓↓",c:"neg"},{t:"Wirtschaft ↓",c:"neg"}] }
+      { label:"Zinsen erhöhen", desc:"Wirtschaft bremsen, Inflation bekämpfen.", effects:{economy:-3, revenue:-1, happiness:2, jobs:-2},  },
+      { label:"Zölle senken", desc:" Werde beliebter und bekämpfe die hohen Preise, aber die Konkurrenzfähigkeit sinkt", effects:{economy:-3, revenue:-5, happiness:3, jobs:-2},  },
+      { label:"Nichts tun", desc:"Inflation läuft weiter.", effects:{economy:2, revenue:2, happiness:-5, jobs:-4},  }
     ]
   },
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  {
-    title:"Tech-Boom in Valdoria!",
-    country:null,
-    text:"Ein neuer <strong>Tech-Startup-Boom</strong> bietet Chancen – aber auch Risiken.",
-    decisions:[
-      { label:"Startup-Förderung", desc:"Valdoria investiert in neue Technologie.", effects:{economy:10, revenue:-8, happiness:5, jobs:7}, tags:[{t:"Innovation ↑",c:"pos"},{t:"Investition",c:"neg"}] },
-      { label:"Regulierung", desc:"Strenge Regeln für Startups.", effects:{economy:-4, revenue:3, happiness:-2, jobs:-3}, tags:[{t:"Kontrolle",c:"pos"},{t:"Wachstum ↓",c:"neg"}] },
-      { label:"Balanced Approach", desc:"Förderung mit mäßiger Regulierung.", effects:{economy:4, revenue:-2, happiness:3, jobs:3}, tags:[{t:"Balance",c:"neu"},{t:"Positiv",c:"pos"}] }
-    ]
-  },
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  {
-    title:"Exportbonus-Programm",
-    country:null,
-    text:"Du kannst ein <strong>Programm starten, das Exportunternehmen fördert</strong>.",
-    decisions:[
-      { label:"Großes Programm", desc:"Viele Unternehmen bekommen Förderung.", effects:{economy:8, revenue:-12, happiness:4, jobs:6}, tags:[{t:"Exporte ↑",c:"pos"},{t:"Kosten ↑",c:"neg"}] },
-      { label:"Kleines Programm", desc:"Nur die besten Unternehmen.", effects:{economy:3, revenue:-4, happiness:2, jobs:2}, tags:[{t:"Selektiv",c:"neu"},{t:"Mäßig positiv",c:"pos"}] },
-      { label:"Kein Programm", desc:"Einnahmen sparen.", effects:{economy:-2, revenue:3, happiness:-3, jobs:-1}, tags:[{t:"Spart Geld",c:"pos"},{t:"Exporte ↓",c:"neg"}] }
-    ]
-  },
+ 
   
   {
     title:"Valdoria auf der Weltbühne",
     country:null,
-    text:"Ein <strong>internationaler Handelskonferenz</strong> findet statt – Valdoria kann eine starke Position einnehmen.",
+    text:"Eine <strong>internationale Handelskonferenz</strong> findet statt – Valdoria kann eine starke Position einnehmen.",
     decisions:[
-      { label:"Aktiv teilnehmen", desc:"Valdoria präsentiert sich selbst offensiv.", effects:{economy:5, revenue:2, happiness:6, jobs:1}, tags:[{t:"Prestige ↑",c:"pos"},{t:"Beziehungen ↑",c:"pos"}], allRelations:6 },
-      { label:"Passiv beobachten", desc:"Du lernst aus der Konferenz.", effects:{economy:0, revenue:0, happiness:1, jobs:0}, tags:[{t:"Neutral",c:"neu"}], allRelations:0 },
-      { label:"Kritische Rolle", desc:"Du fordert andere Länder auf, fairer zu handeln.", effects:{economy:-2, revenue:0, happiness:5, jobs:0}, tags:[{t:"Moral ↑",c:"pos"},{t:"Polarisierend",c:"neg"}], allRelations:-4 }
-    ]
+      { label:"Aktiv teilnehmen", desc:"Valdoria präsentiert sich selbst offensiv.", effects:{economy:5, revenue:2, happiness:6, jobs:2}, 
+      { label:"Passiv beobachten", desc:"Du lernst aus der Konferenz.", effects:{economy:0, revenue:0, happiness:1, jobs:0}, 
+      { label:"Kritische Rolle", desc:"Du fordert andere Länder auf, fairer zu handeln.", effects:{economy:-2, revenue:0, happiness:5, jobs:0}, 
   },
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  {
-    title:"Sicherheitslage: Grenzschutz",
-    country:null,
-    text:"Valdorias <strong>Grenzsicherheit</strong> wird in Frage gestellt – Schmuggel und illegale Einfuhr sind ein Problem.",
-    decisions:[
-      { label:"Grenzen verschärfen", desc:"Mehr Personal und Technologie.", effects:{economy:-3, revenue:6, happiness:3, jobs:4}, tags:[{t:"Sicherheit ↑",c:"pos"},{t:"Einnahmen ↑",c:"pos"}] },
-      { label:"Offenere Grenzen", desc:"Handel erleichtern – Risiko akzeptieren.", effects:{economy:6, revenue:-2, happiness:-4, jobs:2}, tags:[{t:"Handel ↑",c:"pos"},{t:"Risiko ↑",c:"neg"}] },
-      { label:"Balance", desc:"Selektive Kontrollen.", effects:{economy:2, revenue:2, happiness:0, jobs:2}, tags:[{t:"Balance",c:"neu"},{t:"Stabil",c:"pos"}] }
-    ]
-  },
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  {
-    title:"Valdoria: Wirtschaftsbericht",
-    country:null,
-    text:"Der jährliche <strong>Wirtschaftsbericht</strong> zeigt gemischte Zahlen. Entscheidungen jetzt prägen die Zukunft.",
-    decisions:[
-      { label:"Wachstum priorisieren", desc:"Alles auf Wirtschaftswachstum setzen.", effects:{economy:12, revenue:-6, happiness:-4, jobs:5}, tags:[{t:"Wirtschaft ↑↑",c:"pos"},{t:"Risiko",c:"neg"}] },
-      { label:"Stabilität priorisieren", desc:"Gleichgewicht halten.", effects:{economy:2, revenue:2, happiness:4, jobs:1}, tags:[{t:"Stabil",c:"pos"},{t:"Mäßig",c:"neu"}] },
-      { label:"Soziales priorisieren", desc:"Bevölkerung in den Vordergrund.", effects:{economy:-4, revenue:-8, happiness:14, jobs:3}, tags:[{t:"Zufriedenheit ↑↑",c:"pos"},{t:"Einnahmen ↓",c:"neg"}] }
-    ]
-  }
+ 
 ];
 
 // ─── GAME STATE ───────────────────────────────────────────────────
