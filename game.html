@@ -268,7 +268,7 @@ footer p { color:#666; font-size:.88rem; }
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <h1>🌍 ZollKönig</h1>
+    <h1>ZollKönig</h1>
     <p>Führe dein Land durch internationale Handelskonflikte – Entscheidungen haben Konsequenzen!</p>
   </div>
 </section>
@@ -301,8 +301,7 @@ footer p { color:#666; font-size:.88rem; }
       <!-- Round bar -->
       <div class="round-bar">
         <div><div class="label">Runde</div><div class="val" id="roundDisp">1 / 25</div></div>
-        <div class="round-badge" id="phaseBadge">Phase: Anfang</div>
-        <div><div class="label">Bewertung</div><div class="val" id="scoreDisp">0 Pts</div></div>
+      
       </div>
 
       <!-- Stats -->
@@ -346,7 +345,7 @@ footer p { color:#666; font-size:.88rem; }
   </div>
 </div>
 
-<footer><div class="container"><p>© 2025 WAS ZOLL DAS? – Schulprojekt | Informationen ohne Gewähr</p></div></footer>
+<footer><div class="container"><p>© 2026 WAS ZOLL DAS? – Schulprojekt | Informationen ohne Gewähr</p></div></footer>
 
 <!-- ═══════════════════════════════════════════════════════════════════
      GAME ENGINE
@@ -458,12 +457,12 @@ const EVENTS = [
     ]
   },
 
-  // ersetzten !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
-  // 9 – Bevölkerungsunzufriedenheit
+  // neu !!!!!!! 📍📍📍📍📍📍📍📍📍📍📍📍
+  // 9 – Ausgleich des Außenhandelsüberschusses
   {
-    title:"Protest in Valdoria!",
+    title:"Ausgleich des Außenhandelsüberschusses!",
     country:null,
-    text:"Die <strong>Bevölkerung demonstriert</strong> gegen hohe Lebenskosten und Arbeitslosigkeit. Fernsehen zeigt Bilder der Proteste – du musst handeln.",
+    text:"<strong>Sansorien</strong>< verhängt Importzölle auf deine Waren, um den Außenhandelsüberschuss auszugleichen.",
     decisions:[
       { label:"Sozialpaket schnüren", desc:"Geld für Bildung, Gesundheit, Hilfe.", effects:{economy:-6, revenue:-15, happiness:18, jobs:3}, tags:[{t:"Zufriedenheit ↑↑",c:"pos"},{t:"Staatseinnahmen ↓↓",c:"neg"}] },
       { label:"Arbeitsplätze fördern", desc:"Subventionen für Unternehmen, die einstellen.", effects:{economy:5, revenue:-10, happiness:8, jobs:10}, tags:[{t:"Arbeitsplätze ↑↑",c:"pos"},{t:"Einnahmen ↓",c:"neg"}] },
