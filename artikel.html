@@ -1,1 +1,281 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview: IHK Freiburg – WAS ZOLL DAS?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --g1:#667eea; --g2:#8299a1;
+  --grad: linear-gradient(135deg, var(--g1) 0%, var(--g2) 100%);
+  --card-shadow: 0 2px 20px rgba(0,0,0,.08);
+  --radius:12px;
+}
+body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-height:1.6; }
+
+/* ─── NAV ─── */
+.top-nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:20px 40px; background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px); border-bottom:1px solid #e5e5e5;
+  display:flex; justify-content:flex-start; align-items:center;
+}
+.nav-links { display:flex; gap:30px; }
+.nav-link { color:#666; text-decoration:none; font-weight:500; font-size:.95rem; transition:color .2s; }
+.nav-link:hover, .nav-link.active { color:#1a1a1a; }
+
+/* ─── ARTICLE ─── */
+.article-container {
+  max-width:800px; margin:72px auto 2rem;
+  background:#fff; border-radius:12px; overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.06);
+}
+.article-header {
+  position:relative; height:400px; overflow:hidden;
+  background:linear-gradient(135deg, #667eea 0%, #8299a1 100%);
+}
+.article-image {
+  width:100%; height:100%; object-fit:cover; opacity:.85;
+  transition:transform .6s ease, opacity .6s ease;
+}
+.article-container:hover .article-image { transform:scale(1.05); opacity:.95; }
+.article-overlay {
+  position:absolute; bottom:0; left:0; right:0; padding:2.5rem;
+  background:linear-gradient(to top, rgba(26,35,50,.95) 0%, rgba(26,35,50,.7) 70%, transparent 100%);
+}
+.article-title {
+  font-size:2.2rem; font-weight:800; color:#fff;
+  line-height:1.3; margin-bottom:.5rem;
+  text-shadow:0 2px 8px rgba(0,0,0,.3); letter-spacing:-.02em;
+}
+.article-subtitle { font-size:1rem; color:rgba(255,255,255,.95); font-weight:500; }
+
+.article-content { padding:2.5rem; }
+.article-intro {
+  font-size:1.1rem; color:#333; line-height:1.8;
+  margin-bottom:2rem; padding-bottom:2rem;
+  border-bottom:2px solid #e5e5e5;
+}
+.article-body {
+  max-height:0; overflow:hidden;
+  transition:max-height .8s cubic-bezier(.4,0,.2,1), opacity .6s ease;
+  opacity:0;
+}
+.article-body.expanded { max-height:15000px; opacity:1; }
+
+.interview-block { margin:2.5rem 0; }
+.question { font-weight:700; color:#1a1a1a; margin-bottom:.8rem; font-size:1.1rem; }
+.answer { color:#333; margin-bottom:1rem; line-height:1.8; }
+.divider { text-align:center; margin:2rem 0; color:#e5e5e5; font-size:1.5rem; letter-spacing:.5rem; }
+
+.read-more-btn {
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+  width:100%; padding:1rem 2rem; margin-top:2rem;
+  background:linear-gradient(135deg, #667eea 0%, #8299a1 100%);
+  color:#fff; border:none; border-radius:8px;
+  font-family:'Inter',sans-serif; font-size:1rem; font-weight:600;
+  cursor:pointer; transition:all .3s;
+  box-shadow:0 4px 15px rgba(102,126,234,.3);
+}
+.read-more-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(102,126,234,.4); }
+.arrow { display:inline-block; transition:transform .3s; font-size:1.2rem; }
+.arrow.rotated { transform:rotate(180deg); }
+
+@media(max-width:768px){
+  .top-nav { padding:15px 20px; }
+  .nav-links { gap:15px; flex-wrap:wrap; }
+  .article-container { margin:100px 1rem 1rem; }
+  .article-header { height:300px; }
+  .article-title { font-size:1.7rem; }
+  .article-content { padding:1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="zollrechner.html" class="nav-link">Zoll-Rechner</a>
+    <a href="game.html" class="nav-link">Zoll-Spiel</a>
+    <a href="zoll-interview-artikel.html" class="nav-link">Interview</a>
+    <a href="interview-ihk.html" class="nav-link active">Artikel</a>
+    <a href="impressum.html" class="nav-link">Impressum</a>
+  </div>
+</nav>
+
+<article class="article-container">
+  <div class="article-header">
+    <img src="handshake.jpg" alt="Internationaler Handel" class="article-image">
+    <div class="article-overlay">
+      <h1 class="article-title">„Unternehmen wünschen sich vor allem Stabilität und weniger Bürokratie"</h1>
+      <p class="article-subtitle">Ein Interview mit der IHK Freiburg über Zölle, Trump und die Zukunft des Handels</p>
+    </div>
+  </div>
+
+  <div class="article-content">
+    <div class="article-intro">
+      <p>Die Industrie- und Handelskammer Freiburg berät seit Jahrzehnten Unternehmen zu internationalen Geschäften. Im Gespräch erklärt eine Expertin, wie stark deutsche Unternehmen durch Trumps Zollpolitik belastet werden, welche Branchen besonders betroffen sind – und was die Politik tun müsste, um Wachstum anzukurbeln.</p>
+      <p><em>Die Antworten wurden zur besseren Lesbarkeit leicht angepasst.</em></p>
+    </div>
+
+    <div class="article-body" id="articleBody">
+
+      <div class="interview-block">
+        <p class="question">Können Sie sich und die Arbeit der IHK kurz vorstellen?</p>
+        <p class="answer">Ich arbeite bei der Industrie- und Handelskammer Freiburg und berate seit über 23 Jahren Unternehmen zu internationalen Geschäften, besonders zu Zoll- und außenwirtschaftsrechtlichen Fragen. Die IHK unterstützt ihre Mitglieder einerseits bei internationalen Kontakten, Länderinformationen und Kooperationen über ein Netzwerk von über 140 Auslandshandelskammern in mehr als 90 Ländern. Andererseits beraten wir zu Zollrecht, Exportkontrollen, Einfuhrbestimmungen, Dokumentenpflichten und allen regulatorischen Fragen des internationalen Handels.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Wie stark sind deutsche Unternehmen aktuell durch Zölle belastet, insbesondere durch die jüngsten Zölle von Donald Trump?</p>
+        <p class="answer">Die Auswirkungen sind für deutsche Unternehmen durchaus sehr stark. Entscheidend ist zunächst, wer die Zölle vertraglich trägt. In vielen Fällen ist vereinbart, dass der amerikanische Importeur die Einfuhrzölle bezahlt. Trotzdem entstehen Belastungen, etwa durch Preiszugeständnisse, um Geschäfte zu halten, oder durch insgesamt rückläufige Handelsvolumina. Nach Umfragen handeln rund 50 % der Unternehmen deutlich weniger mit den USA. Neben den Kosten ist vor allem der Rückgang von Geschäften und die Unsicherheit ein Problem.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Mussten Unternehmen ihre Lieferketten überdenken?</p>
+        <p class="answer">Unternehmen überdenken ihre Lieferketten zunehmend. Sie suchen neue Absatzmärkte und alternative Bezugsquellen. Dabei spielen nicht mehr nur Kosten eine Rolle, sondern stärker Stabilität und Sicherheit von Beziehungen. Lieferketten werden diversifiziert, weil Kosten durch politische Entscheidungen weniger planbar sind. Unternehmen bewerten Risiken heute stärker als früher.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Welche Branchen sind besonders stark von Zöllen betroffen?</p>
+        <p class="answer">Eine klare branchenspezifische Abgrenzung ist schwierig, da sich die Effekte durch viele Bereiche ziehen. Besonders betroffen sind jedoch exportorientierte Industrien wie Maschinenbau, Automobil- und Zulieferindustrie, Stahl- und Aluminiumsektor sowie Chemie- und Pharmabranche. Insgesamt lässt sich kaum eine Branche nennen, die vollständig unbeeinträchtigt bleibt.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Unterscheiden sich die Auswirkungen auf kleine und große Unternehmen?</p>
+        <p class="answer">Ja. Große Unternehmen haben mehr Marktmacht und können Vertragsbedingungen oft leichter durchsetzen – etwa Preise unabhängig von Zöllen festlegen. Kleine Unternehmen sind häufig stärker abhängig von einzelnen Geschäftsbeziehungen und müssen eher Zugeständnisse machen. Außerdem fehlt ihnen oft die personelle und fachliche Kapazität, um komplexe handelspolitische oder regulatorische Anforderungen zu bewältigen.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Wie stark belasten unvorhersehbare Zollentscheidungen die Planungssicherheit?</p>
+        <p class="answer">Sehr stark. Unternehmen brauchen stabile Lieferketten und verlässliche Rohstoffquellen. Politische Spannungen wirken sich direkt auf Handelsbeziehungen aus. Besonders relevant sind strategische Rohstoffe wie seltene Erden, die für viele Technologien benötigt werden und stark von einzelnen Lieferländern abhängen. Instabilität beeinflusst auch Investitionsentscheidungen: Unternehmen investieren eher dort, wo politische und wirtschaftliche Rahmenbedingungen verlässlich sind.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Wie könnten deutsche Unternehmen von Freihandelsabkommen wie EU-Mercosur profitieren?</p>
+        <p class="answer">Grundsätzlich zeigen Auswertungen, dass Freihandelsabkommen in der Regel zu einer Zunahme des Handels führen. Dabei geht es nicht nur um die Senkung von Zöllen. Freihandelsabkommen regeln viele weitere Aspekte, etwa technische Standards, Marktzugangsbedingungen oder arbeits- und umweltrechtliche Fragen. Diese sogenannten nicht-tarifären Regelungen sind für Unternehmen oft mindestens genauso wichtig wie Zollvorteile.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Können Zölle auch positive Effekte haben, zum Beispiel zum Schutz heimischer Unternehmen?</p>
+        <p class="answer">Zölle können Schutzfunktionen erfüllen, etwa als Anti-Dumping-Maßnahmen. Sie können berechtigt sein, führen aber häufig zu Gegenmaßnahmen anderer Länder. Wenn tarifäre Handelshemmnisse sinken, nehmen oft nicht-tarifäre zu – etwa zusätzliche Vorschriften oder Zulassungsanforderungen. Solche Instrumente sollten deshalb vorsichtig eingesetzt werden.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Macht die Bürokratie den Unternehmen in Deutschland stark zu schaffen?</p>
+        <p class="answer">Ja, sehr. Gerade im Zollbereich ist der administrative Aufwand hoch – insbesondere für kleine Unternehmen. Schon einfache Exporte können mehrere elektronische Verfahren, umfangreiche Dateneingaben und verschiedene IT-Systeme erfordern. Das verursacht Kosten, Zeitaufwand und zusätzliche Belastungen. Es gibt zwar Initiativen zum Bürokratieabbau, aber die Prozesse bleiben für viele Unternehmen sehr aufwendig.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Was wünschen sich Unternehmen von der EU-Handelspolitik?</p>
+        <p class="answer">Unternehmen wünschen sich vor allem weniger Bürokratie, einfachere Verfahren und besseren Zugang zu Informationen und Märkten. Entscheidend ist vor allem Stabilität – stabile politische Beziehungen, stabile Regeln und stabile Lieferketten. Auch Freihandelsabkommen selbst können bürokratisch sein, etwa durch Dokumentationspflichten zur Nutzung von Zollvorteilen. Deshalb wünschen sich Unternehmen vor allem praktikable Umsetzung.</p>
+      </div>
+      <div class="divider">⸻</div>
+
+      <div class="interview-block">
+        <p class="question">Was wären die wichtigsten Maßnahmen, um Unternehmen zu entlasten und Wachstum anzukurbeln?</p>
+        <p class="answer">Wichtig sind schnellere Verfahren, Prozessoptimierung und weniger Bürokratie. Unternehmen wollen rechtssicher und regelkonform arbeiten – aber die Abläufe sollten effizienter sein. Entbürokratisierung, schnellere Entscheidungen und verlässliche Rahmenbedingungen sind zentrale Voraussetzungen für wirtschaftliche Aktivität im internationalen Geschäft.</p>
+      </div>
+
+    </div><!-- /article-body -->
+
+    <button class="read-more-btn" id="readMoreBtn">
+      <span id="btnText">Vollständiges Interview lesen</span>
+      <span class="arrow" id="arrow">↓</span>
+    </button>
+  </div>
+</article>
+
+<!-- ─── ARTIKEL: HANDELSBEZIEHUNGEN ─── -->
+<article class="article-container" style="margin-top:32px;">
+  <div class="article-header">
+    <img src="handshake.jpg" alt="Internationaler Handel" class="article-image">
+    <div class="article-overlay">
+      <h1 class="article-title">Zölle im Aufwind – warum die Handelspolitik vor einer Richtungsentscheidung steht</h1>
+      <p class="article-subtitle">Zwischen geopolitischem Druck und wirtschaftlicher Vernunft</p>
+    </div>
+  </div>
+
+  <div class="article-content">
+    <div class="article-intro">
+      <p>Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz", „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern – doch ökonomisch sind Zölle weit mehr als ein politisches Signal.</p>
+    </div>
+
+    <div class="article-body" id="articleBody2">
+
+      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Zwischen geopolitischem Druck und wirtschaftlicher Vernunft</h3>
+      <p class="answer">Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz" (Resilienz ist die Fähigkeit, wirtschaftlich handlungsfähig zu bleiben, auch wenn der globale Handel ins Wanken gerät), „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern. Zölle erscheinen dabei als schnell verfügbares Mittel, um wirtschaftliche Interessen sichtbar zu verteidigen. Sie signalisieren Handlungsfähigkeit, sollen heimische Unternehmen schützen und Abhängigkeiten reduzieren.</p>
+      <p class="answer" style="margin-top:1rem;">Doch ökonomisch sind sie weit mehr als ein politisches Signal: Sie greifen direkt in Preise, Produktionsketten und Investitionsentscheidungen ein. Für eine Exportnation wie Deutschland ist das besonders relevant, denn rund jeder vierte Arbeitsplatz hängt direkt oder indirekt vom Export ab. Wenn zentrale Handelspartner Zölle erhöhen oder neue Handelshemmnisse schaffen, verteuern sich Produkte, Absatzmärkte werden unsicherer und Unternehmen verschieben Investitionen. Handelspolitische Unsicherheit wirkt nachweislich dämpfend auf Wachstum und Produktivität.</p>
+
+      <div class="divider">⸻</div>
+
+      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Zölle als legitimes Instrument – aber kein Dauerzustand</h3>
+      <p class="answer">Es wäre dennoch verkürzt, Zölle grundsätzlich als Fehlentwicklung zu bezeichnen. Ein vollständig zollfreier Welthandel ist politisch unrealistisch. Staaten behalten sich bewusst die Möglichkeit vor, strategisch einzugreifen. Das klassische Argument, dass junge Industrien zeitlich begrenzten Schutz benötigen, um wettbewerbsfähig zu werden, ist weiterhin relevant. Auch bei massiv verzerrtem Wettbewerb durch ausländische Subventionen oder Dumping können Ausgleichszölle sinnvoll sein. Handelspolitik ist nicht ideologisch, sondern interessengeleitet.</p>
+      <p class="answer" style="margin-top:1rem;">Problematisch wird es jedoch, wenn temporäre Schutzmaßnahmen in dauerhaften Protektionismus übergehen. Dauerhafter Wettbewerbsschutz reduziert den Innovationsdruck. Unternehmen, die sich nicht im internationalen Wettbewerb behaupten müssen, investieren tendenziell weniger in Effizienz, Technologie und neue Geschäftsmodelle. Langfristig leidet die Produktivität und mit ihr der Wohlstand. Protektionismus kann kurzfristig Stabilität vermitteln, langfristig kann er zu Rückständen führen.</p>
+
+      <div class="divider">⸻</div>
+
+      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Wachstumspotenziale durch neue Freihandelsabkommen</h3>
+      <p class="answer">Gerade in einer Phase schwachen Wirtschaftswachstums bekommt diese Frage besonderes Gewicht. Eine aktuelle Studie des ifo Instituts zeigt die Effekte zusätzlicher Freihandelsabkommen mit wirtschaftlich wichtigen Partnerländern. Das Ergebnis ist deutlich: Neue Handelsabkommen könnten das deutsche Bruttoinlandsprodukt um bis zu 0,2 Prozent erhöhen, in erweiterten Szenarien sogar um bis zu 1 Prozent. In absoluten Zahlen entspricht das Milliardenbeträgen an zusätzlicher Wertschöpfung pro Jahr.</p>
+      <p class="answer" style="margin-top:1rem;">In einer Situation, in der das erwartete Wachstum teilweise unter einem Prozent liegt, ist ein zusätzlicher Prozentpunkt kein Randaspekt, sondern ein konjunkturell relevanter Impuls. Mehr Wachstum bedeutet höhere Steuereinnahmen, größere Investitionsspielräume für Unternehmen und mehr finanzielle Möglichkeiten für den Staat. Handelspolitik wird damit unmittelbar zu einer Frage der wirtschaftlichen Zukunftsfähigkeit.</p>
+
+      <div class="divider">⸻</div>
+
+      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Nachhaltigkeit und Digitalisierung verändern den Handel</h3>
+      <p class="answer">Handelspolitik dreht sich heute nicht mehr nur um Zölle und Waren. Nachhaltigkeit spielt eine zentrale Rolle: Viele Länder wollen verhindern, dass Produkte mit schlechterer Umweltbilanz einen Wettbewerbsvorteil haben. Zum Beispiel können CO₂-Grenzausgleichsmaßnahmen dafür sorgen, dass Importe ähnliche Klimakosten haben wie Produkte aus dem Inland. So bleibt der Wettbewerb fair und der Handel unterstützt gleichzeitig Klimaziele.</p>
+      <p class="answer" style="margin-top:1rem;">Gleichzeitig wird digitaler Handel immer wichtiger. Daten, Online-Dienste und Plattformen sind heute Teil der wirtschaftlichen Leistung. Unterschiedliche Regeln, etwa bei Datenschutz oder Speicherung von Daten, können für Unternehmen so schwierig sein wie klassische Zölle. Besonders kleine und mittlere Unternehmen spüren das stark: Digitale Hürden können ihren Zugang zu internationalen Märkten einschränken.</p>
+
+    </div><!-- /article-body2 -->
+
+    <button class="read-more-btn" id="readMoreBtn2">
+      <span id="btnText2">Vollständigen Artikel lesen</span>
+      <span class="arrow" id="arrow2">↓</span>
+    </button>
+  </div>
+</article>
+
+<div style="height:60px;"></div>
+
+<script>
+  // Interview toggle
+  const btn = document.getElementById('readMoreBtn');
+  const body = document.getElementById('articleBody');
+  const arrow = document.getElementById('arrow');
+  const label = document.getElementById('btnText');
+  let expanded = false;
+  btn.addEventListener('click', () => {
+    expanded = !expanded;
+    body.classList.toggle('expanded', expanded);
+    arrow.classList.toggle('rotated', expanded);
+    label.textContent = expanded ? 'Interview einklappen' : 'Vollständiges Interview lesen';
+    if (expanded) setTimeout(() => body.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  });
+
+  // Artikel toggle
+  const btn2 = document.getElementById('readMoreBtn2');
+  const body2 = document.getElementById('articleBody2');
+  const arrow2 = document.getElementById('arrow2');
+  const label2 = document.getElementById('btnText2');
+  let expanded2 = false;
+  btn2.addEventListener('click', () => {
+    expanded2 = !expanded2;
+    body2.classList.toggle('expanded', expanded2);
+    arrow2.classList.toggle('rotated', expanded2);
+    label2.textContent = expanded2 ? 'Artikel einklappen' : 'Vollständigen Artikel lesen';
+    if (expanded2) setTimeout(() => body2.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  });
+</script>
+</body>
+</html>
