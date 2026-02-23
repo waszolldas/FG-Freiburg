@@ -719,22 +719,7 @@ setTimeout(() => {
 </footer>
 
     <script>
-         async function checkFileAndRedirect(url, fallbackUrl) {
-            try {
-                // Sende eine HEAD-Anfrage (nur Header laden)
-                const response = await fetch(url, { method: 'HEAD' });
-                
-                // Wenn Status NICHT 200 OK ist (z.B. 404), dann weiterleiten
-                if (!response.ok) {
-                    console.warn("Zoll-Sicherheitscheck fehlgeschlagen. Leite weiter...");
-                    window.location.href = fallbackUrl;
-                }
-            } catch (error) {
-                // Falls ein Fehler (Netzwerk/CORS) auftritt, ebenfalls weiterleiten
-                console.error("Check-Fehler:", error);
-                window.location.href = fallbackUrl;
-            }
-        }
+        
 
        
       
