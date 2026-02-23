@@ -15,6 +15,8 @@
             --background: #ffffff;
             --card-bg: #ffffff;
             --border-subtle: #e5e5e5;
+            --g1:#667eea; --g2:#8299a1;
+            --grad:linear-gradient(135deg,var(--g1) 0%,var(--g2) 100%);
         }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -38,9 +40,19 @@
         }
         .nav-link:hover, .nav-link.active { color: #1a1a1a; }
 
+        /* ─── HERO (same as artikel.html) ─── */
+        .hero {
+            background: var(--grad);
+            color: #fff;
+            padding: 120px 0 50px;
+            text-align: center;
+        }
+        .hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
+        .hero p { font-size: 1.05rem; opacity: .9; }
+
         .article-container {
             max-width: 800px;
-            margin: 72px auto 2rem;
+            margin: 40px auto 2rem;
             background: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
@@ -49,6 +61,7 @@
         .article-container + .article-container {
             margin-top: 32px;
         }
+        /* ─── BANNER HEIGHT: fixed at 400px to match artikel.html ─── */
         .article-header {
             position: relative; height: 400px; overflow: hidden;
             background: linear-gradient(135deg, #667eea 0%, #8299a1 100%);
@@ -114,15 +127,26 @@
             opacity: 1;
         }
 
+        footer {
+            background: #fff; border-top: 1px solid #e5e5e5;
+            padding: 28px 0; text-align: center; margin-top: 60px;
+        }
+        .footer-inner {
+            max-width: 840px; margin: 0 auto; padding: 24px 24px 0;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px; border-top: 3px solid var(--g1);
+        }
+        .footer-inner p { color: #666; font-size: .88rem; }
+        .footer-inner .brand { font-size: 1rem; font-weight: 700; color: #1a1a1a; }
+
         @media (max-width: 768px) {
             .top-nav { padding: 15px 20px; }
             .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .nav-link { font-size: 0.85rem; }
-            .article-container { margin: 100px 1rem 1rem; }
-            .article-header { height: 300px; }
-            .article-title { font-size: 1.7rem; }
+            .article-container { margin: 20px 1rem; }
+            .article-header { height: 260px; }
+            .article-title { font-size: 1.5rem; }
             .article-content { padding: 1.5rem; }
-            .interview-block { padding-left: 0; }
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -145,10 +169,16 @@
     </div>
 </nav>
 
+<!-- ─── HERO BANNER (neu hinzugefügt) ─── -->
+<section class="hero">
+    <h1>Interviews</h1>
+    <p>Expertinnen berichten über Zölle, Handelspolitik und ihre Auswirkungen</p>
+</section>
+
 <!-- ══════════════════════════════════════════
      INTERVIEW 1: Hauptzollamt Lörrach
      ══════════════════════════════════════════ -->
-<article class="article-container">
+<article class="article-container" id="interview-zoll">
     <div class="article-header">
         <img src="1770032308519_image.png" alt="Zollamt und internationale Handelspolitik" class="article-image">
         <div class="article-overlay">
@@ -164,7 +194,7 @@
         </div>
 
         <div class="article-body" id="bodyZollamt">
-            <div class="interview-block">
+            <div class="interview-block" id="aufbau">
                 <p class="question">Frage: Können Sie sich und Ihre Funktion kurz vorstellen?</p>
                 <p class="answer">Ich arbeite beim Hauptzollamt Lörrach und übe dort die Funktion der Pressesprecherin aus. Daneben bin ich auch mit organisatorischen Aufgaben betraut, zum Beispiel als Eventplanerin, und ein großes Thema ist bei uns die Nachwuchswerbung. Wir gehören zur Bundesfinanzverwaltung und sind eine Ortsbehörde innerhalb dieser Struktur.</p>
             </div>
@@ -199,27 +229,27 @@
                 <p class="answer">Drogen sind grundsätzlich verboten. Bei einem Fund leiten wir ein Strafverfahren ein. Auch geschützte Tiere und Pflanzen dürfen nicht ohne Genehmigung eingeführt werden. Außerdem achten wir auf Produktsicherheit, zum Beispiel bei Elektronik, die den europäischen Sicherheitsstandards entsprechen muss. Wir sind auch für den Markenschutz zuständig und beschlagnahmen gefälschte Waren.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="fake">
                 <p class="question">Frage: Was findet man heute besonders häufig?</p>
                 <p class="answer">Sehr viele Fälschungen, gerade im Postverkehr: gefälschte Kleidung, Schuhe, Kosmetik, Medikamente, Ersatzteile oder Luxusgüter. Das ist nicht nur ein Problem für die Markenhersteller, sondern auch gefährlich für Verbraucher – zum Beispiel bei gefälschten Bremsbelägen oder Akkus, die explodieren können.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="KINA">
                 <p class="question">Frage: Welche Probleme gibt es besonders mit Lieferungen aus China?</p>
                 <p class="answer">Der Markt wird mit sehr billigen Produkten überschwemmt mit sogenannten „Dumping-Preisen", die oft nicht den EU-Standards entsprechen. Viele Sendungen werden falsch deklariert, um unter Freigrenzen zu bleiben. Deshalb soll die Zollfreigrenze von 150 Euro abgeschafft werden, um diese Flut besser zu steuern. Das ist im Grunde eine Form von Schutzzollpolitik, mit der die heimische Wirtschaft vor ausländischer Konkurrenz geschützt werden soll.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="eu">
                 <p class="question">Frage: Wie funktionieren Zölle in der EU?</p>
                 <p class="answer">Zölle werden von der Europäischen Union beschlossen. Die EU-Kommission schlägt Maßnahmen vor, der Rat und das Parlament beschließen sie. Die Einnahmen aus Zöllen fallen direkt in die Kasse der EU. Die Verbrauchsteuern gehen an die Mitgliedstaaten. Der Zoll trägt ungefähr die Hälfte der Einnahmen zum Bundeshaushalt bei.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="trump">
                 <p class="question">Frage: Wie bewerten Sie die aktuelle Zollpolitik der USA unter Donald Trump?</p>
                 <p class="answer">Diese Politik erzeugt enorme Unsicherheit. Zölle werden als Druckmittel eingesetzt, um andere Länder zu Zugeständnissen zu zwingen oder Unternehmen dazu zu bringen, in den USA zu produzieren. Das bringt die Märkte durcheinander, sorgt für Preisschwankungen und erschwert langfristige Planung für Unternehmen. Die wirtschaftlichen Rahmenbedingungen verändern sich so unvorhersehbar, dass sich viele Unternehmen gewissermaßen „wie auf einem Wackelbrett" bewegen.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="trump1">
                 <p class="question">Frage: Welche Folgen hat das für Deutschland?</p>
                 <p class="answer">Deutschland ist ein Export-Superstar, das heißt wir haben viel mehr Export als Import. Wenn Zölle steigen, werden unsere Produkte im Ausland teurer und weniger konkurrenzfähig. Das kann dazu führen, dass Unternehmen ihre Produktion verlagern. Langfristig schadet das unserem Wirtschaftsstandort. Wir als Privatpersonen spüren diese erhöhten Zölle erst, wenn unsere Industrie darunter leidet und Arbeitsplätze verloren gehen.</p>
             </div>
@@ -250,7 +280,7 @@
 <!-- ══════════════════════════════════════════
      INTERVIEW 2: IHK Freiburg
      ══════════════════════════════════════════ -->
-<article class="article-container">
+<article class="article-container" id="interview-ihk">
     <div class="article-header logo-bg">
         <img src="ihk_logo.webp" alt="IHK Südlicher Oberrhein" class="article-image">
         <div class="article-overlay">
@@ -261,7 +291,7 @@
 
     <div class="article-content">
         <div class="article-intro">
-            <p> Für einen direkten Einblick in die Bedeutung von Zöllen für Unternehmen hatte meine Projektgruppe die Gelegenheit, mit Susi Tölzel, Referentin für Zoll und internationalen Warenverkehr bei der Industrie- und Handelskammer (IHK) Südlicher Oberrhein, zu sprechen. Im Interview ging es vor allem darum, wie stark deutsche Unternehmen von aktuellen Zollmaßnahmen betroffen sind, welche Herausforderungen sich daraus für ihre Lieferketten und Geschäftsprozesse ergeben und welche Unterschiede es zwischen kleinen und großen Unternehmen gibt.</p>
+            <p>Für einen direkten Einblick in die Bedeutung von Zöllen für Unternehmen hatte meine Projektgruppe die Gelegenheit, mit Susi Tölzel, Referentin für Zoll und internationalen Warenverkehr bei der Industrie- und Handelskammer (IHK) Südlicher Oberrhein, zu sprechen. Im Interview ging es vor allem darum, wie stark deutsche Unternehmen von aktuellen Zollmaßnahmen betroffen sind, welche Herausforderungen sich daraus für ihre Lieferketten und Geschäftsprozesse ergeben und welche Unterschiede es zwischen kleinen und großen Unternehmen gibt.</p>
             <p><em>Die Antworten wurden zur besseren Lesbarkeit leicht angepasst.</em></p>
         </div>
 
@@ -271,22 +301,22 @@
                 <p class="answer">Ich arbeite bei der Industrie- und Handelskammer Freiburg und berate seit über 23 Jahren Unternehmen zu internationalen Geschäften, besonders zu Zoll- und außenwirtschaftsrechtlichen Fragen. Die IHK unterstützt ihre Mitglieder einerseits bei internationalen Kontakten, Länderinformationen und Kooperationen über ein Netzwerk von über 140 Auslandshandelskammern in mehr als 90 Ländern. Andererseits beraten wir zu Zollrecht, Exportkontrollen, Einfuhrbestimmungen, Dokumentenpflichten und allen regulatorischen Fragen des internationalen Handels.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="ihk-belastung">
                 <p class="question">Wie stark sind deutsche Unternehmen aktuell durch Zölle belastet, insbesondere durch die jüngsten Zölle von Donald Trump?</p>
                 <p class="answer">Die Auswirkungen sind für deutsche Unternehmen durchaus sehr stark. Entscheidend ist zunächst, wer die Zölle vertraglich trägt. In vielen Fällen ist vereinbart, dass der amerikanische Importeur die Einfuhrzölle bezahlt. Trotzdem entstehen Belastungen, etwa durch Preiszugeständnisse, um Geschäfte zu halten, oder durch insgesamt rückläufige Handelsvolumina. Nach Umfragen handeln rund 50 % der Unternehmen deutlich weniger mit den USA. Neben den Kosten ist vor allem der Rückgang von Geschäften und die Unsicherheit ein Problem.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="ihk-lieferketten">
                 <p class="question">Mussten Unternehmen ihre Lieferketten überdenken?</p>
                 <p class="answer">Unternehmen überdenken ihre Lieferketten zunehmend. Sie suchen neue Absatzmärkte und alternative Bezugsquellen. Dabei spielen nicht mehr nur Kosten eine Rolle, sondern stärker Stabilität und Sicherheit von Beziehungen. Lieferketten werden diversifiziert, weil Kosten durch politische Entscheidungen weniger planbar sind. Unternehmen bewerten Risiken heute stärker als früher.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="ihk-branchen">
                 <p class="question">Welche Branchen sind besonders stark von Zöllen betroffen?</p>
                 <p class="answer">Eine klare branchenspezifische Abgrenzung ist schwierig, da sich die Effekte durch viele Bereiche ziehen. Besonders betroffen sind jedoch exportorientierte Industrien wie Maschinenbau, Automobil- und Zulieferindustrie, Stahl- und Aluminiumsektor sowie Chemie- und Pharmabranche. Insgesamt lässt sich kaum eine Branche nennen, die vollständig unbeeinträchtigt bleibt.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="ihk-kmu">
                 <p class="question">Unterscheiden sich die Auswirkungen auf kleine und große Unternehmen?</p>
                 <p class="answer">Ja. Große Unternehmen haben mehr Marktmacht und können Vertragsbedingungen oft leichter durchsetzen. Kleine Unternehmen sind häufig stärker abhängig von einzelnen Geschäftsbeziehungen und müssen eher Zugeständnisse machen. Außerdem fehlt ihnen oft die personelle und fachliche Kapazität, um komplexe handelspolitische oder regulatorische Anforderungen zu bewältigen.</p>
             </div>
@@ -296,7 +326,7 @@
                 <p class="answer">Sehr stark. Unternehmen brauchen stabile Lieferketten und verlässliche Rohstoffquellen. Politische Spannungen wirken sich direkt auf Handelsbeziehungen aus. Besonders relevant sind strategische Rohstoffe wie seltene Erden, die für viele Technologien benötigt werden und stark von einzelnen Lieferländern abhängen. Instabilität beeinflusst auch Investitionsentscheidungen: Unternehmen investieren eher dort, wo politische und wirtschaftliche Rahmenbedingungen verlässlich sind.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="ihk-freihandel">
                 <p class="question">Wie könnten deutsche Unternehmen von Freihandelsabkommen wie EU-Mercosur profitieren?</p>
                 <p class="answer">Grundsätzlich zeigen Auswertungen, dass Freihandelsabkommen in der Regel zu einer Zunahme des Handels führen. Dabei geht es nicht nur um die Senkung von Zöllen. Freihandelsabkommen regeln viele weitere Aspekte, etwa technische Standards, Marktzugangsbedingungen oder arbeits- und umweltrechtliche Fragen. Diese sogenannten nicht-tarifären Regelungen sind für Unternehmen oft mindestens genauso wichtig wie Zollvorteile.</p>
             </div>
@@ -306,7 +336,7 @@
                 <p class="answer">Zölle können Schutzfunktionen erfüllen, etwa als Anti-Dumping-Maßnahmen. Sie können berechtigt sein, führen aber häufig zu Gegenmaßnahmen anderer Länder. Wenn tarifäre Handelshemmnisse sinken, nehmen oft nicht-tarifäre zu – etwa zusätzliche Vorschriften oder Zulassungsanforderungen. Solche Instrumente sollten deshalb vorsichtig eingesetzt werden.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
+            <div class="interview-block" id="ihk-buerokratie">
                 <p class="question">Macht die Bürokratie den Unternehmen in Deutschland stark zu schaffen?</p>
                 <p class="answer">Ja, sehr. Gerade im Zollbereich ist der administrative Aufwand hoch – insbesondere für kleine Unternehmen. Schon einfache Exporte können mehrere elektronische Verfahren, umfangreiche Dateneingaben und verschiedene IT-Systeme erfordern. Das verursacht Kosten, Zeitaufwand und zusätzliche Belastungen. Es gibt zwar Initiativen zum Bürokratieabbau, aber die Prozesse bleiben für viele Unternehmen sehr aufwendig.</p>
             </div>
@@ -329,7 +359,18 @@
     </div>
 </article>
 
-<div style="height:60px;"></div>
+<footer>
+    <div class="footer-inner">
+        <div>
+            <p class="brand">WAS ZOLL DAS?</p>
+            <p>Dein Informationsportal zum Thema Zoll</p>
+        </div>
+        <div style="text-align:right;">
+            <p>© 2026 Alle Rechte vorbehalten</p>
+            <p style="color:#999;font-size:.85rem;margin-top:4px;">Informationen ohne Gewähr</p>
+        </div>
+    </div>
+</footer>
 
 <script>
     function makeToggle(bodyId, btnId, labelId, arrowId, collapseText, expandText) {
