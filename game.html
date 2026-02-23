@@ -579,7 +579,7 @@ function renderEvent(evt) {
       ${badge}
       <h2 style="font-size:1.35rem;font-weight:700;margin-bottom:12px;color:#1a1a1a;">${evt.title}</h2>
       <p>${evt.text}</p>
-      <div class="highlight"><p>⚡ Wähle eine Reaktion – Überlege die Folgen!</p></div>
+      <div class="highlight"><p> Wähle eine Reaktion – Überlege die Folgen!</p></div>
       <div class="decisions">${decs}</div>
     </div>`;
 }
@@ -669,7 +669,7 @@ function endGame(won, msg) {
   document.getElementById('gameScreen').classList.remove('active');
   document.getElementById('endScreen').classList.add('active');
   document.getElementById('endBadge').className = 'end-badge ' + (won?'win':'lose');
-  document.getElementById('endBadge').textContent = won ? '🏆 Sieg!' : '💀 Game Over';
+  document.getElementById('endBadge').textContent = won ? ' Sieg!' : ' Game Over';
   document.getElementById('endScore').textContent = state.score + ' Punkte';
   document.getElementById('endMaxScore').textContent = maxScore + ' Punkten';
   document.getElementById('endTitle').textContent = won ? 'Glückwunsch, Staatsoberhaupt!' : 'Valdoria braucht Hilfe…';
