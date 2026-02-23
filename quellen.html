@@ -1,1 +1,235 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quellen – WAS ZOLL DAS?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --g1: #667eea; --g2: #8299a1;
+            --grad: linear-gradient(135deg, var(--g1) 0%, var(--g2) 100%);
+        }
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #1a1a1a; line-height: 1.6; }
+
+        /* ─── NAV ─── */
+        .top-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 20px 40px;
+            background: rgba(255,255,255,.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e5e5e5;
+            display: flex; justify-content: flex-start; align-items: center;
+        }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-link { color: #666; text-decoration: none; font-weight: 500; font-size: .95rem; transition: color .2s; }
+        .nav-link:hover, .nav-link.active { color: #1a1a1a; }
+
+        /* ─── HERO ─── */
+        .hero {
+            background: var(--grad); color: #fff;
+            padding: 120px 0 50px; text-align: center;
+        }
+        .hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px; }
+        .hero p { font-size: 1.05rem; opacity: .9; max-width: 500px; margin: 0 auto; }
+
+        /* ─── CONTAINER ─── */
+        .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+        /* ─── SECTION ─── */
+        .section {
+            background: #fff; border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,.06);
+            margin: 40px 0; overflow: hidden;
+        }
+        .section-header {
+            padding: 20px 28px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex; align-items: center; gap: 14px;
+        }
+        .section-tag {
+            background: var(--grad); color: #fff;
+            padding: 4px 14px; border-radius: 20px;
+            font-size: .78rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .06em;
+            white-space: nowrap;
+        }
+        .section-title { font-size: 1.05rem; font-weight: 700; color: #1a1a1a; }
+
+        /* ─── QUELLE ITEM ─── */
+        .quelle-list { padding: 8px 0; }
+        .quelle-item {
+            display: flex; align-items: flex-start; gap: 16px;
+            padding: 16px 28px;
+            border-bottom: 1px solid #f5f5f5;
+            transition: background .15s;
+        }
+        .quelle-item:last-child { border-bottom: none; }
+        .quelle-item:hover { background: #fafbff; }
+        .quelle-kuerzel {
+            background: #f0f4ff; color: var(--g1);
+            padding: 3px 10px; border-radius: 6px;
+            font-size: .78rem; font-weight: 700;
+            white-space: nowrap; margin-top: 2px;
+            min-width: 50px; text-align: center;
+        }
+        .quelle-info { flex: 1; }
+        .quelle-title { font-weight: 600; color: #1a1a1a; font-size: .95rem; margin-bottom: 3px; }
+        .quelle-meta { font-size: .83rem; color: #888; }
+        .quelle-link {
+            display: inline-block; margin-top: 5px;
+            color: var(--g1); text-decoration: none; font-size: .83rem; font-weight: 500;
+            word-break: break-all;
+        }
+        .quelle-link:hover { text-decoration: underline; }
+
+        /* ─── PLACEHOLDER ─── */
+        .placeholder {
+            padding: 20px 28px;
+            color: #bbb; font-size: .9rem; font-style: italic;
+            border-bottom: 1px dashed #eee;
+        }
+        .placeholder:last-child { border-bottom: none; }
+
+        /* ─── HINWEIS ─── */
+        .hinweis {
+            background: #fffbea; border: 1px solid #ffe58f;
+            border-radius: 8px; padding: 14px 20px;
+            margin: 0 0 40px; font-size: .88rem; color: #8a6d00;
+            display: flex; gap: 10px; align-items: flex-start;
+        }
+
+        footer {
+            background: #fff; padding: 28px 0; text-align: center;
+            border-top: 1px solid #e5e5e5; margin-top: 20px;
+        }
+        footer p { color: #666; font-size: .88rem; }
+
+        @media(max-width: 640px) {
+            .top-nav { padding: 14px 18px; }
+            .nav-links { gap: 14px; flex-wrap: wrap; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="zollrechner.html" class="nav-link">Zoll-Rechner</a>
+        <a href="game.html" class="nav-link">Zoll-Spiel</a>
+        <a href="zoll-interview-artikel.html" class="nav-link">Interview</a>
+        <a href="artikel.html" class="nav-link">Artikel</a>
+        <a href="impressum.html" class="nav-link">Impressum</a>
+        <a href="quellen.html" class="nav-link active">Quellen</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>📚 Quellen</h1>
+        <p>Alle verwendeten Quellen nach Themenbereich geordnet</p>
+    </div>
+</section>
+
+<div class="container">
+
+    <div class="hinweis">
+        ⚠️ <span>Quellen werden noch ergänzt. Diese Seite ist noch nicht vollständig.</span>
+    </div>
+
+    <!-- ── SECTION 1: Interview Hauptzollamt ── -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-tag">[Z]</span>
+            <span class="section-title">Interview – Hauptzollamt Lörrach</span>
+        </div>
+        <div class="quelle-list">
+            <div class="quelle-item">
+                <span class="quelle-kuerzel">[Z1]</span>
+                <div class="quelle-info">
+                    <div class="quelle-title">Persönliches Interview mit Antje Bendel</div>
+                    <div class="quelle-meta">Pressesprecherin, Hauptzollamt Lörrach · 2025</div>
+                </div>
+            </div>
+            <div class="placeholder">Weitere Quellen aus diesem Interview hier einfügen …</div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 2: Interview IHK ── -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-tag">[I]</span>
+            <span class="section-title">Interview – IHK Freiburg</span>
+        </div>
+        <div class="quelle-list">
+            <div class="quelle-item">
+                <span class="quelle-kuerzel">[I1]</span>
+                <div class="quelle-info">
+                    <div class="quelle-title">Persönliches Interview mit IHK-Expertin</div>
+                    <div class="quelle-meta">IHK Freiburg, Bereich Außenwirtschaft · 2025</div>
+                </div>
+            </div>
+            <div class="placeholder">Weitere Quellen aus diesem Interview hier einfügen …</div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 3: Artikel Handelsbeziehungen ── -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-tag">[H]</span>
+            <span class="section-title">Artikel – Handelspolitik &amp; Handelsbeziehungen</span>
+        </div>
+        <div class="quelle-list">
+            <div class="placeholder">Quellen hier einfügen, z. B. ifo-Studie, Bundesministerium, etc. …</div>
+            <div class="placeholder">Quelle [H2] …</div>
+            <div class="placeholder">Quelle [H3] …</div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 4: Zoll-Rechner ── -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-tag">[R]</span>
+            <span class="section-title">Zoll-Rechner</span>
+        </div>
+        <div class="quelle-list">
+            <div class="placeholder">Quellen für Zollsätze und Berechnungsgrundlagen hier einfügen …</div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 5: Zoll-Spiel ── -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-tag">[S]</span>
+            <span class="section-title">Zoll-Spiel</span>
+        </div>
+        <div class="quelle-list">
+            <div class="placeholder">Quellen für Spielinhalte und Faktenbasis hier einfügen …</div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 6: Allgemein / Bilder ── -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-tag">[B]</span>
+            <span class="section-title">Bilder &amp; Medien</span>
+        </div>
+        <div class="quelle-list">
+            <div class="placeholder">Bildquellen hier einfügen …</div>
+        </div>
+    </div>
+
+</div><!-- /container -->
+
+<footer>
+    <div class="container">
+        <p>© 2026 WAS ZOLL DAS? – Schulprojekt | Informationen ohne Gewähr</p>
+    </div>
+</footer>
+
+</body>
+</html>
