@@ -324,20 +324,20 @@ const TOTAL_ROUNDS = 16;
 const EVENTS = [
   // 1 – Zölle von Ironval
   {
-    title:"Ironval verhängt Importzölle!",
+    title:"Katalania verhängt Importzölle!",
     country:"industrie",
-    text:"Das Industrieland Ironval hat plötzlich <strong>25 % Zölle auf deine Exportgüter</strong> verhängt. Deine Exportunternehmen sind alarmiert – ohne Reaktion verlieren sie einen wichtigen Markt.",
+    text:"Das Industrieland Katalania hat plötzlich <strong>25 % Zölle auf deine Exportgüter</strong> verhängt. Deine Exportunternehmen sind alarmiert – ohne Reaktion verlieren sie einen wichtigen Markt.",
     decisions:[
-      { label:"Gegenzölle verhängen", desc:"Auch du erhöhst Zölle auf Ironval-Waren – Signal stärken.", effects:{economy:-8, revenue:12, happiness:-5, relations_industrie:-20, jobs:-4} },
-      { label:"Diplomatische Verhandlungen", desc:"Du sendest eine Delegation nach Ironval.", effects:{economy:-2, revenue:-3, happiness:4, relations_industrie:8, jobs:0} },
-      { label:"Zölle akzeptieren", desc:"Du lässt die Situation zunächst laufen, um Eskalation zu vermeiden.", effects:{economy:-12, revenue:-5, happiness:-8, relations_industrie:3, jobs:-6} }
+      { label:"Gegenzölle verhängen", desc:"Auch du erhöhst Zölle auf Katalania-Waren – Signal stärken.", effects:{economy:-2, revenue:1, happiness:-1, jobs:-2} },
+      { label:"Diplomatische Verhandlungen", desc:"Du sendest eine Delegation nach Katalania.", effects:{economy:-1, revenue:0, happiness:1, jobs:-1} },
+      { label:"Zölle akzeptieren", desc:"Du lässt die Situation zunächst laufen, um Eskalation zu vermeiden.", effects:{economy:-2, revenue:-1, happiness:-2, jobs:-2} }
     ]
   },
-  // 2 – Handelsabkommen Technorea
+  // 2 – Handelsabkommen
   {
     title:"Turogan bietet Handelsabkommen an",
     country:"techno",
-    text:"Das technologisch führende <strong>Technorea</strong> möchte ein Freihandelsabkommen mit Valdoria schließen. Das würde Zölle gegenseitig abschaffen – aber auch den heimischen Markt stärker öffnen.",
+    text:"Das technologisch führende <strong>Turogan</strong> möchte ein Freihandelsabkommen mit Valdoria schließen. Das würde Zölle gegenseitig abschaffen – aber auch den heimischen Markt stärker öffnen.",
     decisions:[
       { label:"Abkommen unterschreiben", desc:"Freier Handel mit Turogan ab sofort.", effects:{economy:5, revenue:3, happiness:4, jobs:3} },
       { label:"Abkommen ablehnen", desc:"Du schützst heimische Industrie.", effects:{economy:0, revenue:0, happiness:-2, jobs:0} },
@@ -357,16 +357,16 @@ const EVENTS = [
   },
   // 4 – Minera Rohstoffpreise
   {
-    title:"Sansirien drosselt Rohstofflieferungen!",
+    title:"Sansorien drosselt Rohstofflieferungen!",
     country:"rohstoff",
-    text:"<strong>Sansirien</strong> reduziert plötzlich seine Rohstoffexporte nach Valdoria um 40 %. Deine Industrie braucht Silber und Kupfer.",
+    text:"<strong>Sansorien</strong> reduziert plötzlich seine Rohstoffexporte nach Valdoria um 40 %. Deine Industrie braucht Silber und Kupfer.",
     decisions:[
-      { label:"Druck auf Sansirien aufbauen", desc:"Drohen mit dem Verkauf von Staatsanleihen", effects:{economy:0, revenue:0, happiness:3, jobs:0} },
-      { label:"Verhandlungen mit Sansirien", desc:"Du versuchst, die Lieferung wiederherzustellen.", effects:{economy:-2, revenue:-2, happiness:1, jobs:-1} },
+      { label:"Druck auf Sansorien aufbauen", desc:"Drohen mit dem Verkauf von Staatsanleihen", effects:{economy:0, revenue:0, happiness:3, jobs:0} },
+      { label:"Verhandlungen mit Sansorien", desc:"Du versuchst, die Lieferung wiederherzustellen.", effects:{economy:-2, revenue:-2, happiness:1, jobs:-1} },
       { label:"Rohstoffvorräte aufbauen", desc:"Langfristige Investition – kurzfristig teuer.", effects:{economy:3, revenue:-9, happiness:4, jobs:2} }
     ]
   },
-  // 5 – Goldenburg Kapitalzufluss
+  // 5 – Kapitalzufluss
   {
     title:"Bahran möchte in Valdoria investieren",
     country:"finanz",
@@ -392,7 +392,7 @@ const EVENTS = [
   {
     title:"Chance: Technologie aus Katalania importieren",
     country:"techno",
-    text:"<strong>Technorea</strong> bietet dir <strong>günstige Zugänge zu modernster Technologie</strong> an. Das könnte deine Industrie massiv modernisieren – aber verursacht Abhängigkeiten.",
+    text:"<strong>Katalania</strong> bietet dir <strong>günstige Zugänge zu modernster Technologie</strong> an. Das könnte deine Industrie massiv modernisieren – aber verursacht Abhängigkeiten.",
     decisions:[
       { label:"Import annehmen", desc:"Günstige Technologie – Industrie modernisieren.", effects:{economy:6, revenue:2, happiness:1, jobs:3} },
       { label:"Import ablehnen", desc:"Eigenständige Forschung fördern.", effects:{economy:2, revenue:-4, happiness:2, jobs:1} },
