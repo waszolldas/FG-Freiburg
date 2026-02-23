@@ -7,11 +7,8 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 * { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --g1:#667eea; --g2:#8299a1;
-  --grad: linear-gradient(135deg, var(--g1) 0%, var(--g2) 100%);
-}
-body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-height:1.6; }
+:root { --g1:#667eea; --g2:#8299a1; --grad:linear-gradient(135deg,var(--g1) 0%,var(--g2) 100%); }
+body { font-family:'Inter',sans-serif; background:#f8f9fa; color:#1a1a1a; line-height:1.6; }
 
 .top-nav {
   position:fixed; top:0; left:0; right:0; z-index:1000;
@@ -21,67 +18,57 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
 }
 .nav-links { display:flex; gap:30px; }
 .nav-link { color:#666; text-decoration:none; font-weight:500; font-size:.95rem; transition:color .2s; }
-.nav-link:hover, .nav-link.active { color:#1a1a1a; }
+.nav-link:hover,.nav-link.active { color:#1a1a1a; }
 
-.article-container {
-  max-width:800px; margin:72px auto 2rem;
-  background:#fff; border-radius:12px; overflow:hidden;
-  box-shadow:0 4px 24px rgba(0,0,0,.06);
-}
-.article-header {
-  position:relative; height:400px; overflow:hidden;
-  background:var(--grad);
-}
-.article-image {
-  width:100%; height:100%; object-fit:cover; opacity:.85;
-  transition:transform .6s ease, opacity .6s ease;
-}
-.article-container:hover .article-image { transform:scale(1.05); opacity:.95; }
+.hero { background:var(--grad); color:#fff; padding:120px 0 50px; text-align:center; }
+.hero h1 { font-size:clamp(2rem,5vw,3rem); font-weight:800; letter-spacing:-.02em; margin-bottom:8px; }
+.hero p { font-size:1.05rem; opacity:.9; }
+
+.articles-wrapper { max-width:840px; margin:0 auto; padding:40px 24px 60px; display:flex; flex-direction:column; gap:48px; }
+
+.article-container { background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 24px rgba(0,0,0,.06); }
+.article-header { position:relative; height:400px; overflow:hidden; background:var(--grad); }
+.article-image { width:100%; height:100%; object-fit:cover; opacity:.85; transition:transform .6s,opacity .6s; }
+.article-container:hover .article-image { transform:scale(1.04); opacity:.92; }
 .article-overlay {
   position:absolute; bottom:0; left:0; right:0; padding:2.5rem;
-  background:linear-gradient(to top, rgba(26,35,50,.95) 0%, rgba(26,35,50,.7) 70%, transparent 100%);
+  background:linear-gradient(to top,rgba(26,35,50,.95) 0%,rgba(26,35,50,.6) 70%,transparent 100%);
 }
-.article-title {
-  font-size:2.2rem; font-weight:800; color:#fff;
-  line-height:1.3; margin-bottom:.5rem;
-  text-shadow:0 2px 8px rgba(0,0,0,.3); letter-spacing:-.02em;
-}
-.article-subtitle { font-size:1rem; color:rgba(255,255,255,.95); font-weight:500; }
+.img-credit { position:absolute; bottom:6px; right:12px; font-size:.7rem; color:rgba(255,255,255,.5); font-style:italic; z-index:2; }
+.article-title { font-size:2rem; font-weight:800; color:#fff; line-height:1.3; margin-bottom:.5rem; text-shadow:0 2px 8px rgba(0,0,0,.3); letter-spacing:-.02em; }
+.article-subtitle { font-size:1rem; color:rgba(255,255,255,.9); font-weight:500; }
 
 .article-content { padding:2.5rem; }
-.article-intro {
-  font-size:1.1rem; color:#333; line-height:1.8;
-  margin-bottom:2rem; padding-bottom:2rem;
-  border-bottom:2px solid #e5e5e5;
-}
-.article-body {
-  max-height:0; overflow:hidden;
-  transition:max-height .8s cubic-bezier(.4,0,.2,1), opacity .6s ease;
-  opacity:0;
-}
-.article-body.expanded { max-height:15000px; opacity:1; }
-.answer { color:#333; margin-bottom:1rem; line-height:1.8; }
-.divider { text-align:center; margin:2rem 0; color:#e5e5e5; font-size:1.5rem; letter-spacing:.5rem; }
+.article-intro { font-size:1.05rem; color:#333; line-height:1.85; margin-bottom:2rem; padding-bottom:2rem; border-bottom:2px solid #e5e5e5; }
+.article-body { max-height:0; overflow:hidden; transition:max-height 1s cubic-bezier(.4,0,.2,1),opacity .6s; opacity:0; }
+.article-body.expanded { max-height:30000px; opacity:1; }
+
+.section-heading { font-size:1.05rem; font-weight:700; color:#1a1a1a; margin:2rem 0 .8rem; padding-bottom:.5rem; border-bottom:2px solid #f0f0f0; }
+.answer { color:#333; margin-bottom:1rem; line-height:1.85; font-size:.97rem; }
+.divider { text-align:center; margin:2rem 0; color:#e0e0e0; font-size:1.5rem; letter-spacing:.5rem; }
+.source-line { font-size:.75rem; color:#aaa; font-style:italic; margin-top:-.3rem; margin-bottom:1.2rem; }
 
 .read-more-btn {
   display:flex; align-items:center; justify-content:center; gap:.5rem;
   width:100%; padding:1rem 2rem; margin-top:2rem;
-  background:var(--grad);
-  color:#fff; border:none; border-radius:8px;
+  background:var(--grad); color:#fff; border:none; border-radius:8px;
   font-family:'Inter',sans-serif; font-size:1rem; font-weight:600;
-  cursor:pointer; transition:all .3s;
-  box-shadow:0 4px 15px rgba(102,126,234,.3);
+  cursor:pointer; transition:all .3s; box-shadow:0 4px 15px rgba(102,126,234,.3);
 }
 .read-more-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(102,126,234,.4); }
 .arrow { display:inline-block; transition:transform .3s; font-size:1.2rem; }
 .arrow.rotated { transform:rotate(180deg); }
 
+footer { background:#fff; border-top:1px solid #e5e5e5; padding:28px 0; text-align:center; }
+.footer-inner { max-width:840px; margin:0 auto; padding:24px 24px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; border-top:3px solid var(--g1); }
+.footer-inner p { color:#666; font-size:.88rem; }
+.footer-inner .brand { font-size:1rem; font-weight:700; color:#1a1a1a; }
+
 @media(max-width:768px){
   .top-nav { padding:15px 20px; }
   .nav-links { gap:15px; flex-wrap:wrap; }
-  .article-container { margin:100px 1rem 1rem; }
-  .article-header { height:300px; }
-  .article-title { font-size:1.7rem; }
+  .article-header { height:260px; }
+  .article-title { font-size:1.5rem; }
   .article-content { padding:1.5rem; }
 }
 </style>
@@ -100,68 +87,171 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
   </div>
 </nav>
 
-<article class="article-container">
-  <div class="article-header">
-    <img src="handshake.jpg" alt="Internationaler Handel" class="article-image">
-    <div class="article-overlay">
-      <h1 class="article-title">Zölle im Aufwind – warum die Handelspolitik vor einer Richtungsentscheidung steht</h1>
-      <p class="article-subtitle">Zwischen geopolitischem Druck und wirtschaftlicher Vernunft</p>
+<section class="hero">
+  <h1>Artikel</h1>
+  <p>Hintergründe und Analysen zur globalen Handelspolitik</p>
+</section>
+
+<div class="articles-wrapper">
+
+  <!-- ══ ARTIKEL 1 ══ -->
+  <article class="article-container">
+    <div class="article-header">
+      <img src="handshake.jpg" alt="Internationaler Handel" class="article-image">
+      <span class="img-credit">[B4] butz.de</span>
+      <div class="article-overlay">
+        <h1 class="article-title">Zölle im Aufwind – warum die Handelspolitik vor einer Richtungsentscheidung steht</h1>
+        <p class="article-subtitle">Zwischen geopolitischem Druck und wirtschaftlicher Vernunft</p>
+      </div>
+    </div>
+    <div class="article-content">
+      <div class="article-intro">
+        <p>Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz", „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern – doch ökonomisch sind Zölle weit mehr als ein politisches Signal.</p>
+        <p class="source-line" style="margin-top:.8rem;">Quellen: [H1], [H2], [H3], [H4], [H5], [H6], [H7], [H8]</p>
+      </div>
+      <div class="article-body" id="articleBody1">
+
+        <h3 class="section-heading">Zwischen geopolitischem Druck und wirtschaftlicher Vernunft</h3>
+        <p class="answer">Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz" (Resilienz ist die Fähigkeit, wirtschaftlich handlungsfähig zu bleiben, auch wenn der globale Handel ins Wanken gerät), „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern. Zölle erscheinen dabei als schnell verfügbares Mittel, um wirtschaftliche Interessen sichtbar zu verteidigen.</p>
+        <p class="answer">Doch ökonomisch sind sie weit mehr als ein politisches Signal: Sie greifen direkt in Preise, Produktionsketten und Investitionsentscheidungen ein. Für eine Exportnation wie Deutschland ist das besonders relevant, denn rund jeder vierte Arbeitsplatz hängt direkt oder indirekt vom Export ab. Handelspolitische Unsicherheit wirkt nachweislich dämpfend auf Wachstum und Produktivität.</p>
+        <p class="source-line">[H7], [H3]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Zölle als legitimes Instrument – aber kein Dauerzustand</h3>
+        <p class="answer">Es wäre dennoch verkürzt, Zölle grundsätzlich als Fehlentwicklung zu bezeichnen. Ein vollständig zollfreier Welthandel ist politisch unrealistisch. Das klassische Argument, dass junge Industrien zeitlich begrenzten Schutz benötigen, um wettbewerbsfähig zu werden, ist weiterhin relevant. Auch bei massiv verzerrtem Wettbewerb durch ausländische Subventionen oder Dumping können Ausgleichszölle sinnvoll sein.</p>
+        <p class="answer">Problematisch wird es jedoch, wenn temporäre Schutzmaßnahmen in dauerhaften Protektionismus übergehen. Dauerhafter Wettbewerbsschutz reduziert den Innovationsdruck. Unternehmen investieren tendenziell weniger in Effizienz, Technologie und neue Geschäftsmodelle. Langfristig leidet die Produktivität und mit ihr der Wohlstand.</p>
+        <p class="source-line">[H8], [H4]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Wachstumspotenziale durch neue Freihandelsabkommen</h3>
+        <p class="answer">Eine aktuelle Studie des ifo Instituts zeigt: Neue Handelsabkommen könnten das deutsche BIP um bis zu 0,2 Prozent erhöhen, in erweiterten Szenarien sogar um bis zu 1 Prozent – Milliardenbeträge an zusätzlicher Wertschöpfung pro Jahr.</p>
+        <p class="answer">In einer Situation, in der das erwartete Wachstum teilweise unter einem Prozent liegt, ist ein zusätzlicher Prozentpunkt kein Randaspekt, sondern ein konjunkturell relevanter Impuls. Handelspolitik wird damit unmittelbar zu einer Frage der wirtschaftlichen Zukunftsfähigkeit.</p>
+        <p class="source-line">[H6], [H1], [H5]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Nachhaltigkeit und Digitalisierung verändern den Handel</h3>
+        <p class="answer">Handelspolitik dreht sich heute nicht mehr nur um Zölle und Waren. CO₂-Grenzausgleichsmaßnahmen sorgen dafür, dass Importe ähnliche Klimakosten tragen wie Produkte aus dem Inland – Wettbewerb bleibt fair, der Handel unterstützt gleichzeitig Klimaziele.</p>
+        <p class="answer">Gleichzeitig wird digitaler Handel immer wichtiger. Unterschiedliche Regeln bei Datenschutz oder Datenspeicherung können für Unternehmen so schwierig sein wie klassische Zölle. Besonders kleine und mittlere Unternehmen spüren das stark.</p>
+        <p class="source-line">[H2], [H5]</p>
+
+      </div>
+      <button class="read-more-btn" id="readMoreBtn1">
+        <span id="btnText1">Vollständigen Artikel lesen</span>
+        <span class="arrow" id="arrow1">↓</span>
+      </button>
+    </div>
+  </article>
+
+
+  <!-- ══ ARTIKEL 2 ══ -->
+  <article class="article-container">
+    <div class="article-header">
+      <img src="containerhafen.png" alt="Containerhafen von oben" class="article-image">
+      <span class="img-credit">[B2] iwkoeln.de</span>
+      <div class="article-overlay">
+        <h1 class="article-title">Der internationale Handel im Umbruch: Aktuelle Entwicklungen und Trends</h1>
+        <p class="article-subtitle">Protektionismus, Fragmentierung und neue Freihandelsinitiativen</p>
+      </div>
+    </div>
+    <div class="article-content">
+      <div class="article-intro">
+        <p>Der internationale Handel befindet sich seit einigen Jahren in einem tiefgreifenden Wandel. Während über Jahrzehnte der Trend der fortschreitenden Globalisierung dominierte, scheinen nun protektionistische Maßnahmen an Bedeutung zu gewinnen. Laut einem Bericht der WTO betrafen im Jahr 2025 protektionistische Maßnahmen etwa 19,4 % des globalen Warenaustauschs – ein beträchtlicher Anstieg gegenüber rund 12,5 % Ende 2024.</p>
+        <p class="source-line" style="margin-top:.8rem;">Quellen: [U1] – [U23]</p>
+      </div>
+      <div class="article-body" id="articleBody2">
+
+        <h3 class="section-heading">Zunehmender Protektionismus unter Einfluss der USA</h3>
+        <p class="answer">Unter dem Slogan „America First" setzte Donald Trump auf eine Wirtschaftspolitik, die vorrangig die Interessen der USA in den Mittelpunkt stellt. Die negative Handelsbilanz gilt für Trump als Zeichen, dass die USA im Welthandel ungerecht behandelt werden. Durch die sogenannten „Befreiungszölle" möchte er das Machtgefälle ausgleichen und die amerikanische industrielle Basis stärken.</p>
+        <p class="answer">Was 2018 mit Schutzzöllen auf Solarzellen und Waschmaschinen begann, hat sich mit der zweiten Amtszeit zu einer umfassenderen protektionistischen Politik ausgeweitet. Im Februar 2026 erklärte der Supreme Court einen großen Teil dieser Zölle für rechtswidrig – das Recht zur Zollerhebung liegt verfassungsgemäß beim Kongress. Trump kündigte an, die Zölle über andere gesetzliche Wege weiter durchsetzen zu wollen.</p>
+        <p class="answer">Vor allem China reagiert mit Gegenzöllen und Exportkontrollen auf kritische Rohstoffe. Im Oktober 2025 einigten sich beide Länder vorübergehend auf eine Reduzierung gegenseitiger Zölle – das Abkommen läuft nach zwölf Monaten aus.</p>
+        <p class="source-line">[U10], [U11], [U16]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Geopolitische Einflüsse und die Fragmentierung des Welthandels</h3>
+        <p class="answer">Seit den frühen 2010er-Jahren zeichnet sich eine Gegenbewegung zur Globalisierung ab. Geopolitische Spannungen und wirtschaftliche Eigenständigkeit führen zur sogenannten „geoökonomischen Fragmentierung" – einer stärker regionalisierten Weltwirtschaft.</p>
+        <p class="answer">Externe Schocks wie Brexit, der US-China-Handelskonflikt ab 2018, die Corona-Pandemie und die russische Invasion in der Ukraine 2022 haben diesen Trend verstärkt. Infolgedessen richten Staaten ihre Handelspolitik neu aus und organisieren Produktionsprozesse vermehrt innerhalb abgeschotteter Wirtschaftszonen. Das Konzept des „Friendshoring" – Handel nur mit Ländern mit gemeinsamen Werten – gewinnt dabei an Bedeutung.</p>
+        <p class="source-line">[U7], [U17], [U19]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">De-Risking und die Umstrukturierung globaler Lieferketten</h3>
+        <p class="answer">Europa ist besonders stark von China abhängig. Der bilaterale Handel belief sich 2024 auf über 845 Mrd. €, davon 519 Mrd. € allein an Warenimporten – 96,7 % davon Industriegüter wie Maschinen, Fahrzeuge und Chemikalien. Die EZB warnt zusätzlich vor der Abhängigkeit von Seltenen Erden aus China.</p>
+        <p class="answer">Diese Abhängigkeiten haben De-Risking-Strategien ausgelöst: Ziel ist nicht die vollständige Entkopplung, sondern die Reduzierung kritischer Abhängigkeiten. Der „Critical Raw Materials Act" der EU von Mai 2024 soll kritische Rohstoffe wie Lithium und Batteriemetalle sichern.</p>
+        <p class="source-line">[U2], [U6], [U8], [U9]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Freihandelsinitiativen</h3>
+        <p class="answer">Die EU strebt neue Freihandelsabkommen mit Wachstumsregionen an. Das Anfang 2026 unterzeichnete Abkommen mit Indien soll EU-Exporte dorthin bis 2032 verdoppeln und das EU-BIP jährlich um rund 22 Mrd. € steigern – Zölle auf über 96,6 % der EU-Warenexporte sollen gesenkt oder abgeschafft werden.</p>
+        <p class="answer">Das gleichzeitig unterzeichnete Mercosur-Abkommen sieht den schrittweisen Abbau von Zöllen auf über 90 % aller Handelsgüter vor. Exporte nach Südamerika könnten um bis zu 39 % steigen. Mit Indonesien wurde bereits im September 2025 ein umfassendes Wirtschaftspartnerschaftsabkommen abgeschlossen.</p>
+        <p class="answer">Insgesamt ist seit 2020 ein deutlicher Anstieg von Freihandelsbemühungen erkennbar – getrieben durch den Wunsch, Risiken zu mindern und Märkte zu diversifizieren.</p>
+        <p class="source-line">[U1], [U3], [U4], [U5], [U18]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Geopolitische Kontrolle von Technologie und strategischen Rohstoffen</h3>
+        <p class="answer">China kontrolliert rund 70 % der weltweiten Produktion von Seltenen Erden und über 90 % der Verarbeitungskapazitäten. Seit April 2025 gelten Lizenzpflichten für sieben der siebzehn Seltenen Erden – Exporte sanken nachweislich um bis zu 32 %. Nach OECD-Daten haben sich Exportbeschränkungen auf kritische Rohstoffe weltweit mehr als verfünffacht.</p>
+        <p class="answer">Die USA setzen ihrerseits auf Exportkontrollen bei Halbleitertechnologie – gezielt gegen China eingesetzt. Branchenanalysen schätzen mögliche negative Auswirkungen von über 70 Mrd. $ auf Umsätze und Forschungsausgaben. Für Europa bleibt die Lage schwierig: zwischen chinesischer Rohstoffkontrolle und amerikanischen Technologiebeschränkungen droht wachsende Abhängigkeit.</p>
+        <p class="source-line">[U6], [U9], [U12], [U13], [U14], [U15]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Digitalisierung und E-Commerce: Neue Dynamik im internationalen Handel</h3>
+        <p class="answer">Die Digitalisierung verändert die Struktur des Handels grundlegend. Digitale Produkte und Dienstleistungen wie Software, Cloud-Dienste und Plattformangebote gewinnen stark an Bedeutung. Laut WTO machen digitale Exporte über 50 % des weltweiten Dienstleistungshandels aus – ihr Volumen hat sich seit 2005 mehr als verdreifacht.</p>
+        <p class="answer">Allein in der EU wurden 2024 rund 4,6 Mrd. Paketsendungen mit geringem Warenwert importiert – eine Verdopplung binnen zwei Jahren. Über 80 WTO-Mitgliedsstaaten haben ein Abkommen zum digitalen E-Commerce unterzeichnet, um globale Regeln für den grenzüberschreitenden elektronischen Handel zu schaffen und Zölle auf elektronische Übertragungen zu vermeiden.</p>
+        <p class="source-line">[U16], [U20], [U21], [U22], [U23]</p>
+
+        <div class="divider">⸻</div>
+
+        <h3 class="section-heading">Fazit</h3>
+        <p class="answer">Der internationale Handel befindet sich in einer Phase der Neuordnung. Zunehmender Protektionismus, geopolitische Spannungen und strategische Eingriffe in Rohstoff- und Technologiemärkte verändern die bisherigen Regeln. Gleichzeitig entstehen durch neue Handelsabkommen und technologische Innovationen weiterhin neue Wachstumsimpulse.</p>
+        <p class="answer">Die Struktur des Welthandels entwickelt sich zunehmend zu einem Modell, das stärker von Sicherheit und Stabilität als von reiner Effizienz gelenkt wird. Der internationale Handel bleibt damit ein zentraler Motor der Weltwirtschaft – entwickelt sich jedoch unter veränderten Rahmenbedingungen.</p>
+        <p class="source-line">[U16], [U17], [U19]</p>
+
+      </div>
+      <button class="read-more-btn" id="readMoreBtn2">
+        <span id="btnText2">Vollständigen Artikel lesen</span>
+        <span class="arrow" id="arrow2">↓</span>
+      </button>
+    </div>
+  </article>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="brand">WAS ZOLL DAS?</p>
+      <p>Dein Informationsportal zum Thema Zoll</p>
+    </div>
+    <div style="text-align:right;">
+      <p>© 2026 Alle Rechte vorbehalten</p>
+      <p style="color:#999;font-size:.85rem;margin-top:4px;">Informationen ohne Gewähr</p>
     </div>
   </div>
-
-  <div class="article-content">
-    <div class="article-intro">
-      <p>Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz", „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern – doch ökonomisch sind Zölle weit mehr als ein politisches Signal.</p>
-    </div>
-
-    <div class="article-body" id="articleBody">
-
-      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Zwischen geopolitischem Druck und wirtschaftlicher Vernunft</h3>
-      <p class="answer">Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz" (Resilienz ist die Fähigkeit, wirtschaftlich handlungsfähig zu bleiben, auch wenn der globale Handel ins Wanken gerät), „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern. Zölle erscheinen dabei als schnell verfügbares Mittel, um wirtschaftliche Interessen sichtbar zu verteidigen. Sie signalisieren Handlungsfähigkeit, sollen heimische Unternehmen schützen und Abhängigkeiten reduzieren.</p>
-      <p class="answer" style="margin-top:1rem;">Doch ökonomisch sind sie weit mehr als ein politisches Signal: Sie greifen direkt in Preise, Produktionsketten und Investitionsentscheidungen ein. Für eine Exportnation wie Deutschland ist das besonders relevant, denn rund jeder vierte Arbeitsplatz hängt direkt oder indirekt vom Export ab. Wenn zentrale Handelspartner Zölle erhöhen oder neue Handelshemmnisse schaffen, verteuern sich Produkte, Absatzmärkte werden unsicherer und Unternehmen verschieben Investitionen. Handelspolitische Unsicherheit wirkt nachweislich dämpfend auf Wachstum und Produktivität.</p>
-
-      <div class="divider">⸻</div>
-
-      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Zölle als legitimes Instrument – aber kein Dauerzustand</h3>
-      <p class="answer">Es wäre dennoch verkürzt, Zölle grundsätzlich als Fehlentwicklung zu bezeichnen. Ein vollständig zollfreier Welthandel ist politisch unrealistisch. Staaten behalten sich bewusst die Möglichkeit vor, strategisch einzugreifen. Das klassische Argument, dass junge Industrien zeitlich begrenzten Schutz benötigen, um wettbewerbsfähig zu werden, ist weiterhin relevant. Auch bei massiv verzerrtem Wettbewerb durch ausländische Subventionen oder Dumping können Ausgleichszölle sinnvoll sein. Handelspolitik ist nicht ideologisch, sondern interessengeleitet.</p>
-      <p class="answer" style="margin-top:1rem;">Problematisch wird es jedoch, wenn temporäre Schutzmaßnahmen in dauerhaften Protektionismus übergehen. Dauerhafter Wettbewerbsschutz reduziert den Innovationsdruck. Unternehmen, die sich nicht im internationalen Wettbewerb behaupten müssen, investieren tendenziell weniger in Effizienz, Technologie und neue Geschäftsmodelle. Langfristig leidet die Produktivität und mit ihr der Wohlstand. Protektionismus kann kurzfristig Stabilität vermitteln, langfristig kann er zu Rückständen führen.</p>
-
-      <div class="divider">⸻</div>
-
-      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Wachstumspotenziale durch neue Freihandelsabkommen</h3>
-      <p class="answer">Gerade in einer Phase schwachen Wirtschaftswachstums bekommt diese Frage besonderes Gewicht. Eine aktuelle Studie des ifo Instituts zeigt die Effekte zusätzlicher Freihandelsabkommen mit wirtschaftlich wichtigen Partnerländern. Das Ergebnis ist deutlich: Neue Handelsabkommen könnten das deutsche Bruttoinlandsprodukt um bis zu 0,2 Prozent erhöhen, in erweiterten Szenarien sogar um bis zu 1 Prozent. In absoluten Zahlen entspricht das Milliardenbeträgen an zusätzlicher Wertschöpfung pro Jahr.</p>
-      <p class="answer" style="margin-top:1rem;">In einer Situation, in der das erwartete Wachstum teilweise unter einem Prozent liegt, ist ein zusätzlicher Prozentpunkt kein Randaspekt, sondern ein konjunkturell relevanter Impuls. Mehr Wachstum bedeutet höhere Steuereinnahmen, größere Investitionsspielräume für Unternehmen und mehr finanzielle Möglichkeiten für den Staat. Handelspolitik wird damit unmittelbar zu einer Frage der wirtschaftlichen Zukunftsfähigkeit.</p>
-
-      <div class="divider">⸻</div>
-
-      <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Nachhaltigkeit und Digitalisierung verändern den Handel</h3>
-      <p class="answer">Handelspolitik dreht sich heute nicht mehr nur um Zölle und Waren. Nachhaltigkeit spielt eine zentrale Rolle: Viele Länder wollen verhindern, dass Produkte mit schlechterer Umweltbilanz einen Wettbewerbsvorteil haben. Zum Beispiel können CO₂-Grenzausgleichsmaßnahmen dafür sorgen, dass Importe ähnliche Klimakosten haben wie Produkte aus dem Inland. So bleibt der Wettbewerb fair und der Handel unterstützt gleichzeitig Klimaziele.</p>
-      <p class="answer" style="margin-top:1rem;">Gleichzeitig wird digitaler Handel immer wichtiger. Daten, Online-Dienste und Plattformen sind heute Teil der wirtschaftlichen Leistung. Unterschiedliche Regeln, etwa bei Datenschutz oder Speicherung von Daten, können für Unternehmen so schwierig sein wie klassische Zölle. Besonders kleine und mittlere Unternehmen spüren das stark: Digitale Hürden können ihren Zugang zu internationalen Märkten einschränken.</p>
-
-    </div>
-
-    <button class="read-more-btn" id="readMoreBtn">
-      <span id="btnText">Vollständigen Artikel lesen</span>
-      <span class="arrow" id="arrow">↓</span>
-    </button>
-  </div>
-</article>
-
-<div style="height:60px;"></div>
+</footer>
 
 <script>
-  const btn = document.getElementById('readMoreBtn');
-  const body = document.getElementById('articleBody');
-  const arrow = document.getElementById('arrow');
-  const label = document.getElementById('btnText');
-  let expanded = false;
-  btn.addEventListener('click', () => {
-    expanded = !expanded;
-    body.classList.toggle('expanded', expanded);
-    arrow.classList.toggle('rotated', expanded);
-    label.textContent = expanded ? 'Artikel einklappen' : 'Vollständigen Artikel lesen';
-    if (expanded) setTimeout(() => body.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
-  });
+  function setupArticle(btnId, bodyId, textId, arrowId) {
+    const btn = document.getElementById(btnId);
+    const body = document.getElementById(bodyId);
+    const arrow = document.getElementById(arrowId);
+    const label = document.getElementById(textId);
+    let expanded = false;
+    btn.addEventListener('click', () => {
+      expanded = !expanded;
+      body.classList.toggle('expanded', expanded);
+      arrow.classList.toggle('rotated', expanded);
+      label.textContent = expanded ? 'Artikel einklappen' : 'Vollständigen Artikel lesen';
+      if (expanded) setTimeout(() => body.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+    });
+  }
+  setupArticle('readMoreBtn1','articleBody1','btnText1','arrow1');
+  setupArticle('readMoreBtn2','articleBody2','btnText2','arrow2');
 </script>
 </body>
 </html>
