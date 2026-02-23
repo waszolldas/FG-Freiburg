@@ -32,64 +32,74 @@
         .hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
         .hero p { font-size: 1rem; opacity: .85; }
 
-        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 640px; margin: 0 auto; padding: 0 24px; }
 
-        .block {
-            background: #fff; border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(0,0,0,.06);
-            margin: 40px 0; overflow: hidden;
+        /* ── Abschnitte als eigene Karten ── */
+        .card { display: flex; flex-direction: column; gap: 20px; margin: 40px 0; }
+
+        .section {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 32px rgba(0,0,0,.07);
+            padding: 32px 36px;
         }
-        .block-header {
-            padding: 18px 28px;
-            border-bottom: 2px solid #f0f0f0;
-            display: flex; align-items: center; gap: 12px;
+
+        .section-label {
+            font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+            text-transform: uppercase; color: var(--g1); margin-bottom: 14px;
         }
-        .block-icon {
-            width: 34px; height: 34px; border-radius: 8px;
+
+        /* ── Kontaktzeilen ── */
+        .contact-rows { display: flex; flex-direction: column; gap: 10px; }
+        .contact-row {
+            display: flex; align-items: baseline; gap: 12px;
+        }
+        .cr-key {
+            font-size: .8rem; font-weight: 600; color: #999;
+            min-width: 70px; flex-shrink: 0;
+        }
+        .cr-val { font-size: .95rem; color: #1a1a1a; }
+        .cr-val a { color: var(--g1); text-decoration: none; }
+        .cr-val a:hover { text-decoration: underline; }
+
+        /* ── Fließtext ── */
+        .section p {
+            font-size: .93rem; color: #555; line-height: 1.85;
+        }
+        .section p + p { margin-top: 10px; }
+
+        /* ── Kontaktbox am Ende ── */
+        .contact-box {
             background: var(--grad);
-            display: flex; align-items: center; justify-content: center;
-            font-size: .9rem; flex-shrink: 0;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin: 0 0 48px;
+            text-align: center;
+            color: #fff;
         }
-        .block-header h2 { font-size: 1rem; font-weight: 700; color: #1a1a1a; }
-        .block-body { padding: 24px 28px; }
-        .block-body p { color: #444; font-size: .95rem; line-height: 1.85; margin-bottom: 12px; }
-        .block-body p:last-child { margin-bottom: 0; }
-
-        .info-grid {
-            display: grid; gap: 12px;
+        .contact-box p { font-size: .97rem; opacity: .92; margin-bottom: 14px; }
+        .contact-box a {
+            display: inline-block;
+            background: rgba(255,255,255,.2);
+            border: 1px solid rgba(255,255,255,.4);
+            color: #fff; text-decoration: none;
+            padding: 10px 28px; border-radius: 8px;
+            font-weight: 600; font-size: .93rem;
+            transition: background .2s;
         }
-        .info-row {
-            display: flex; gap: 14px; align-items: flex-start;
-            padding: 14px 16px;
-            background: #f8f9fa; border-radius: 8px;
-        }
-        .info-label {
-            font-size: .78rem; font-weight: 700; color: var(--g1);
-            text-transform: uppercase; letter-spacing: .05em;
-            min-width: 90px; padding-top: 2px; flex-shrink: 0;
-        }
-        .info-value { font-size: .93rem; color: #333; line-height: 1.65; }
-        .info-value a { color: var(--g1); text-decoration: none; }
-        .info-value a:hover { text-decoration: underline; }
-
-        .notice {
-            background: #fffbea; border: 1px solid #ffe58f;
-            border-radius: 8px; padding: 16px 20px;
-            font-size: .88rem; color: #8a6d00; line-height: 1.7;
-        }
-        .notice strong { display: block; margin-bottom: 4px; }
+        .contact-box a:hover { background: rgba(255,255,255,.32); }
 
         footer {
-            background: #fff; padding: 28px 0; text-align: center;
-            border-top: 1px solid #e5e5e5; margin-top: 20px;
+            background: #fff; padding: 24px 0; text-align: center;
+            border-top: 1px solid #e5e5e5;
         }
-        footer p { color: #666; font-size: .88rem; }
+        footer p { color: #aaa; font-size: .83rem; }
 
         @media(max-width: 640px) {
-            .top-nav { padding: 14px 18px; }
+            .top-nav { padding: 15px 20px; }
             .nav-links { gap: 14px; flex-wrap: wrap; }
-            .block-body { padding: 18px 20px; }
-            .info-row { flex-direction: column; gap: 4px; }
+            .section { padding: 22px 20px; }
+            .contact-box { padding: 24px 20px; margin: 0 0 36px; }
         }
     </style>
 </head>
@@ -110,78 +120,62 @@
 <section class="hero">
     <div class="container">
         <h1>Impressum</h1>
-        <p>Rechtliche Angaben gemäß § 5 TMG</p>
+        <p>Angaben gemäß § 5 TMG</p>
     </div>
 </section>
 
 <div class="container">
+    <div class="card">
 
-    <!-- Angaben -->
-    <div class="block">
-        <div class="block-header">
-            <div class="block-icon">👤</div>
-            <h2>Angaben zum Betreiber</h2>
-        </div>
-        <div class="block-body">
-            <div class="info-grid">
-                <div class="info-row">
-                    <span class="info-label">Name</span>
-                    <span class="info-value">Ruven Rog</span>
+        <!-- Betreiber -->
+        <div class="section">
+            <div class="section-label">Betreiber</div>
+            <div class="contact-rows">
+                <div class="contact-row">
+                    <span class="cr-key">Name</span>
+                    <span class="cr-val">Ruven Rog</span>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Adresse</span>
-                    <span class="info-value">Jacobistraße 22<br>79104 Freiburg im Breisgau</span>
+                <div class="contact-row">
+                    <span class="cr-key">Adresse</span>
+                    <span class="cr-val">Jacobistraße 22, 79104 Freiburg im Breisgau</span>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">E-Mail</span>
-                    <span class="info-value"><a href="mailto:ruven.rog@fg-freiburg.de">ruven.rog@fg-freiburg.de</a></span>
+                <div class="contact-row">
+                    <span class="cr-key">E-Mail</span>
+                    <span class="cr-val"><a href="mailto:ruven.rog@fg-freiburg.de">ruven.rog@fg-freiburg.de</a></span>
                 </div>
-                <div class="info-row">
-                    <span class="info-label">Telefon</span>
-                    <span class="info-value">0761 2017660</span>
+                <div class="contact-row">
+                    <span class="cr-key">Telefon</span>
+                    <span class="cr-val">0761 2017660</span>
                 </div>
             </div>
         </div>
+
+        <!-- Haftung -->
+        <div class="section">
+            <div class="section-label">Haftungsausschluss</div>
+            <p>Die Inhalte dieser Website wurden sorgfältig erstellt. Eine Gewähr für Richtigkeit und Vollständigkeit kann dennoch nicht übernommen werden. Für die Inhalte verlinkter externer Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+            <p>Die Informationen auf dieser Website dienen allgemeinen Informationszwecken und stellen keine Rechts- oder Steuerberatung dar. Für verbindliche Auskünfte wenden Sie sich bitte an die zuständigen Zollbehörden.</p>
+        </div>
+
+        <!-- Datenschutz -->
+        <div class="section">
+            <div class="section-label">Datenschutz</div>
+            <p>Diese Website erhebt keine personenbezogenen Daten. Eine Nutzung ist ohne Angabe persönlicher Informationen möglich.</p>
+        </div>
+
+        <!-- Schulprojekt -->
+        <div class="section">
+            <div class="section-label">Hinweis</div>
+            <p>Diese Website ist ein Schulprojekt und wurde im Rahmen des Unterrichts am Freiburger Gymnasium erstellt. Alle Inhalte wurden eigenständig erarbeitet und dienen ausschließlich Bildungszwecken.</p>
+        </div>
+
     </div>
 
-    <!-- Haftung -->
-    <div class="block">
-        <div class="block-header">
-            <div class="block-icon">⚖️</div>
-            <h2>Haftungsausschluss</h2>
-        </div>
-        <div class="block-body">
-            <p>Die Inhalte dieser Website wurden mit Sorgfalt erstellt. Für die Richtigkeit und Vollständigkeit übernehmen wir jedoch keine Gewähr. Als Betreiber sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte nach allgemeinen Gesetzen verantwortlich.</p>
-            <p>Für externe Links übernehmen wir keine Haftung – für die Inhalte verlinkter Seiten ist stets der jeweilige Anbieter verantwortlich.</p>
-            <p>Die auf dieser Website erstellten Inhalte unterliegen dem deutschen Urheberrecht. Eine Vervielfältigung oder Verbreitung bedarf der schriftlichen Zustimmung des Betreibers.</p>
-        </div>
+    <!-- Kontaktbox -->
+    <div class="contact-box">
+        <p>Bei Fragen, Anmerkungen oder Feedback kannst du dich gerne melden.</p>
+        <a href="mailto:ruven.rog@fg-freiburg.de">Nachricht schreiben →</a>
     </div>
-
-    <!-- Datenschutz -->
-    <div class="block">
-        <div class="block-header">
-            <div class="block-icon">🔒</div>
-            <h2>Datenschutz</h2>
-        </div>
-        <div class="block-body">
-            <p>Diese Website erhebt keine personenbezogenen Daten. Eine Nutzung ist ohne Angabe persönlicher Informationen möglich. Wir weisen darauf hin, dass die Datenübertragung im Internet grundsätzlich Sicherheitslücken aufweisen kann.</p>
-        </div>
-    </div>
-
-    <!-- Hinweis -->
-    <div class="block">
-        <div class="block-header">
-            <div class="block-icon">📌</div>
-            <h2>Hinweis zu den Inhalten</h2>
-        </div>
-        <div class="block-body">
-            <div class="notice">
-                <strong>⚠️ Keine Rechtsberatung</strong>
-                Die Informationen auf dieser Website dienen ausschließlich allgemeinen Informationszwecken und stellen keine Rechts- oder Steuerberatung dar. Für verbindliche Auskünfte wenden Sie sich bitte an die zuständigen Zollbehörden.
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <footer>
