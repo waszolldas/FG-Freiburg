@@ -1,22 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interview: IHK Freiburg – WAS ZOLL DAS?</title>
+<title>Artikel – WAS ZOLL DAS?</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 * { margin:0; padding:0; box-sizing:border-box; }
 :root {
   --g1:#667eea; --g2:#8299a1;
   --grad: linear-gradient(135deg, var(--g1) 0%, var(--g2) 100%);
-  --card-shadow: 0 2px 20px rgba(0,0,0,.08);
-  --radius:12px;
 }
 body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-height:1.6; }
 
-/* ─── NAV ─── */
 .top-nav {
   position:fixed; top:0; left:0; right:0; z-index:1000;
   padding:20px 40px; background:rgba(255,255,255,.95);
@@ -27,7 +23,6 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
 .nav-link { color:#666; text-decoration:none; font-weight:500; font-size:.95rem; transition:color .2s; }
 .nav-link:hover, .nav-link.active { color:#1a1a1a; }
 
-/* ─── ARTICLE ─── */
 .article-container {
   max-width:800px; margin:72px auto 2rem;
   background:#fff; border-radius:12px; overflow:hidden;
@@ -35,7 +30,7 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
 }
 .article-header {
   position:relative; height:400px; overflow:hidden;
-  background:linear-gradient(135deg, #667eea 0%, #8299a1 100%);
+  background:var(--grad);
 }
 .article-image {
   width:100%; height:100%; object-fit:cover; opacity:.85;
@@ -65,16 +60,13 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
   opacity:0;
 }
 .article-body.expanded { max-height:15000px; opacity:1; }
-
-.interview-block { margin:2.5rem 0; }
-.question { font-weight:700; color:#1a1a1a; margin-bottom:.8rem; font-size:1.1rem; }
 .answer { color:#333; margin-bottom:1rem; line-height:1.8; }
 .divider { text-align:center; margin:2rem 0; color:#e5e5e5; font-size:1.5rem; letter-spacing:.5rem; }
 
 .read-more-btn {
   display:flex; align-items:center; justify-content:center; gap:.5rem;
   width:100%; padding:1rem 2rem; margin-top:2rem;
-  background:linear-gradient(135deg, #667eea 0%, #8299a1 100%);
+  background:var(--grad);
   color:#fff; border:none; border-radius:8px;
   font-family:'Inter',sans-serif; font-size:1rem; font-weight:600;
   cursor:pointer; transition:all .3s;
@@ -108,10 +100,7 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
   </div>
 </nav>
 
-
-
-<!-- ─── ARTIKEL: HANDELSBEZIEHUNGEN ─── -->
-<article class="article-container" style="margin-top:32px;">
+<article class="article-container">
   <div class="article-header">
     <img src="handshake.jpg" alt="Internationaler Handel" class="article-image">
     <div class="article-overlay">
@@ -125,7 +114,7 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
       <p>Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz", „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern – doch ökonomisch sind Zölle weit mehr als ein politisches Signal.</p>
     </div>
 
-    <div class="article-body" id="articleBody2">
+    <div class="article-body" id="articleBody">
 
       <h3 style="font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;">Zwischen geopolitischem Druck und wirtschaftlicher Vernunft</h3>
       <p class="answer">Der internationale Handel befindet sich in einer Phase der Neuorientierung. Nach Jahrzehnten sinkender Zölle und wachsender globaler Integration rücken Handelsbarrieren wieder stärker in den Mittelpunkt der Politik. Staaten sprechen von „Resilienz" (Resilienz ist die Fähigkeit, wirtschaftlich handlungsfähig zu bleiben, auch wenn der globale Handel ins Wanken gerät), „strategischer Autonomie" und der Notwendigkeit, Lieferketten abzusichern. Zölle erscheinen dabei als schnell verfügbares Mittel, um wirtschaftliche Interessen sichtbar zu verteidigen. Sie signalisieren Handlungsfähigkeit, sollen heimische Unternehmen schützen und Abhängigkeiten reduzieren.</p>
@@ -149,11 +138,11 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
       <p class="answer">Handelspolitik dreht sich heute nicht mehr nur um Zölle und Waren. Nachhaltigkeit spielt eine zentrale Rolle: Viele Länder wollen verhindern, dass Produkte mit schlechterer Umweltbilanz einen Wettbewerbsvorteil haben. Zum Beispiel können CO₂-Grenzausgleichsmaßnahmen dafür sorgen, dass Importe ähnliche Klimakosten haben wie Produkte aus dem Inland. So bleibt der Wettbewerb fair und der Handel unterstützt gleichzeitig Klimaziele.</p>
       <p class="answer" style="margin-top:1rem;">Gleichzeitig wird digitaler Handel immer wichtiger. Daten, Online-Dienste und Plattformen sind heute Teil der wirtschaftlichen Leistung. Unterschiedliche Regeln, etwa bei Datenschutz oder Speicherung von Daten, können für Unternehmen so schwierig sein wie klassische Zölle. Besonders kleine und mittlere Unternehmen spüren das stark: Digitale Hürden können ihren Zugang zu internationalen Märkten einschränken.</p>
 
-    </div><!-- /article-body2 -->
+    </div>
 
-    <button class="read-more-btn" id="readMoreBtn2">
-      <span id="btnText2">Vollständigen Artikel lesen</span>
-      <span class="arrow" id="arrow2">↓</span>
+    <button class="read-more-btn" id="readMoreBtn">
+      <span id="btnText">Vollständigen Artikel lesen</span>
+      <span class="arrow" id="arrow">↓</span>
     </button>
   </div>
 </article>
@@ -161,7 +150,6 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
 <div style="height:60px;"></div>
 
 <script>
-  // Interview toggle
   const btn = document.getElementById('readMoreBtn');
   const body = document.getElementById('articleBody');
   const arrow = document.getElementById('arrow');
@@ -171,22 +159,8 @@ body { font-family:'Inter',sans-serif; background:#ffffff; color:#1a1a1a; line-h
     expanded = !expanded;
     body.classList.toggle('expanded', expanded);
     arrow.classList.toggle('rotated', expanded);
-    label.textContent = expanded ? 'Interview einklappen' : 'Vollständiges Interview lesen';
+    label.textContent = expanded ? 'Artikel einklappen' : 'Vollständigen Artikel lesen';
     if (expanded) setTimeout(() => body.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
-  });
-
-  // Artikel toggle
-  const btn2 = document.getElementById('readMoreBtn2');
-  const body2 = document.getElementById('articleBody2');
-  const arrow2 = document.getElementById('arrow2');
-  const label2 = document.getElementById('btnText2');
-  let expanded2 = false;
-  btn2.addEventListener('click', () => {
-    expanded2 = !expanded2;
-    body2.classList.toggle('expanded', expanded2);
-    arrow2.classList.toggle('rotated', expanded2);
-    label2.textContent = expanded2 ? 'Artikel einklappen' : 'Vollständigen Artikel lesen';
-    if (expanded2) setTimeout(() => body2.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
   });
 </script>
 </body>
