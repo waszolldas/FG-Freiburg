@@ -51,6 +51,72 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
         }
 
+        /* ─── SHORT SECTION ─── */
+        .short-layout {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .short-video-container {
+            position: relative;
+            flex-shrink: 0;
+            width: 260px;
+            aspect-ratio: 9 / 16;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,128,.18);
+            background: #000;
+        }
+        .short-video-container iframe {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; border: none;
+        }
+        /* Platzhalter */
+        .short-placeholder {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 14px;
+            background: linear-gradient(160deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+        }
+        .short-placeholder .play-icon {
+            width: 60px; height: 60px;
+            background: var(--grad);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+        }
+        .short-placeholder p { font-size: .8rem; opacity: .6; text-align: center; padding: 0 16px; }
+
+        .short-info { flex: 1; }
+        .short-badge {
+            display: inline-block;
+            background: var(--grad); color: #fff;
+            padding: 5px 16px; border-radius: 20px;
+            font-size: .82rem; font-weight: 700; margin-bottom: 18px;
+        }
+        .short-info h3 {
+            font-size: 1.6rem; font-weight: 800;
+            color: #1a1a1a; line-height: 1.3;
+            letter-spacing: -.02em; margin-bottom: 16px;
+        }
+        .short-info p {
+            font-size: 1rem; color: #555; line-height: 1.8; margin-bottom: 24px;
+        }
+        .btn-youtube {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 24px;
+            background: #ff0000; color: #fff;
+            border-radius: 8px; text-decoration: none;
+            font-weight: 600; font-size: .92rem;
+            transition: all .2s;
+            box-shadow: 0 4px 12px rgba(255,0,0,.25);
+        }
+        .btn-youtube:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,0,0,.35); }
+        .btn-youtube svg { width: 20px; height: 20px; fill: #fff; }
+
         /* ─── DEFINITION BOX ─── */
         .definition-box {
             background: var(--grad); color: #fff;
@@ -191,6 +257,8 @@
         /* ─── RESPONSIVE ─── */
         @media(max-width: 960px) {
             .interviews-grid, .articles-grid { grid-template-columns: 1fr; }
+            .short-layout { flex-direction: column; align-items: center; gap: 36px; }
+            .short-info { text-align: center; }
         }
         @media(max-width: 768px) {
             .top-nav { padding: 15px 20px; }
@@ -201,6 +269,7 @@
             .interview-img { height: 220px; }
             .interview-img-overlay h3 { font-size: 1.3rem; }
             .interview-body { padding: 24px; }
+            .short-video-container { width: 200px; }
         }
     </style>
 </head>
@@ -227,7 +296,7 @@
     </div>
 </section>
 
-<!-- ─── VIDEO ─── -->
+<!-- ─── ERKLÄRVIDEO ─── -->
 <section class="section gray">
     <div class="container">
         <h2 class="section-title">Erklärvideo</h2>
@@ -242,8 +311,61 @@
     </div>
 </section>
 
-<!-- ─── WAS SIND ZÖLLE ─── -->
+<!-- ─── SHORT ─── -->
 <section class="section">
+    <div class="container">
+        <h2 class="section-title"> Short</h2>
+        <p class="section-subtitle">Kurz, knapp und auf den Punkt</p>
+
+        <div class="short-layout">
+
+            <!-- VIDEO (9:16) -->
+            <div class="short-video-container">
+
+                <!-- PLATZHALTER – löschen & iframe einkommentieren sobald Video-ID bekannt -->
+                <div class="short-placeholder">
+                    <div class="play-icon">▶</div>
+                    <p>Video folgt</p>
+                </div>
+
+                <!--
+                <iframe
+                    src="https://www.youtube.com/embed/DEINE_VIDEO_ID?autoplay=0&loop=1&playlist=DEINE_VIDEO_ID"
+                    title="WAS ZOLL DAS? – Short"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                -->
+
+            </div>
+
+            <!-- INFO-TEXT -->
+            <div class="short-info">
+                <span class="short-badge">▶ YouTube Short</span>
+
+                <!-- TITEL & TEXT ANPASSEN -->
+                <h3>Titel des Shorts</h3>
+                <p>
+                    Hier kommt eine kurze Beschreibung zum Thema des Shorts – ein bis zwei Sätze, die neugierig machen und erklären, worum es geht.
+                </p>
+
+                <p style="font-size:.75rem;color:#999;font-style:italic;margin-bottom:16px;">Quelle: [YT] – Eigenproduktion, 2026</p>
+
+                <!--  LINK ANPASSEN -->
+                <a href="https://www.youtube.com/shorts/DEINE_VIDEO_ID" class="btn-youtube" target="_blank">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
+                    </svg>
+                    Auf YouTube ansehen
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ─── WAS SIND ZÖLLE ─── -->
+<section class="section gray">
     <div class="container">
         <h2 class="section-title">Was sind Zölle?</h2>
         <p class="section-subtitle">Eine umfassende Erklärung</p>
@@ -256,21 +378,21 @@
         <h3 style="font-size:1.8rem;font-weight:700;text-align:center;margin-bottom:32px;">Die drei Hauptfunktionen von Zöllen</h3>
         <div class="functions-grid">
             <div class="function-card" style="border-left:5px solid #10b981;">
-                <h4 style="color:#10b981;">🛡️ Schutz der heimischen Wirtschaft</h4>
+                <h4 style="color:#10b981;">Schutz der heimischen Wirtschaft</h4>
                 <p>Durch Zölle werden ausländische Waren teurer. Dadurch werden <strong>einheimische Unternehmen vor billiger Importkonkurrenz geschützt</strong> und können wirtschaftlich mithalten.</p>
                 <div class="example" style="background:#f0fdf4;border-left:3px solid #10b981;color:#065f46;">
                     Beispiel: Ein ausländisches Produkt für 100 € wird mit 20 % Zoll auf 120 € erhöht – das heimische Produkt für 110 € bleibt konkurrenzfähig.
                 </div>
             </div>
             <div class="function-card" style="border-left:5px solid #f59e0b;">
-                <h4 style="color:#f59e0b;">💰 Einnahmequelle für den Staat</h4>
+                <h4 style="color:#f59e0b;">Einnahmequelle für den Staat</h4>
                 <p>Zölle füllen <strong>die Staatskassen</strong> und tragen zur Finanzierung öffentlicher Aufgaben bei – von Bildung bis Infrastruktur.</p>
                 <div class="example" style="background:#fffbeb;border-left:3px solid #f59e0b;color:#92400e;">
                     Beispiel: Die EU nimmt jährlich mehrere Milliarden Euro durch Zölle ein, die für Gemeinschaftsprojekte eingesetzt werden.
                 </div>
             </div>
             <div class="function-card" style="border-left:5px solid #6366f1;">
-                <h4 style="color:#6366f1;">🌐 Handelspolitisches Instrument</h4>
+                <h4 style="color:#6366f1;">Handelspolitisches Instrument</h4>
                 <p>Zölle können eingesetzt werden, um <strong>politischen Druck gegenüber anderen Ländern auszuüben</strong> oder Handelsbeziehungen zu beeinflussen.</p>
                 <div class="example" style="background:#eef2ff;border-left:3px solid #6366f1;color:#3730a3;">
                     Beispiel: Die USA erhöhten 2018 Zölle auf Stahl und Aluminium, um Handelspartner zu fairen Verhandlungen zu bewegen.
@@ -279,7 +401,7 @@
         </div>
 
         <div class="effects-box">
-            <h4>⚡ Auswirkungen von Zöllen</h4>
+            <h4> Auswirkungen von Zöllen</h4>
             <p style="color:#555;font-size:.97rem;">Zölle beeinflussen nicht nur Preise und Wettbewerb, sondern auch internationale Beziehungen:</p>
             <div class="effects-grid">
                 <div class="effect-item" style="border-left:3px solid #ef4444;">
@@ -296,7 +418,7 @@
 </section>
 
 <!-- ─── INTERVIEWS ─── -->
-<section class="section gray">
+<section class="section">
     <div class="container">
         <h2 class="section-title">Interviews</h2>
         <p class="section-subtitle">Expertinnen berichten über Zölle, Handelspolitik und ihre Auswirkungen</p>
@@ -360,7 +482,7 @@
 </section>
 
 <!-- ─── ARTIKEL ─── -->
-<section class="section">
+<section class="section gray">
     <div class="container">
         <h2 class="section-title">Artikel</h2>
         <p class="section-subtitle">Hintergründe und Analysen zur globalen Handelspolitik</p>
