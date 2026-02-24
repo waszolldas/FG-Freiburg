@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 * { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --g1:#667eea; --g2:#8299a1;
+  --g1:#87ceeb; --g2:#000080;
   --grad: linear-gradient(135deg, var(--g1) 0%, var(--g2) 100%);
   --card-shadow: 0 2px 20px rgba(0,0,0,.08);
   --radius:12px;
@@ -535,7 +535,7 @@ function applyDrift() {
 }
 // ─── RENDER ───────────────────────────────────────────────────────
 function renderStats() {
-  const colors = { economy:'#667eea', revenue:'#f59e0b', happiness:'#10b981', jobs:'#6366f1' };
+  const colors = { economy:'#87ceeb', revenue:'#f59e0b', happiness:'#10b981', jobs:'#6366f1' };
   const icons  = { economy:'📊', revenue:'💰', happiness:'😊', jobs:'👷' };
   const labels = { economy:'Wirtschaft', revenue:'Staatseinnahmen', happiness:'Zufriedenheit', jobs:'Arbeitsplätze' };
   let html = '';
@@ -632,8 +632,8 @@ function showConsequences(dec, oldStats, oldRel) {
   // Story text block (only if defined on this decision)
   let storyHtml = '';
   if (dec.story) {
-    storyHtml = `<div style="margin-top:16px;padding:14px 16px;background:#f0f4ff;border-left:4px solid #667eea;border-radius:8px;">
-      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#667eea;margin-bottom:5px;">📰 Was passiert ist</div>
+    storyHtml = `<div style="margin-top:16px;padding:14px 16px;background:#f0f4ff;border-left:4px solid #87ceeb;border-radius:8px;">
+      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#87ceeb;margin-bottom:5px;">📰 Was passiert ist</div>
       <div style="font-size:.93rem;color:#333;line-height:1.65;">${dec.story}</div>
     </div>`;
   }
