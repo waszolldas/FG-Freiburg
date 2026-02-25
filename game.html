@@ -536,7 +536,7 @@ function applyDrift() {
 // ─── RENDER ───────────────────────────────────────────────────────
 function renderStats() {
   const colors = { economy:'#87ceeb', revenue:'#f59e0b', happiness:'#10b981', jobs:'#6366f1' };
-  const icons  = { economy:'📊', revenue:'💰', happiness:'😊', jobs:'👷' };
+  const icons  = { economy:, revenue:, happiness:, jobs: };
   const labels = { economy:'Wirtschaft', revenue:'Staatseinnahmen', happiness:'Zufriedenheit', jobs:'Arbeitsplätze' };
   let html = '';
   for (const k of ['economy','revenue','happiness','jobs']) {
@@ -558,7 +558,7 @@ function renderEvent(evt) {
     const c = COUNTRIES.find(x=>x.id===evt.country);
     badge = `<div class="country-badge">${c.flag} ${c.name} – ${c.focus}</div>`;
   } else {
-    badge = `<div class="country-badge">🌍 Valdoria intern</div>`;
+    badge = `<div class="country-badge"> Valdoria intern</div>`;
   }
   let decs = evt.decisions.map((d,i) => {
     return `<button class="dec-btn" onclick="makeDecision(${i})">
@@ -577,7 +577,7 @@ function renderEvent(evt) {
       ${badge}
       <h2 style="font-size:1.35rem;font-weight:700;margin-bottom:12px;color:#1a1a1a;">${evt.title}</h2>
       <p>${evt.text}</p>
-      <div class="highlight"><p>⚡ Wähle eine Reaktion – Überlege die Folgen!</p></div>
+      <div class="highlight"><p> Wähle eine Reaktion – Überlege die Folgen!</p></div>
       <div class="decisions">${decs}</div>
     </div>`;
 }
@@ -611,7 +611,7 @@ function makeDecision(idx) {
 function showConsequences(dec, oldStats, oldRel) {
   document.getElementById('cbTitle').textContent = dec.label;
   document.getElementById('cbSubtitle').textContent = dec.desc;
-  const statLabels = { economy:'📊 Wirtschaft', revenue:'💰 Staatseinnahmen', happiness:'😊 Zufriedenheit', jobs:'👷 Arbeitsplätze' };
+  const statLabels = { economy:'Wirtschaft', revenue:' Staatseinnahmen', happiness:' Zufriedenheit', jobs:' Arbeitsplätze' };
   let rows = '';
   for (const k of ['economy','revenue','happiness','jobs']) {
     const diff = Math.round(state.stats[k] - oldStats[k]);
@@ -633,7 +633,7 @@ function showConsequences(dec, oldStats, oldRel) {
   let storyHtml = '';
   if (dec.story) {
     storyHtml = `<div style="margin-top:16px;padding:14px 16px;background:#f0f4ff;border-left:4px solid #87ceeb;border-radius:8px;">
-      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#87ceeb;margin-bottom:5px;">📰 Was passiert ist</div>
+      <div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#87ceeb;margin-bottom:5px;"> Was passiert ist</div>
       <div style="font-size:.93rem;color:#333;line-height:1.65;">${dec.story}</div>
     </div>`;
   }
@@ -684,7 +684,7 @@ function endGame(won, msg) {
 
   // Stat summary
   const s = state.stats;
-  const statLabels = { economy:'📊 Wirtschaft', revenue:'💰 Staatseinnahmen', happiness:'😊 Zufriedenheit', jobs:'👷 Arbeitsplätze' };
+  const statLabels = { economy:' Wirtschaft', revenue:' Staatseinnahmen', happiness:' Zufriedenheit', jobs:' Arbeitsplätze' };
   let statsHtml = '';
   for (const k of ['economy','revenue','happiness','jobs']) {
     const v = Math.round(s[k]);
