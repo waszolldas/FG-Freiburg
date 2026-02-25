@@ -39,8 +39,6 @@
             transition: color 0.2s;
         }
         .nav-link:hover, .nav-link.active { color: #1a1a1a; }
-
-        /* ─── HERO (same as artikel.html) ─── */
         .hero {
             background: var(--grad);
             color: #fff;
@@ -49,7 +47,6 @@
         }
         .hero h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
         .hero p { font-size: 1.05rem; opacity: .9; }
-
         .article-container {
             max-width: 800px;
             margin: 40px auto 2rem;
@@ -58,10 +55,7 @@
             overflow: hidden;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
         }
-        .article-container + .article-container {
-            margin-top: 32px;
-        }
-        /* ─── BANNER HEIGHT: fixed at 400px to match artikel.html ─── */
+        .article-container + .article-container { margin-top: 32px; }
         .article-header {
             position: relative; height: 400px; overflow: hidden;
             background: linear-gradient(135deg, #87ceeb 0%, #000080 100%);
@@ -116,17 +110,8 @@
         .read-more-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
         .arrow { display: inline-block; transition: transform 0.3s ease; font-size: 1.2rem; }
         .arrow.rotated { transform: rotate(180deg); }
-
-        /* IHK logo special treatment */
-        .article-header.logo-bg {
-            background: #f0f2f8;
-        }
-        .article-header.logo-bg .article-image {
-            object-fit: contain;
-            padding: 40px;
-            opacity: 1;
-        }
-
+        .article-header.logo-bg { background: #f0f2f8; }
+        .article-header.logo-bg .article-image { object-fit: contain; padding: 40px; opacity: 1; }
         footer {
             background: #fff; border-top: 1px solid #e5e5e5;
             padding: 28px 0; text-align: center; margin-top: 60px;
@@ -138,7 +123,6 @@
         }
         .footer-inner p { color: #666; font-size: .88rem; }
         .footer-inner .brand { font-size: 1rem; font-weight: 700; color: #1a1a1a; }
-
         @media (max-width: 768px) {
             .top-nav { padding: 15px 20px; }
             .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
@@ -169,7 +153,6 @@
     </div>
 </nav>
 
-<!-- ─── HERO BANNER (neu hinzugefügt) ─── -->
 <section class="hero">
     <h1>Interviews</h1>
     <p>Expertinnen berichten über Zölle, Handelspolitik und ihre Auswirkungen</p>
@@ -194,80 +177,96 @@
         </div>
 
         <div class="article-body" id="bodyZollamt">
+
             <div class="interview-block" id="aufbau">
                 <p class="question">Frage: Können Sie sich und Ihre Funktion kurz vorstellen?</p>
                 <p class="answer">Ich arbeite beim Hauptzollamt Lörrach und übe dort die Funktion der Pressesprecherin aus. Daneben bin ich auch mit organisatorischen Aufgaben betraut, zum Beispiel als Eventplanerin, und ein großes Thema ist bei uns die Nachwuchswerbung. Wir gehören zur Bundesfinanzverwaltung und sind eine Ortsbehörde innerhalb dieser Struktur.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Wie ist der Zoll organisatorisch aufgebaut?</p>
                 <p class="answer">Ein Hauptzollamt ist vergleichbar mit einem Polizeipräsidium. Wir haben verschiedene Sachgebiete mit unterschiedlichen Aufgaben, zum Beispiel Personalmanagement, steuerrechtliche Aufgaben oder hoheitliche Aufgaben. Nachgeordnet sind die Zollämter – dort arbeiten die Kolleginnen und Kollegen, die den Warenverkehr abfertigen. Man darf uns nicht mit der Bundespolizei verwechseln: Die Bundespolizei ist für Grenzkontrollen und illegale Einreise zuständig. Wir arbeiten zwar zusammen, haben aber andere gesetzliche Aufgaben.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Was sind die Hauptaufgaben des Zolls?</p>
                 <p class="answer">Wir gehören zum Geschäftsbereich des Bundesfinanzministeriums und sind damit eine Finanzbehörde. Wir erheben Zölle, Einfuhrumsatzsteuer und Verbrauchsteuern und verwalten diese auch. Zu den Verbrauchsteuern gehören zum Beispiel Tabaksteuer, Alkoholsteuer, Kaffeesteuer, Biersteuer, Energiesteuer, Stromsteuer oder die Luftverkehrsabgabe.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Das heißt, der Zoll betrifft den Alltag der Menschen?</p>
-                <p class="answer">Ja, absolut. Der Zoll ist im Prinzip immer an ihrer Seite. Wenn Sie morgens das Licht anschalten, fällt Stromsteuer an. Wenn Sie Kaffee trinken, fällt Kaffeesteuer an. Wenn Sie tanken, fällt Energiesteuer an. Diese Verbrauchsteuern sind indirekt – das heißt, der Verbraucher bezahlt sie nicht direkt an eine Behörde, sondern sie schlägt sich im Endpreis des Produktes nieder.</p>
+                <p class="answer">Ja, absolut. Der Zoll ist im Prinzip immer an ihrer Seite. Wenn Sie morgens das Licht anschalten, fällt Stromsteuer an. Wenn Sie Kaffee trinken, fällt Kaffeesteuer an. Wenn Sie tanken, fällt Energiesteuer an. Diese Verbrauchsteuern sind indirekt – das heißt, der Verbraucher bezahlt sie nicht direkt an eine Behörde oder an irgendeine Einsammelstelle, sondern sie schlägt sich im Endpreis des Produktes nieder.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Was versteht man unter Zöllen?</p>
                 <p class="answer">Zölle sind Abgaben auf Waren, die beim länderüberschreitenden Handel erhoben werden. Man hat Zolleinnahmen schon immer verwendet, um die Staatsfinanzen oder die Staatsausgaben gegenzufinanzieren. Natürlich dienen Zölle auch dem Schutz der heimischen Wirtschaft. Wenn auf importierte Waren Zölle erhoben werden, werden diese teurer und können dann mit heimischen Produkten konkurrieren.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Welche Rolle spielt der Zoll beim Warenverkehr?</p>
                 <p class="answer">Eine klassische Aufgabe ist die Überwachung des Warenverkehrs über die Grenze. Es gibt den privaten Warenverkehr, also wenn Privatpersonen aus dem Ausland etwas mitbringen, und den gewerblichen Warenverkehr, also Importe von Unternehmen. Bei beiden gibt es Freigrenzen, Verbote und Beschränkungen.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Welche Waren sind zum Beispiel verboten?</p>
                 <p class="answer">Drogen sind grundsätzlich verboten. Bei einem Fund leiten wir ein Strafverfahren ein. Auch geschützte Tiere und Pflanzen dürfen nicht ohne Genehmigung eingeführt werden. Außerdem achten wir auf Produktsicherheit, zum Beispiel bei Elektronik, die den europäischen Sicherheitsstandards entsprechen muss. Wir sind auch für den Markenschutz zuständig und beschlagnahmen gefälschte Waren.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="fake">
                 <p class="question">Frage: Was findet man heute besonders häufig?</p>
                 <p class="answer">Sehr viele Fälschungen, gerade im Postverkehr: gefälschte Kleidung, Schuhe, Kosmetik, Medikamente, Ersatzteile oder Luxusgüter. Das ist nicht nur ein Problem für die Markenhersteller, sondern auch gefährlich für Verbraucher – zum Beispiel bei gefälschten Bremsbelägen oder Akkus, die explodieren können.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="KINA">
                 <p class="question">Frage: Welche Probleme gibt es besonders mit Lieferungen aus China?</p>
-                <p class="answer">Der Markt wird mit sehr billigen Produkten überschwemmt mit sogenannten „Dumping-Preisen", die oft nicht den EU-Standards entsprechen. Viele Sendungen werden falsch deklariert, um unter Freigrenzen zu bleiben. Deshalb soll die Zollfreigrenze von 150 Euro abgeschafft werden, um diese Flut besser zu steuern. Das ist im Grunde eine Form von Schutzzollpolitik, mit der die heimische Wirtschaft vor ausländischer Konkurrenz geschützt werden soll.</p>
+                <p class="answer">Der Markt wird mit sehr billigen Produkten überschwemmt – mit sogenannten „Dumping-Preisen", die oft nicht den EU-Standards entsprechen. Viele Sendungen werden falsch deklariert, um unter Freigrenzen zu bleiben. Deshalb soll die Zollfreigrenze von 150 Euro abgeschafft werden, um diese Flut besser zu steuern. Damit gibt man den Verbraucherinnen und Verbrauchern in Deutschland gleichzeitig einen Anreiz, Produkte aus dem eigenen Land zu kaufen, da auf diese Weise keine Zölle anfallen. Das ist im Grunde eine Form von Schutzzollpolitik, mit der die heimische Wirtschaft vor ausländischer Konkurrenz geschützt werden soll.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="eu">
                 <p class="question">Frage: Wie funktionieren Zölle in der EU?</p>
                 <p class="answer">Zölle werden von der Europäischen Union beschlossen. Die EU-Kommission schlägt Maßnahmen vor, der Rat und das Parlament beschließen sie. Die Einnahmen aus Zöllen fallen direkt in die Kasse der EU. Die Verbrauchsteuern gehen an die Mitgliedstaaten. Der Zoll trägt ungefähr die Hälfte der Einnahmen zum Bundeshaushalt bei.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="trump">
                 <p class="question">Frage: Wie bewerten Sie die aktuelle Zollpolitik der USA unter Donald Trump?</p>
-                <p class="answer">Diese Politik erzeugt enorme Unsicherheit. Zölle werden als Druckmittel eingesetzt, um andere Länder zu Zugeständnissen zu zwingen oder Unternehmen dazu zu bringen, in den USA zu produzieren. Das bringt die Märkte durcheinander, sorgt für Preisschwankungen und erschwert langfristige Planung für Unternehmen. Die wirtschaftlichen Rahmenbedingungen verändern sich so unvorhersehbar, dass sich viele Unternehmen gewissermaßen „wie auf einem Wackelbrett" bewegen.</p>
+                <p class="answer">Diese Politik erzeugt enorme Unsicherheit. Zölle werden als Druckmittel eingesetzt, um andere Länder zu Zugeständnissen zu zwingen oder Unternehmen dazu zu bringen, in den USA zu produzieren. Das bringt die Märkte durcheinander, sorgt für Preisschwankungen und erschwert langfristige Planung für Unternehmen. Auch aus amerikanischer Sicht ist diese erratische Politik unklug, da Unternehmen aufgrund der Sprunghaftigkeit Trumps große Schwierigkeiten haben, Investitionen in den USA verlässlich zu planen. Die wirtschaftlichen Rahmenbedingungen verändern sich so unvorhersehbar, dass sich viele Unternehmen gewissermaßen „wie auf einem Wackelbrett" bewegen.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="trump1">
                 <p class="question">Frage: Welche Folgen hat das für Deutschland?</p>
-                <p class="answer">Deutschland ist ein Export-Superstar, das heißt wir haben viel mehr Export als Import. Wenn Zölle steigen, werden unsere Produkte im Ausland teurer und weniger konkurrenzfähig. Das kann dazu führen, dass Unternehmen ihre Produktion verlagern. Langfristig schadet das unserem Wirtschaftsstandort. Wir als Privatpersonen spüren diese erhöhten Zölle erst, wenn unsere Industrie darunter leidet und Arbeitsplätze verloren gehen.</p>
+                <p class="answer">Deutschland ist ein Export-Superstar, das heißt wir haben viel mehr Export als Import. Wenn Zölle steigen, werden unsere Produkte im Ausland teurer und weniger konkurrenzfähig. Das kann dazu führen, dass Unternehmen ihre Produktion verlagern. Langfristig schadet das unserem Wirtschaftsstandort. Wir als Privatpersonen spüren diese erhöhten Zölle erst, wenn unsere Industrie darunter leidet und Arbeitsplätze verloren gehen. Die amerikanische Gesellschaft hingegen spürt es eventuell bereits an steigenden Preisen.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Wie sehen Sie die Rolle der EU in dieser Situation?</p>
-                <p class="answer">Die EU ist einer der größten Wirtschafts- und Handelsräume der Welt und hätte eigentlich viel mehr Macht, als sie oft nutzt. Zusammenhalt ist hier entscheidend. Ein gespaltenes Europa wäre wirtschaftlich und politisch sehr schwach. Wichtig sind auch Zoll- und Handelsabkommen zwischen der EU und Nicht-EU-Staaten, zum Beispiel das Abkommen mit Kanada oder mit den EFTA-Staaten.</p>
+                <p class="answer">Die EU ist einer der größten Wirtschafts- und Handelsräume der Welt und hätte eigentlich viel mehr Macht, als sie oft nutzt. Zusammenhalt ist hier entscheidend. Ein gespaltenes Europa wäre wirtschaftlich und politisch sehr schwach. Wichtig sind in diesem Zusammenhang auch Zoll- und Handelsabkommen zwischen der EU und Nicht-EU-Staaten, zum Beispiel das Abkommen mit Kanada oder mit den EFTA-Staaten. Dadurch gewinnt die Europäische Union neue Handelspartner und erleichtert den internationalen Handel.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Was ist mit Themen wie Embargos und Sanktionen?</p>
-                <p class="answer">Auch das überwacht der Zoll. Zum Beispiel das Russland-Embargo: Wir kontrollieren, dass bestimmte Waren nicht mehr ausgeführt werden. Wir müssen ständig Maschinen zurückhalten, die nach Russland gehen sollen, bis geklärt ist, wohin sie genau geliefert werden. Dabei arbeiten wir auch mit europäischen Behörden zusammen.</p>
+                <p class="answer">Auch das überwacht der Zoll. Zum Beispiel das Russland-Embargo: Wir kontrollieren, dass bestimmte Waren nicht mehr ausgeführt werden. Wir müssen beispielsweise ständig Maschinen zurückhalten, die nach Russland gehen sollen, bis geklärt ist, wohin sie genau geliefert werden und was ihre Endbestimmung ist. Wir als Ortsbehörde sind dabei im operativen Bereich tätig, das heißt, wir müssen die Bestimmungen direkt anwenden. Dabei arbeiten wir auch mit europäischen Behörden zusammen.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Frage: Wie sehen Sie die Zukunft des internationalen Handels?</p>
-                <p class="answer">Globalisierung bringt Risiken, aber auch Chancen. Gleichzeitig müssen ethische Standards, zum Beispiel bei Umwelt- und Arbeitsbedingungen, eingehalten werden, wofür neue Gesetze wie die CBAM-Verordnung und Kontrollmechanismen wie der Emissionshandel geschaffen werden.</p>
+                <p class="answer">Globalisierung bringt Risiken, aber auch Chancen. So können Länder durch koordinierte Strategien wirtschaftlichen Einfluss gewinnen – etwa, indem Staaten amerikanische Staatsanleihen verkaufen, um ihre Pensionsfonds zu finanzieren. Solche Maßnahmen sind zwar kein riesiger Betrag einzeln, summieren sich aber zu Milliarden oder sogar Billionen und zeigen, wie Zusammenarbeit genutzt werden kann, um wirtschaftliche Macht zu sichern. Gleichzeitig müssen ethische Standards, zum Beispiel bei Umwelt- und Arbeitsbedingungen, eingehalten werden, wofür neue Gesetze wie die CBAM-Verordnung und Kontrollmechanismen wie der Emissionshandel geschaffen werden.</p>
             </div>
+
         </div>
 
         <button class="read-more-btn" id="btnZollamt">
@@ -296,60 +295,78 @@
         </div>
 
         <div class="article-body" id="bodyIHK">
+
             <div class="interview-block">
-                <p class="question">Können Sie sich und die Arbeit der IHK kurz vorstellen?</p>
+                <p class="question">Vorstellung: Was machen Sie beruflich und wie unterstützt die IHK Unternehmen im internationalen Handel?</p>
                 <p class="answer">Ich arbeite bei der Industrie- und Handelskammer Freiburg und berate seit über 23 Jahren Unternehmen zu internationalen Geschäften, besonders zu Zoll- und außenwirtschaftsrechtlichen Fragen. Die IHK unterstützt ihre Mitglieder einerseits bei internationalen Kontakten, Länderinformationen und Kooperationen über ein Netzwerk von über 140 Auslandshandelskammern in mehr als 90 Ländern. Andererseits beraten wir zu Zollrecht, Exportkontrollen, Einfuhrbestimmungen, Dokumentenpflichten und allen regulatorischen Fragen des internationalen Handels.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="ihk-belastung">
                 <p class="question">Wie stark sind deutsche Unternehmen aktuell durch Zölle belastet, insbesondere durch die jüngsten Zölle von Donald Trump?</p>
-                <p class="answer">Die Auswirkungen sind für deutsche Unternehmen durchaus sehr stark. Entscheidend ist zunächst, wer die Zölle vertraglich trägt. In vielen Fällen ist vereinbart, dass der amerikanische Importeur die Einfuhrzölle bezahlt. Trotzdem entstehen Belastungen, etwa durch Preiszugeständnisse, um Geschäfte zu halten, oder durch insgesamt rückläufige Handelsvolumina. Nach Umfragen handeln rund 50 % der Unternehmen deutlich weniger mit den USA. Neben den Kosten ist vor allem der Rückgang von Geschäften und die Unsicherheit ein Problem.</p>
+                <p class="answer">Die Auswirkungen sind für deutsche Unternehmen durchaus sehr stark. Entscheidend ist zunächst, wer die Zölle vertraglich trägt. In vielen Fällen ist vereinbart, dass der amerikanische Importeur die Einfuhrzölle bezahlt. Teilweise werden die Kosten auch geteilt. Der direkte finanzielle Schaden ist deshalb nicht immer vollständig beim deutschen Unternehmen. Trotzdem entstehen Belastungen, etwa durch Preiszugeständnisse, um Geschäfte zu halten, oder durch insgesamt rückläufige Handelsvolumina. Nach Umfragen handeln rund 50 % der Unternehmen deutlich weniger mit den USA. Selbst Unternehmen ohne direktes US-Geschäft spüren indirekte Effekte. Nur ein kleiner Teil berichtet von keinen Auswirkungen. Neben den Kosten ist vor allem der Rückgang von Geschäften und die Unsicherheit ein Problem.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="ihk-lieferketten">
-                <p class="question">Mussten Unternehmen ihre Lieferketten überdenken?</p>
+                <p class="question">Welche Auswirkungen hatten diese Zollmaßnahmen konkret auf exportorientierte Unternehmen und mussten diese in Folge ihre strategische Ausrichtung zum Beispiel bei Lieferketten überdenken?</p>
                 <p class="answer">Unternehmen überdenken ihre Lieferketten zunehmend. Sie suchen neue Absatzmärkte und alternative Bezugsquellen. Dabei spielen nicht mehr nur Kosten eine Rolle, sondern stärker Stabilität und Sicherheit von Beziehungen. Lieferketten werden diversifiziert, weil Kosten durch politische Entscheidungen weniger planbar sind. Unternehmen bewerten Risiken heute stärker als früher.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="ihk-branchen">
-                <p class="question">Welche Branchen sind besonders stark von Zöllen betroffen?</p>
-                <p class="answer">Eine klare branchenspezifische Abgrenzung ist schwierig, da sich die Effekte durch viele Bereiche ziehen. Besonders betroffen sind jedoch exportorientierte Industrien wie Maschinenbau, Automobil- und Zulieferindustrie, Stahl- und Aluminiumsektor sowie Chemie- und Pharmabranche. Insgesamt lässt sich kaum eine Branche nennen, die vollständig unbeeinträchtigt bleibt.</p>
+                <p class="question">Welche Branchen oder Sektoren sind Ihrer Einschätzung nach besonders stark von aktuellen Zöllen betroffen? Gibt es Branchen, die bisher vergleichsweise wenig unter Zöllen leiden?</p>
+                <p class="answer">Eine klare branchenspezifische Abgrenzung ist schwierig, da sich die Effekte durch viele Bereiche ziehen. Besonders betroffen sind jedoch exportorientierte Industrien wie Maschinenbau, Automobil- und Zulieferindustrie, Stahl- und Aluminiumsektor sowie Chemie- und Pharmabranche. Teilweise gibt es auch indirekte Gewinner: Wenn Handelsströme sich verschieben, kann Produktion in anderen Ländern zunehmen. Insgesamt lässt sich aber kaum eine Branche nennen, die vollständig unbeeinträchtigt bleibt.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="ihk-kmu">
-                <p class="question">Unterscheiden sich die Auswirkungen auf kleine und große Unternehmen?</p>
-                <p class="answer">Ja. Große Unternehmen haben mehr Marktmacht und können Vertragsbedingungen oft leichter durchsetzen. Kleine Unternehmen sind häufig stärker abhängig von einzelnen Geschäftsbeziehungen und müssen eher Zugeständnisse machen. Außerdem fehlt ihnen oft die personelle und fachliche Kapazität, um komplexe handelspolitische oder regulatorische Anforderungen zu bewältigen.</p>
+                <p class="question">Unterscheiden sich die Auswirkungen von Zöllen auf kleine und mittlere Unternehmen im Vergleich zu großen Konzernen?</p>
+                <p class="answer">Ja. Große Unternehmen haben mehr Marktmacht und können Vertragsbedingungen oft leichter durchsetzen – etwa Preise unabhängig von Zöllen festlegen. Kleine Unternehmen sind häufig stärker abhängig von einzelnen Geschäftsbeziehungen und müssen eher Zugeständnisse machen. Außerdem fehlt ihnen oft die personelle und fachliche Kapazität, um komplexe handelspolitische oder regulatorische Anforderungen zu bewältigen. Große Unternehmen verfügen häufig über gebündeltes Know-how und spezialisierte Abteilungen – kleine Betriebe müssen solche Aufgaben zusätzlich leisten.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
-                <p class="question">Wie stark belasten unvorhersehbare Zollentscheidungen die Planungssicherheit?</p>
-                <p class="answer">Sehr stark. Unternehmen brauchen stabile Lieferketten und verlässliche Rohstoffquellen. Politische Spannungen wirken sich direkt auf Handelsbeziehungen aus. Besonders relevant sind strategische Rohstoffe wie seltene Erden, die für viele Technologien benötigt werden und stark von einzelnen Lieferländern abhängen. Instabilität beeinflusst auch Investitionsentscheidungen: Unternehmen investieren eher dort, wo politische und wirtschaftliche Rahmenbedingungen verlässlich sind.</p>
+                <p class="question">Wie stark belasten kurzfristige oder politisch schwer kalkulierbare Zollentscheidungen die Planungssicherheit von Unternehmen?</p>
+                <p class="answer">Sehr stark. Unternehmen brauchen stabile Lieferketten und verlässliche Rohstoffquellen. Politische Spannungen wirken sich direkt auf Handelsbeziehungen aus. Besonders relevant sind strategische Rohstoffe wie seltene Erden, die für viele Technologien benötigt werden und stark von einzelnen Lieferländern abhängen. Die EU verfolgt deshalb Initiativen zur stärkeren Diversifizierung von Rohstoffquellen und zur Verringerung von Abhängigkeiten. Instabilität beeinflusst auch Investitionsentscheidungen: Unternehmen investieren eher dort, wo politische und wirtschaftliche Rahmenbedingungen verlässlich sind.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block" id="ihk-freihandel">
-                <p class="question">Wie könnten deutsche Unternehmen von Freihandelsabkommen wie EU-Mercosur profitieren?</p>
-                <p class="answer">Grundsätzlich zeigen Auswertungen, dass Freihandelsabkommen in der Regel zu einer Zunahme des Handels führen. Dabei geht es nicht nur um die Senkung von Zöllen. Freihandelsabkommen regeln viele weitere Aspekte, etwa technische Standards, Marktzugangsbedingungen oder arbeits- und umweltrechtliche Fragen. Diese sogenannten nicht-tarifären Regelungen sind für Unternehmen oft mindestens genauso wichtig wie Zollvorteile.</p>
+                <p class="question">Inwiefern und wie stark könnten deutsche Unternehmen von Freihandelsabkommen wie zwischen der EU und Mercosur sowie Indien profitieren?</p>
+                <p class="answer">Grundsätzlich zeigen Auswertungen, dass Freihandelsabkommen in der Regel zu einer Zunahme des Handels führen. Unternehmen profitieren davon, weil Handelshemmnisse abgebaut und der Marktzugang erleichtert wird. Dabei geht es nicht nur um die Senkung oder Abschaffung von Zöllen. Freihandelsabkommen regeln viele weitere Aspekte, etwa technische Standards, Marktzugangsbedingungen, die Teilnahme an öffentlichen Ausschreibungen oder arbeits- und umweltrechtliche Fragen. Diese sogenannten nicht-tarifären Regelungen sind für Unternehmen oft mindestens genauso wichtig wie Zollvorteile.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
                 <p class="question">Können Zölle auch positive Effekte haben, zum Beispiel zum Schutz heimischer Unternehmen?</p>
-                <p class="answer">Zölle können Schutzfunktionen erfüllen, etwa als Anti-Dumping-Maßnahmen. Sie können berechtigt sein, führen aber häufig zu Gegenmaßnahmen anderer Länder. Wenn tarifäre Handelshemmnisse sinken, nehmen oft nicht-tarifäre zu – etwa zusätzliche Vorschriften oder Zulassungsanforderungen. Solche Instrumente sollten deshalb vorsichtig eingesetzt werden.</p>
+                <p class="answer">Zölle können Schutzfunktionen erfüllen, etwa als Anti-Dumping-Maßnahmen. Sie können berechtigt sein, führen aber häufig zu Gegenmaßnahmen anderer Länder. Wenn tarifäre Handelshemmnisse sinken, nehmen oft nicht-tarifäre zu – etwa zusätzliche Vorschriften oder Zulassungsanforderungen. Solche Instrumente sollten deshalb vorsichtig eingesetzt werden, weil sie Handelskonflikte verstärken können.</p>
             </div>
             <div class="divider">⸻</div>
+
+            <div class="interview-block">
+                <p class="question">Welche Rolle spielen nicht-tarifäre Handelshemmnisse im Vergleich zu Zöllen?</p>
+                <p class="answer">Nicht-tarifäre Maßnahmen bestehen häufig aus regulatorischen Anforderungen, Zertifizierungen oder Marktzugangsregeln. Sie verursachen oft erheblichen bürokratischen Aufwand und Kosten. Beispielsweise müssen Produkte in verschiedenen Ländern nach unterschiedlichen technischen Standards zertifiziert werden. Das verursacht Prüfkosten und zusätzlichen administrativen Aufwand. Für Unternehmen sind sowohl tarifäre als auch nicht-tarifäre Hemmnisse belastend und sollten möglichst begrenzt bleiben.</p>
+            </div>
+            <div class="divider">⸻</div>
+
             <div class="interview-block" id="ihk-buerokratie">
                 <p class="question">Macht die Bürokratie den Unternehmen in Deutschland stark zu schaffen?</p>
                 <p class="answer">Ja, sehr. Gerade im Zollbereich ist der administrative Aufwand hoch – insbesondere für kleine Unternehmen. Schon einfache Exporte können mehrere elektronische Verfahren, umfangreiche Dateneingaben und verschiedene IT-Systeme erfordern. Das verursacht Kosten, Zeitaufwand und zusätzliche Belastungen. Es gibt zwar Initiativen zum Bürokratieabbau, aber die Prozesse bleiben für viele Unternehmen sehr aufwendig.</p>
             </div>
             <div class="divider">⸻</div>
-            <div class="interview-block">
-                <p class="question">Was wünschen sich Unternehmen von der EU-Handelspolitik?</p>
-                <p class="answer">Unternehmen wünschen sich vor allem weniger Bürokratie, einfachere Verfahren und besseren Zugang zu Informationen und Märkten. Entscheidend ist vor allem Stabilität – stabile politische Beziehungen, stabile Regeln und stabile Lieferketten. Deshalb wünschen sich Unternehmen vor allem praktikable Umsetzung.</p>
+
+            <div class="interview-block" id="ihk-erwartungen">
+                <p class="question">Welche Erwartungen oder Forderungen haben Unternehmen gegenüber der EU-Handelspolitik?</p>
+                <p class="answer">Unternehmen wünschen sich vor allem weniger Bürokratie, einfachere Verfahren und besseren Zugang zu Informationen und Märkten. Viele stehen Freihandel grundsätzlich positiv gegenüber, entscheidend ist aber Stabilität – stabile politische Beziehungen, stabile Regeln und stabile Lieferketten. Auch Freihandelsabkommen selbst können bürokratisch sein, etwa durch Dokumentationspflichten zur Nutzung von Zollvorteilen. Deshalb wünschen sich Unternehmen vor allem praktikable Umsetzung.</p>
             </div>
             <div class="divider">⸻</div>
+
             <div class="interview-block">
-                <p class="question">Was wären die wichtigsten Maßnahmen, um Unternehmen zu entlasten und Wachstum anzukurbeln?</p>
+                <p class="question">Wenn Sie eine zentrale Botschaft an Politik und Wirtschaft formulieren könnten – was wären die wichtigsten Maßnahmen, um Unternehmen zu entlasten und Wachstum anzukurbeln?</p>
                 <p class="answer">Wichtig sind schnellere Verfahren, Prozessoptimierung und weniger Bürokratie. Unternehmen wollen rechtssicher und regelkonform arbeiten – aber die Abläufe sollten effizienter sein. Entbürokratisierung, schnellere Entscheidungen und verlässliche Rahmenbedingungen sind zentrale Voraussetzungen für wirtschaftliche Aktivität im internationalen Geschäft.</p>
             </div>
+
         </div>
 
         <button class="read-more-btn" id="btnIHK">
